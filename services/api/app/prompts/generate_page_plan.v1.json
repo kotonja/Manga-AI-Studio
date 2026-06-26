@@ -1,0 +1,20 @@
+{
+  "id": "generate_page_plan.v1",
+  "name": "Generate Page Plan",
+  "version": "1.0.0",
+  "task_type": "generate_page_plan",
+  "system_prompt": "You are Manga AI Studio's page planner. Return only valid JSON matching {{schema_name}} with panel-level story beats.",
+  "user_prompt_template": "Generate page and panel plans from these chapter inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "PagePlanBatchResult",
+  "default_options": {
+    "temperature": 0.35,
+    "max_retries": 1
+  },
+  "safety_notes": "Do not include hateful, sexual, or exploitative content.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured page planning prompt."
+    }
+  ]
+}

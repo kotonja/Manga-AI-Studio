@@ -1,0 +1,94 @@
+# Environment Configuration
+
+Manga AI Studio uses environment variables for API, worker, web, database, queue, object storage, and provider configuration. Do not commit real secrets.
+
+## Modes
+
+- Development: copy `.env.example` to `.env` and run `docker compose up --build`.
+- Test: use `.env.test.example` as a reference. Tests default to SQLite and mock providers.
+- Production: copy `.env.prod.example` to `.env.prod`, replace all placeholder secrets, and use `docker-compose.prod.example.yml` as a starting point.
+
+## Core
+
+| Variable | Required | Example | Notes |
+| --- | --- | --- | --- |
+| `APP_ENV` | yes | `development`, `test`, `production` | Controls debug/error behavior. |
+| `SECRETS_DIR` | prod | `/run/secrets` | Optional directory for file-based secrets. |
+| `PUBLIC_BASE_URL` | prod | `https://manga.example.com` | Public app URL. |
+| `LOG_LEVEL` | yes | `INFO` | Python logging level. |
+| `LOG_FORMAT` | yes | `plain`, `json` | Use `json` in production. |
+| `TRUSTED_HOSTS` | prod | `manga.example.com,api.manga.example.com` | `*` is acceptable only for local dev. |
+| `API_CORS_ORIGINS` | yes | `https://manga.example.com` | Comma-separated allowed browser origins. |
+
+## Backend Limits
+
+| Variable | Default | Notes |
+| --- | ---: | --- |
+| `MAX_REQUEST_BYTES` | `26214400` | Rejects oversized request bodies before route handling. |
+| `UPLOAD_MAX_BYTES` | `10485760` | Metadata/file size ceiling for uploaded assets. |
+| `UPLOAD_ALLOWED_CONTENT_TYPES` | `image/png,image/jpeg,image/webp` | Comma-separated allowlist. |
+| `RATE_LIMIT_ENABLED` | `false` | Enables the local placeholder limiter. Prefer edge/Redis rate limiting in production. |
+| `RATE_LIMIT_PER_MINUTE` | `120` | Per-process placeholder limit. |
+| `EXPOSE_ERROR_DETAILS` | auto | Defaults to `false` in production and `true` elsewhere. |
+
+## Database And Queue
+
+| Variable | Required | Notes |
+| --- | --- | --- |
+| `DATABASE_URL` | yes | SQLAlchemy URL, usually `postgresql+psycopg://...`. |
+| `POSTGRES_USER` | compose | Used by local/prod compose Postgres. |
+| `POSTGRES_PASSWORD` | compose | Use a secret manager or Docker secret in production. |
+| `POSTGRES_DB` | compose | Database name. |
+| `REDIS_URL` | yes | Redis broker/cache URL for Celery jobs. |
+| `ENABLE_BACKGROUND_JOBS` | yes | `true` in production, `false` in many tests. |
+
+## Object Storage
+
+| Variable | Required | Notes |
+| --- | --- | --- |
+| `S3_ENDPOINT_URL` | yes | Internal S3-compatible endpoint. |
+| `S3_PUBLIC_URL` | yes | Public or CDN URL used in asset metadata. |
+| `S3_ACCESS_KEY_ID` | yes | Store securely. |
+| `S3_SECRET_ACCESS_KEY` | yes | Store securely. |
+| `S3_BUCKET_NAME` | yes | Bucket for renders, composites, exports. |
+| `S3_REGION` | yes | Region string, `us-east-1` for MinIO. |
+
+## Provider Configuration
+
+| Variable | Required | Notes |
+| --- | --- | --- |
+| `MODEL_PROVIDER` | yes | Defaults to `mock`. |
+| `OPENAI_API_KEY` | optional | Required only for OpenAI provider calls. |
+| `OPENAI_MODEL` | optional | LLM model stub/config. |
+| `OPENAI_IMAGE_MODEL` | optional | Image model for OpenAI rendering. |
+| `COMFYUI_BASE_URL` | optional | Required only for ComfyUI provider calls. |
+
+## Web
+
+| Variable | Required | Notes |
+| --- | --- | --- |
+| `NEXT_PUBLIC_API_BASE_URL` | yes | Browser-visible API base URL. |
+| `API_INTERNAL_URL` | prod | Server-side API URL from the web container. |
+| `NEXT_PUBLIC_ENABLE_DEV_ADMIN` | no | Keep `false` in production. |
+| `ENABLE_DEV_ADMIN` | no | Backend admin/eval routes are hidden unless enabled. |
+
+## Private Alpha Auth
+
+| Variable | Required | Notes |
+| --- | --- | --- |
+| `ALPHA_AUTH_ENABLED` | alpha/prod | Enables the simple local alpha gate for the web app and sensitive API endpoints. |
+| `ALPHA_SHARED_PASSWORD` | alpha | Shared tester password for local/private alpha only. |
+| `ALPHA_ADMIN_TOKEN` | optional | Token for protected admin API calls when `ENABLE_DEV_ADMIN=false`. |
+| `ALPHA_SESSION_SECRET` | alpha | Long random value stored in the browser session cookie after local alpha login. |
+| `AUTH_PROVIDER_MODE` | prod | Use `local` for dev alpha, `external` behind a real auth provider or reverse proxy. |
+| `AUTH_PROVIDER_NAME` | prod | Human-readable provider label. |
+| `AUTH_FORWARDED_USER_HEADER` | prod | Trusted identity header set by the upstream auth proxy, for example `X-Authenticated-User`. |
+| `AUTH_JWKS_URL` | future | Placeholder for direct JWT/JWKS validation. Prefer reverse-proxy auth until implemented. |
+| `AUTH_ISSUER` | future | JWT issuer metadata for provider integrations. |
+| `AUTH_AUDIENCE` | future | JWT audience metadata for provider integrations. |
+| `DEFAULT_PROJECT_ALLOW_TRAINING` | no | Defaults new projects to training opt-in. Keep `false` for alpha unless explicitly approved. |
+| `DEFAULT_PROJECT_ALLOW_PRODUCT_IMPROVEMENT` | no | Defaults new projects to product-improvement opt-in. Keep `false`; testers can opt in per project. |
+
+## Secret Loading
+
+The backend supports Pydantic settings and file-based secret loading through `SECRETS_DIR`. In container platforms, mount secret files named after the field, for example `database_url` or `s3_secret_access_key`, set `SECRETS_DIR=/run/secrets`, or inject environment variables through the platform secret manager.

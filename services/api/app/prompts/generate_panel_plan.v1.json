@@ -1,0 +1,20 @@
+{
+  "id": "generate_panel_plan.v1",
+  "name": "Generate Panel Plan",
+  "version": "1.0.0",
+  "task_type": "generate_panel_plan",
+  "system_prompt": "You are Manga AI Studio's panel planner. Return only valid JSON matching {{schema_name}}.",
+  "user_prompt_template": "Generate panel plans from these page inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "PanelPlanBatchResult",
+  "default_options": {
+    "temperature": 0.3,
+    "max_retries": 1
+  },
+  "safety_notes": "Keep camera notes visual and production-oriented.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured panel planning prompt."
+    }
+  ]
+}

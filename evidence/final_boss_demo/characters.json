@@ -1,0 +1,133 @@
+{
+  "character_cards": [
+    {
+      "accessories": [
+        "chipped katana",
+        "frayed scarf"
+      ],
+      "age_range": "late 20s",
+      "aliases": [
+        "The Ash Ronin"
+      ],
+      "allowed_variations": [],
+      "approved_panel_asset_ids": [],
+      "body_anchor_description": "",
+      "body_type": "Lean, tall, travel-worn swordsman build.",
+      "canonical_visual_summary": "",
+      "color_notes_even_for_bw": "",
+      "continuity_rules": [
+        "Ren stands between Mio and threats.",
+        "Ren grips the sword only when danger is real."
+      ],
+      "created_at": "2026-06-25T18:25:37.261937+00:00",
+      "current_story_state": "",
+      "emotional_baseline": "",
+      "eye_anchor_description": "",
+      "eye_description": "Dark, watchful eyes with heavy lower lids.",
+      "face_anchor_description": "",
+      "face_description": "Long tired face, narrow eyes, faint scar through one brow.",
+      "forbidden_changes": [
+        "Do not make Ren cheerful or ornate.",
+        "Do not remove the cracked sword guard."
+      ],
+      "forbidden_variations": [],
+      "hair_anchor_description": "",
+      "hair_description": "Rain-dark shoulder-length hair tied low.",
+      "id": "970c0501-8a85-444d-8209-e958ad6ec83b",
+      "injury_state": "",
+      "name": "Ren Aki",
+      "outfit_anchor_description": "",
+      "outfit_default": "Tattered dark travel coat over layered kimono, cracked sword guard.",
+      "personality": "Reserved, vigilant, self-punishing, protective when it matters.",
+      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+      "recurring_props": [],
+      "reference_asset_ids": [],
+      "role": "protector swordsman",
+      "scars_marks": "Thin brow scar and old cuts on sword hand.",
+      "silhouette_keywords": [],
+      "updated_at": "2026-06-25T18:25:37.261956+00:00",
+      "voice_style": "Sparse, low, direct."
+    },
+    {
+      "accessories": [
+        "paper lantern"
+      ],
+      "age_range": "appears 8-10",
+      "aliases": [
+        "Lantern Child"
+      ],
+      "allowed_variations": [],
+      "approved_panel_asset_ids": [],
+      "body_anchor_description": "",
+      "body_type": "Small childlike ghost silhouette.",
+      "canonical_visual_summary": "",
+      "color_notes_even_for_bw": "",
+      "continuity_rules": [
+        "Mio keeps the lantern close.",
+        "Mio floats slightly above wet ground."
+      ],
+      "created_at": "2026-06-25T18:25:37.263661+00:00",
+      "current_story_state": "",
+      "emotional_baseline": "",
+      "eye_anchor_description": "",
+      "eye_description": "Large reflective eyes with tiny lantern highlights.",
+      "face_anchor_description": "",
+      "face_description": "Round small face with calm, distant eyes.",
+      "forbidden_changes": [
+        "Do not give Mio a shadow.",
+        "Do not make the lantern look electric."
+      ],
+      "forbidden_variations": [],
+      "hair_anchor_description": "",
+      "hair_description": "Short pale bob that floats slightly at the ends.",
+      "id": "a533bccc-79a1-4a5f-9743-74322f025b3e",
+      "injury_state": "",
+      "name": "Mio",
+      "outfit_anchor_description": "",
+      "outfit_default": "Simple pale kimono, bare feet hovering just above ground.",
+      "personality": "Quiet, observant, gentle, braver than she looks.",
+      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+      "recurring_props": [],
+      "reference_asset_ids": [],
+      "role": "ghost child",
+      "scars_marks": "Faint translucent edges, no shadow.",
+      "silhouette_keywords": [],
+      "updated_at": "2026-06-25T18:25:37.263689+00:00",
+      "voice_style": "Soft, minimal, sometimes only gestures."
+    }
+  ],
+  "characters": [
+    {
+      "created_at": "2026-06-25T18:25:37.235023+00:00",
+      "description": "A quiet wanderer with a broken sword guard and a habit of standing between danger and anyone smaller than him.",
+      "id": "a8416aad-66ce-412e-b7ff-d60418d4baa1",
+      "name": "Ren Aki",
+      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+      "role": "Lonely swordsman protector",
+      "story_bible_id": "44854dec-6cbb-4d80-a700-e614ecee89c5",
+      "traits": [
+        "guarded",
+        "precise",
+        "secretly gentle"
+      ],
+      "updated_at": "2026-06-25T18:25:37.235060+00:00",
+      "visual_notes": "Long travel coat, chipped katana, tired eyes, rain-dark hair."
+    },
+    {
+      "created_at": "2026-06-25T18:25:37.235411+00:00",
+      "description": "A silent child spirit carrying a paper lantern that keeps the ruined city from going fully dark.",
+      "id": "8bc058d4-bc09-431d-b952-de99697264bc",
+      "name": "Mio",
+      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+      "role": "Ghost child",
+      "story_bible_id": "44854dec-6cbb-4d80-a700-e614ecee89c5",
+      "traits": [
+        "watchful",
+        "brave",
+        "otherworldly"
+      ],
+      "updated_at": "2026-06-25T18:25:37.235436+00:00",
+      "visual_notes": "Small kimono, bare feet above the ground, translucent edges, lantern held close."
+    }
+  ]
+}

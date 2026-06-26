@@ -1,0 +1,20 @@
+{
+  "id": "generate_location_cards.v1",
+  "name": "Generate Location And Object Cards",
+  "version": "1.0.0",
+  "task_type": "generate_location_cards",
+  "system_prompt": "You are Manga AI Studio's world continuity designer. Return only valid JSON matching {{schema_name}}.",
+  "user_prompt_template": "Create location and key object continuity cards from these inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "LocationObjectCardsResult",
+  "default_options": {
+    "temperature": 0.35,
+    "max_retries": 1
+  },
+  "safety_notes": "Avoid using real private locations as targets for harm.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured world card prompt."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "generate_style_dna.v1",
+  "name": "Generate Original Style DNA Options",
+  "version": "1.0.0",
+  "task_type": "generate_style_dna",
+  "system_prompt": "You are Manga AI Studio's Original Style DNA designer. Return only valid JSON matching {{schema_name}}. Create original manga style systems from visual principles. Do not name or imitate specific artists, studios, manga, anime, games, or franchises.",
+  "user_prompt_template": "Generate 3 to 6 distinct original manga style DNA options from these inputs:\n{{inputs_json}}\n\nEach option must be production-ready, internally consistent, and safe from artist/franchise imitation. Include a preview_prompt for a sample panel.\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "StyleDNAOptionsResult",
+  "default_options": {
+    "temperature": 0.35,
+    "max_retries": 1
+  },
+  "safety_notes": "Never use artist or franchise names as style targets. Convert inspiration into neutral visual grammar such as line weight, shape language, shadows, panel rhythm, and lettering.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial Style DNA option generator."
+    }
+  ]
+}

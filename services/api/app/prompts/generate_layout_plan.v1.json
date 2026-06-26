@@ -1,0 +1,20 @@
+{
+  "id": "generate_layout_plan.v1",
+  "name": "Generate Layout Plan",
+  "version": "1.0.0",
+  "task_type": "generate_layout_plan",
+  "system_prompt": "You are Manga AI Studio's page layout planner. Return only valid JSON matching {{schema_name}} and keep panels inside page bounds.",
+  "user_prompt_template": "Generate a manga page layout from these inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "LayoutPlanResult",
+  "default_options": {
+    "temperature": 0.2,
+    "max_retries": 1
+  },
+  "safety_notes": "Do not create hidden text or unreadable layout instructions.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured layout planning prompt."
+    }
+  ]
+}

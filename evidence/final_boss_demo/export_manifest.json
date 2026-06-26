@@ -1,0 +1,66 @@
+{
+  "counts": {
+    "bubbles": 12,
+    "chapters": 1,
+    "character_cards": 2,
+    "characters": 2,
+    "exports": 2,
+    "locations": 1,
+    "pages": 4,
+    "panels": 12,
+    "projects": 1,
+    "qa_reports": 4,
+    "renders": 12,
+    "story_bibles": 1,
+    "style_bibles": 1
+  },
+  "exports": [
+    {
+      "asset_id": "ce9b8fe9-04d2-406f-914f-50bd6ad94ce4",
+      "content_type": "application/zip",
+      "export_id": "08a5dba6-4f5a-4bdb-a396-47a6fd7a3bc7",
+      "file": "exports/zip-08a5dba6-4f5a-4bdb-a396-47a6fd7a3bc7.zip",
+      "format": "zip",
+      "size_bytes": 183028,
+      "status": "succeeded"
+    },
+    {
+      "asset_id": "d7ffb0a5-5d6d-4775-b16a-ddd7e43a6f4a",
+      "content_type": "application/pdf",
+      "export_id": "79212b83-ab44-4735-9c6d-07d83b3735a5",
+      "file": "exports/pdf-79212b83-ab44-4735-9c6d-07d83b3735a5.pdf",
+      "format": "pdf",
+      "size_bytes": 366773,
+      "status": "succeeded"
+    }
+  ],
+  "final_pages": [
+    "final_pages/page-001.png",
+    "final_pages/page-002.png",
+    "final_pages/page-003.png",
+    "final_pages/page-004.png"
+  ],
+  "generated_at": "2026-06-25T18:25:42.079493+00:00",
+  "premise": "A lonely swordsman protects a ghost child in a ruined city.",
+  "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+  "provenance_summary": {
+    "ai_disclosure_required": true,
+    "assets_with_provenance": 18,
+    "missing_provenance_asset_ids": [],
+    "source_type_counts": {
+      "internal_mock": 18
+    },
+    "total_assets": 18
+  },
+  "validation": {
+    "all_pages_composed": true,
+    "all_renders_exist": true,
+    "at_least_three_panels_per_page": true,
+    "bubbles_on_every_page": true,
+    "exactly_four_pages": true,
+    "no_blocking_qa": true,
+    "pdf_export": true,
+    "provenance_export": true,
+    "zip_export": true
+  }
+}

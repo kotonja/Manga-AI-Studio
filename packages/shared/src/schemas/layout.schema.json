@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://manga-ai.local/schemas/layout.schema.json",
+  "title": "PageLayout",
+  "type": "object",
+  "required": ["page_id", "width", "height", "bleed", "safe_margin", "reading_direction", "qa_overlay_enabled", "panels"],
+  "properties": {
+    "page_id": { "type": "string", "format": "uuid" },
+    "width": { "type": "integer", "minimum": 1 },
+    "height": { "type": "integer", "minimum": 1 },
+    "bleed": { "type": "integer", "minimum": 0 },
+    "safe_margin": { "type": "integer", "minimum": 0 },
+    "reading_direction": { "type": "string", "enum": ["rtl", "ltr", "vertical-rl"] },
+    "qa_overlay_enabled": { "type": "boolean" },
+    "panels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "page_id", "x", "y", "width", "height", "polygon", "reading_order", "bubbles"],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "page_id": { "type": "string", "format": "uuid" },
+          "x": { "type": "integer", "minimum": 0 },
+          "y": { "type": "integer", "minimum": 0 },
+          "width": { "type": "integer", "minimum": 1 },
+          "height": { "type": "integer", "minimum": 1 },
+          "polygon": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "type": "object",
+              "required": ["x", "y"],
+              "properties": {
+                "x": { "type": "number", "minimum": 0 },
+                "y": { "type": "number", "minimum": 0 }
+              },
+              "additionalProperties": false
+            }
+          },
+          "reading_order": { "type": "integer", "minimum": 1 },
+          "prompt": { "type": ["string", "null"] },
+          "bubbles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "panel_id", "kind", "x", "y", "width", "height", "text"],
+              "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "panel_id": { "type": "string", "format": "uuid" },
+                "kind": { "type": "string", "enum": ["speech", "narration"] },
+                "x": { "type": "integer", "minimum": 0 },
+                "y": { "type": "integer", "minimum": 0 },
+                "width": { "type": "integer", "minimum": 1 },
+                "height": { "type": "integer", "minimum": 1 },
+                "text": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,20 @@
+{
+  "id": "generate_chapter_plan.v1",
+  "name": "Generate Chapter Plan",
+  "version": "1.0.0",
+  "task_type": "generate_chapter_plan",
+  "system_prompt": "You are Manga AI Studio's chapter planner. Return only valid JSON matching {{schema_name}}.",
+  "user_prompt_template": "Generate chapter plans from these story inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "ChapterPlanBatchResult",
+  "default_options": {
+    "temperature": 0.35,
+    "max_retries": 1
+  },
+  "safety_notes": "Keep arcs age-appropriate for the requested target audience.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured chapter planning prompt."
+    }
+  ]
+}

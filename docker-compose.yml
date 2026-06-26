@@ -1,0 +1,171 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-manga}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-manga}
+      POSTGRES_DB: ${POSTGRES_DB:-manga_ai}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-manga} -d ${POSTGRES_DB:-manga_ai}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY:-minioadmin}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_started
+    environment:
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-minioadmin}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minioadmin}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME:-manga-ai-dev}
+    entrypoint: >
+      /bin/sh -c "
+      until mc alias set local http://minio:9000 $${S3_ACCESS_KEY_ID} $${S3_SECRET_ACCESS_KEY}; do sleep 1; done;
+      mc mb -p local/$${S3_BUCKET_NAME} || true;
+      mc anonymous set download local/$${S3_BUCKET_NAME} || true;
+      "
+
+  api:
+    build:
+      context: .
+      dockerfile: services/api/Dockerfile
+      target: dev
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://manga:manga@postgres:5432/manga_ai}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-http://minio:9000}
+      S3_PUBLIC_URL: ${S3_PUBLIC_URL:-http://localhost:9000}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-minioadmin}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minioadmin}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME:-manga-ai-dev}
+      S3_REGION: ${S3_REGION:-us-east-1}
+      API_CORS_ORIGINS: ${API_CORS_ORIGINS:-http://localhost:3000}
+      MODEL_PROVIDER: ${MODEL_PROVIDER:-mock}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1-mini}
+      OPENAI_IMAGE_MODEL: ${OPENAI_IMAGE_MODEL:-gpt-image-1.5}
+      COMFYUI_BASE_URL: ${COMFYUI_BASE_URL:-}
+      QA_EXPORT_PRESET: ${QA_EXPORT_PRESET:-draft}
+      QA_MAX_BUBBLE_PANEL_COVERAGE: ${QA_MAX_BUBBLE_PANEL_COVERAGE:-0.35}
+      QA_MAX_PANEL_OVERLAP_RATIO: ${QA_MAX_PANEL_OVERLAP_RATIO:-0.08}
+      ENABLE_BACKGROUND_JOBS: ${ENABLE_BACKGROUND_JOBS:-true}
+      ENABLE_DEV_ADMIN: ${ENABLE_DEV_ADMIN:-false}
+      ALPHA_AUTH_ENABLED: ${ALPHA_AUTH_ENABLED:-false}
+      ALPHA_SHARED_PASSWORD: ${ALPHA_SHARED_PASSWORD:-}
+      ALPHA_ADMIN_TOKEN: ${ALPHA_ADMIN_TOKEN:-}
+      AUTH_PROVIDER_MODE: ${AUTH_PROVIDER_MODE:-local}
+      AUTH_PROVIDER_NAME: ${AUTH_PROVIDER_NAME:-local}
+      AUTH_FORWARDED_USER_HEADER: ${AUTH_FORWARDED_USER_HEADER:-X-Authenticated-User}
+      AUTH_JWKS_URL: ${AUTH_JWKS_URL:-}
+      AUTH_ISSUER: ${AUTH_ISSUER:-}
+      AUTH_AUDIENCE: ${AUTH_AUDIENCE:-}
+      DEFAULT_PROJECT_ALLOW_TRAINING: ${DEFAULT_PROJECT_ALLOW_TRAINING:-false}
+      DEFAULT_PROJECT_ALLOW_PRODUCT_IMPROVEMENT: ${DEFAULT_PROJECT_ALLOW_PRODUCT_IMPROVEMENT:-false}
+    command: sh -c "alembic upgrade head && uvicorn manga_api.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./services/api:/app/services/api
+      - ./eval_reports:/app/eval_reports
+      - ./evidence:/app/evidence
+      - ./:/app/repo
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+
+  worker:
+    build:
+      context: .
+      dockerfile: services/worker/Dockerfile
+      target: dev
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://manga:manga@postgres:5432/manga_ai}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-http://minio:9000}
+      S3_PUBLIC_URL: ${S3_PUBLIC_URL:-http://localhost:9000}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-minioadmin}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minioadmin}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME:-manga-ai-dev}
+      S3_REGION: ${S3_REGION:-us-east-1}
+      MODEL_PROVIDER: ${MODEL_PROVIDER:-mock}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_IMAGE_MODEL: ${OPENAI_IMAGE_MODEL:-gpt-image-1.5}
+      COMFYUI_BASE_URL: ${COMFYUI_BASE_URL:-}
+    command: celery -A manga_worker.celery_app.celery_app worker --loglevel=info
+    volumes:
+      - ./services/api:/app/services/api
+      - ./services/worker:/app/services/worker
+      - ./evidence:/app/evidence
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      target: dev
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
+      API_INTERNAL_URL: ${API_INTERNAL_URL:-http://api:8000}
+      NEXT_PUBLIC_ENABLE_DEV_ADMIN: ${NEXT_PUBLIC_ENABLE_DEV_ADMIN:-false}
+      ALPHA_AUTH_ENABLED: ${ALPHA_AUTH_ENABLED:-false}
+      ALPHA_SHARED_PASSWORD: ${ALPHA_SHARED_PASSWORD:-}
+      ALPHA_ADMIN_TOKEN: ${ALPHA_ADMIN_TOKEN:-}
+      ALPHA_SESSION_SECRET: ${ALPHA_SESSION_SECRET:-}
+    command: sh -c "pnpm install && mkdir -p /app/apps/web/.next && find /app/apps/web/.next -mindepth 1 -maxdepth 1 -exec rm -rf {} + && pnpm --filter @manga-ai/web exec next dev --hostname 0.0.0.0"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web:/app/apps/web
+      - ./packages/shared:/app/packages/shared
+      - web-node-modules:/app/node_modules
+      - web-app-node-modules:/app/apps/web/node_modules
+      - web-shared-node-modules:/app/packages/shared/node_modules
+      - web-next-cache:/app/apps/web/.next
+    depends_on:
+      - api
+
+volumes:
+  postgres-data:
+  minio-data:
+  web-node-modules:
+  web-app-node-modules:
+  web-shared-node-modules:
+  web-next-cache:

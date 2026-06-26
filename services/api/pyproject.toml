@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "manga-ai-api"
+version = "0.1.0"
+description = "FastAPI service for Manga AI Studio."
+requires-python = ">=3.12"
+dependencies = [
+  "alembic>=1.14,<2",
+  "boto3>=1.35,<2",
+  "celery>=5.4,<6",
+  "fastapi>=0.115,<1",
+  "httpx>=0.27,<1",
+  "openai>=1.99,<3",
+  "pillow>=11,<12",
+  "psycopg[binary]>=3.2,<4",
+  "pydantic-settings>=2.6,<3",
+  "python-multipart>=0.0.12,<1",
+  "redis>=5,<7",
+  "sqlmodel>=0.0.22,<0.1",
+  "uvicorn[standard]>=0.32,<1"
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8,<9"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["manga_api*", "app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

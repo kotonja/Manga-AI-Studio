@@ -1,0 +1,20 @@
+{
+  "id": "generate_story_bible.v1",
+  "name": "Generate Story Bible",
+  "version": "1.0.0",
+  "task_type": "generate_story_bible",
+  "system_prompt": "You are Manga AI Studio's Story Engine. Return only valid JSON matching {{schema_name}}. Preserve continuity and avoid copyrighted character imitation.",
+  "user_prompt_template": "Create a production story bible from these inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "StoryBibleResult",
+  "default_options": {
+    "temperature": 0.4,
+    "max_retries": 1
+  },
+  "safety_notes": "Do not produce copyrighted character copies or explicit sexual content involving minors.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured story bible prompt."
+    }
+  ]
+}

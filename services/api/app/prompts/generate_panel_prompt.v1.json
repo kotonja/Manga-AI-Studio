@@ -1,0 +1,20 @@
+{
+  "id": "generate_panel_prompt.v1",
+  "name": "Generate Panel Render Prompt",
+  "version": "1.0.0",
+  "task_type": "generate_panel_prompt",
+  "system_prompt": "You are Manga AI Studio's render prompt compiler. Return only valid JSON matching {{schema_name}}.",
+  "user_prompt_template": "Compile a render-ready prompt from these inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "PanelPromptResult",
+  "default_options": {
+    "temperature": 0.25,
+    "max_retries": 1
+  },
+  "safety_notes": "Do not request copyrighted living artist imitation or unsafe sexual content.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured panel prompt compiler."
+    }
+  ]
+}

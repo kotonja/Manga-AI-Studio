@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://manga-ai.local/schemas/job.schema.json",
+  "title": "GenerationJob",
+  "type": "object",
+  "required": [
+    "id",
+    "provider",
+    "job_type",
+    "status",
+    "input_payload",
+    "output_payload",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "project_id": { "type": ["string", "null"], "format": "uuid" },
+    "page_id": { "type": ["string", "null"], "format": "uuid" },
+    "panel_id": { "type": ["string", "null"], "format": "uuid" },
+    "provider": { "type": "string" },
+    "job_type": { "type": "string" },
+    "status": { "type": "string", "enum": ["queued", "running", "succeeded", "failed"] },
+    "input_payload": { "type": "object" },
+    "output_payload": { "type": "object" },
+    "error_message": { "type": ["string", "null"] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": true
+}

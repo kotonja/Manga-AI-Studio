@@ -1,0 +1,80 @@
+{
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "created_at": "2026-06-25T18:25:37.264994+00:00",
+      "goal": "Move Ren from isolation into reluctant guardianship.",
+      "id": "b9b6b2bf-3726-498e-b51e-51e6d3ae5e8e",
+      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+      "status": "planned",
+      "story_bible_id": "44854dec-6cbb-4d80-a700-e614ecee89c5",
+      "summary": "Ren discovers Mio in the ruins and chooses to protect her from ash spirits crossing the city.",
+      "title": "The Lantern in the Rubble",
+      "updated_at": "2026-06-25T18:25:37.265010+00:00"
+    }
+  ],
+  "key_objects": [
+    {
+      "created_at": "2026-06-25T18:25:37.236052+00:00",
+      "description": "A rain-spotted paper lantern that keeps Mio visible and holds the last warm light in the city.",
+      "id": "2a028e94-5594-46e4-acb4-ed1989933e58",
+      "name": "Mio's Lantern",
+      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+      "significance": "The lantern is the reason ash spirits pursue Mio and the reason Karakuri Vale can still remember hope.",
+      "story_bible_id": "44854dec-6cbb-4d80-a700-e614ecee89c5",
+      "updated_at": "2026-06-25T18:25:37.236072+00:00",
+      "visual_notes": "Handmade paper sides, bent bamboo frame, small flame that does not flicker in rain."
+    }
+  ],
+  "locations": [
+    {
+      "created_at": "2026-06-25T18:25:37.235746+00:00",
+      "description": "A rain-slick ruined city of collapsed arcades, shrine gates, hanging wires, and dormant war machines.",
+      "id": "f6015d07-c40e-4556-a79a-7e6850ce2cbf",
+      "name": "Karakuri Vale",
+      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+      "rules": [
+        "The city shifts at dawn.",
+        "Ash spirits cannot cross a lit threshold."
+      ],
+      "story_bible_id": "44854dec-6cbb-4d80-a700-e614ecee89c5",
+      "updated_at": "2026-06-25T18:25:37.235769+00:00",
+      "visual_notes": "Broken rooflines, deep black alleys, white mist, lantern reflections in puddles."
+    }
+  ],
+  "story_bible": {
+    "chapter_outline": [
+      {
+        "chapter_number": 1,
+        "summary": "Ren finds Mio and chooses to cross the city rather than abandon her.",
+        "title": "The Lantern in the Rubble"
+      }
+    ],
+    "continuity_rules": [
+      "Mio never casts a shadow.",
+      "Ren's cracked sword guard is visible in every close-up.",
+      "Lantern light is the only soft glow in the ruined city."
+    ],
+    "created_at": "2026-06-25T18:25:37.226839+00:00",
+    "genre": "Supernatural samurai fantasy",
+    "id": "44854dec-6cbb-4d80-a700-e614ecee89c5",
+    "logline": "A wandering swordsman escorts a silent ghost child through a city that remembers every war it lost.",
+    "main_conflict": "Ren must protect Mio without letting fear of loss turn him back into the weapon he used to be.",
+    "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+    "synopsis": "In the ruined city of Karakuri Vale, swordsman Ren Aki survives by avoiding attachments. When he finds Mio, a ghost child carrying the last lantern of the city, he is forced to guide her across collapsed districts while ash spirits and old war machines hunt the light she protects.",
+    "target_audience": "Teen and young adult manga readers",
+    "themes": [
+      "grief",
+      "protection",
+      "chosen family",
+      "memory after disaster"
+    ],
+    "tone": "Melancholic, tense, and hopeful",
+    "updated_at": "2026-06-25T18:25:37.226866+00:00",
+    "world_rules": [
+      "Ghosts remain visible only near lantern light.",
+      "Broken war machines awaken when they hear drawn steel.",
+      "The ruined city rearranges streets around unresolved memories."
+    ]
+  }
+}

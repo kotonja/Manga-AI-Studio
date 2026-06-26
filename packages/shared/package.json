@@ -1,0 +1,18 @@
+{
+  "name": "@manga-ai/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schemas/project": "./src/schemas/project.schema.json",
+    "./schemas/page": "./src/schemas/page.schema.json",
+    "./schemas/panel": "./src/schemas/panel.schema.json",
+    "./schemas/job": "./src/schemas/job.schema.json",
+    "./schemas/render": "./src/schemas/render.schema.json",
+    "./schemas/story": "./src/schemas/story.schema.json",
+    "./schemas/layout": "./src/schemas/layout.schema.json"
+  }
+}

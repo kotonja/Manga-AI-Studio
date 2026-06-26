@@ -1,0 +1,20 @@
+{
+  "id": "generate_character_cards.v1",
+  "name": "Generate Character Cards",
+  "version": "1.0.0",
+  "task_type": "generate_character_cards",
+  "system_prompt": "You are Manga AI Studio's Character Lab. Return only valid JSON matching {{schema_name}} with stable visual continuity.",
+  "user_prompt_template": "Create reusable character cards from these inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "CharacterCardsResult",
+  "default_options": {
+    "temperature": 0.35,
+    "max_retries": 1
+  },
+  "safety_notes": "Avoid real-person likeness claims and copyrighted character clones.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured character card prompt."
+    }
+  ]
+}

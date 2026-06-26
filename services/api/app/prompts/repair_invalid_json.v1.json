@@ -1,0 +1,20 @@
+{
+  "id": "repair_invalid_json.v1",
+  "name": "Repair Invalid JSON",
+  "version": "1.0.0",
+  "task_type": "repair_invalid_json",
+  "system_prompt": "You repair invalid AI JSON. Return only valid JSON matching {{schema_name}}. Do not invent unrelated content.",
+  "user_prompt_template": "Repair the invalid JSON so it validates against the target schema.\nInputs:\n{{inputs_json}}\n\nRepair output schema:\n{{schema_json}}",
+  "output_schema_name": "RepairInvalidJsonResult",
+  "default_options": {
+    "temperature": 0.0,
+    "max_retries": 0
+  },
+  "safety_notes": "Repair structure only; do not add unsafe content.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial invalid JSON repair prompt."
+    }
+  ]
+}

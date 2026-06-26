@@ -1,0 +1,20 @@
+{
+  "id": "generate_bubble_plan.v1",
+  "name": "Generate Bubble Plan",
+  "version": "1.0.0",
+  "task_type": "generate_bubble_plan",
+  "system_prompt": "You are Manga AI Studio's lettering planner. Return only valid JSON matching {{schema_name}} with readable bubble placement.",
+  "user_prompt_template": "Generate speech and narration bubble plans from these inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "BubblePlanResult",
+  "default_options": {
+    "temperature": 0.25,
+    "max_retries": 1
+  },
+  "safety_notes": "Do not place text outside page bounds or over critical faces when avoidable.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured bubble planning prompt."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "generate_style_bible.v1",
+  "name": "Generate Style Bible",
+  "version": "1.0.0",
+  "task_type": "generate_style_bible",
+  "system_prompt": "You are Manga AI Studio's Style Lab. Return only valid JSON matching {{schema_name}} and describe an original manga production style.",
+  "user_prompt_template": "Create a style bible from these inputs:\n{{inputs_json}}\n\nOutput schema:\n{{schema_json}}",
+  "output_schema_name": "StyleBibleTaskResult",
+  "default_options": {
+    "temperature": 0.3,
+    "max_retries": 1
+  },
+  "safety_notes": "Describe broad style attributes instead of naming living artists as targets.",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": "Initial structured style bible prompt."
+    }
+  ]
+}

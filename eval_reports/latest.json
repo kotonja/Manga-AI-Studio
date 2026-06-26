@@ -1,0 +1,621 @@
+{
+  "completed_at": "2026-06-25T16:46:29.856548+00:00",
+  "created_at": "2026-06-25T16:45:56.778152+00:00",
+  "metrics": {
+    "character_state_coverage": 0.0,
+    "composition_success_rate": 1.0,
+    "estimated_cost": 0.0,
+    "export_success_rate": 1.0,
+    "lettering_readability_score": 1.0,
+    "page_count_accuracy": 1.0,
+    "panel_count_accuracy": 1.0,
+    "pipeline_completion_rate": 1.0,
+    "prompt_anchor_coverage": 1.0,
+    "qa_blocking_issue_count": 0,
+    "render_asset_coverage": 1.0,
+    "story_schema_validity": 1.0,
+    "total_generation_time": 33.081
+  },
+  "provider": "mock",
+  "quality_mode": "fast",
+  "run_id": "c9740730-f274-4b9a-829f-d2f55a0c6fea",
+  "scenario_count": 5,
+  "scenario_selector": "all",
+  "scenarios": [
+    {
+      "counts": {
+        "blocking_qa_issues": 0,
+        "bubbles": 16,
+        "character_states": 0,
+        "characters": 2,
+        "compositions": 8,
+        "exports_succeeded": 1,
+        "key_objects": 1,
+        "locations": 1,
+        "pages": 8,
+        "panels": 16,
+        "prompts": 16,
+        "qa_reports": 8,
+        "renders": 16
+      },
+      "duration_seconds": 10.694,
+      "failures": [
+        "Expected page type hints not present: standard, reveal_page, action_sequence, horror_build",
+        "Expected key beats weak or missing: betrayal wound, revenge vow, cost of vengeance"
+      ],
+      "generated": {
+        "export_status_by_format": {
+          "zip": "succeeded"
+        },
+        "latest_qa_scores": [
+          58,
+          58,
+          58,
+          58,
+          58,
+          58,
+          58,
+          58
+        ],
+        "missing_key_beats": [
+          "betrayal wound",
+          "revenge vow",
+          "cost of vengeance"
+        ],
+        "missing_page_types": [
+          "standard",
+          "reveal_page",
+          "action_sequence",
+          "horror_build"
+        ],
+        "page_types": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "project_name": "Eval - Dark Fantasy Revenge"
+      },
+      "job_id": "3cbea2f0-2553-40d0-87fc-e5f7911e1fb4",
+      "links": {
+        "project": "/projects/e38b516c-e303-45d3-93cf-823c4b6c60d8",
+        "publishing": "/projects/e38b516c-e303-45d3-93cf-823c4b6c60d8/publishing",
+        "story": "/projects/e38b516c-e303-45d3-93cf-823c4b6c60d8/story"
+      },
+      "metrics": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "project_id": "e38b516c-e303-45d3-93cf-823c4b6c60d8",
+      "scenario": {
+        "expected_character_count": 2,
+        "expected_key_beats": [
+          "betrayal wound",
+          "cursed monarch",
+          "revenge vow",
+          "cost of vengeance"
+        ],
+        "expected_location_count": 1,
+        "expected_page_types": [
+          "standard",
+          "reveal_page",
+          "action_sequence",
+          "horror_build"
+        ],
+        "export_requirements": [
+          "zip"
+        ],
+        "genre": [
+          "dark fantasy",
+          "revenge"
+        ],
+        "id": "dark_fantasy_revenge",
+        "name": "Dark Fantasy Revenge",
+        "page_count": 8,
+        "premise": "A betrayed knight hunts the cursed monarch who stole her name.",
+        "reading_direction": "rtl",
+        "target_audience": "Older teen manga readers",
+        "tone": "Grim, mythic, and emotionally severe"
+      },
+      "scores": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "status": "failed"
+    },
+    {
+      "counts": {
+        "blocking_qa_issues": 0,
+        "bubbles": 12,
+        "character_states": 0,
+        "characters": 2,
+        "compositions": 6,
+        "exports_succeeded": 1,
+        "key_objects": 1,
+        "locations": 1,
+        "pages": 6,
+        "panels": 12,
+        "prompts": 12,
+        "qa_reports": 6,
+        "renders": 12
+      },
+      "duration_seconds": 4.974,
+      "failures": [
+        "Expected page type hints not present: dialogue_scene, romantic_pause, reveal_page, standard",
+        "Expected key beats weak or missing: missed chance, mutual confession, quiet acceptance"
+      ],
+      "generated": {
+        "export_status_by_format": {
+          "zip": "succeeded"
+        },
+        "latest_qa_scores": [
+          58,
+          58,
+          58,
+          58,
+          58,
+          58
+        ],
+        "missing_key_beats": [
+          "missed chance",
+          "mutual confession",
+          "quiet acceptance"
+        ],
+        "missing_page_types": [
+          "dialogue_scene",
+          "romantic_pause",
+          "reveal_page",
+          "standard"
+        ],
+        "page_types": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "project_name": "Eval - School Romance Confession"
+      },
+      "job_id": "9cc0dc25-ca07-4afb-b7ab-f74af78be624",
+      "links": {
+        "project": "/projects/d31ee658-bd46-4f77-833b-51e3a8e8105c",
+        "publishing": "/projects/d31ee658-bd46-4f77-833b-51e3a8e8105c/publishing",
+        "story": "/projects/d31ee658-bd46-4f77-833b-51e3a8e8105c/story"
+      },
+      "metrics": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "project_id": "d31ee658-bd46-4f77-833b-51e3a8e8105c",
+      "scenario": {
+        "expected_character_count": 2,
+        "expected_key_beats": [
+          "missed chance",
+          "festival deadline",
+          "mutual confession",
+          "quiet acceptance"
+        ],
+        "expected_location_count": 1,
+        "expected_page_types": [
+          "dialogue_scene",
+          "romantic_pause",
+          "reveal_page",
+          "standard"
+        ],
+        "export_requirements": [
+          "zip"
+        ],
+        "genre": [
+          "school romance",
+          "coming of age"
+        ],
+        "id": "school_romance_confession",
+        "name": "School Romance Confession",
+        "page_count": 6,
+        "premise": "Two awkward classmates race the closing festival gates to confess before graduation.",
+        "reading_direction": "ltr",
+        "target_audience": "Teen romance manga readers",
+        "tone": "Tender, nervous, and hopeful"
+      },
+      "scores": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "status": "failed"
+    },
+    {
+      "counts": {
+        "blocking_qa_issues": 0,
+        "bubbles": 16,
+        "character_states": 0,
+        "characters": 2,
+        "compositions": 8,
+        "exports_succeeded": 1,
+        "key_objects": 1,
+        "locations": 1,
+        "pages": 8,
+        "panels": 16,
+        "prompts": 16,
+        "qa_reports": 8,
+        "renders": 16
+      },
+      "duration_seconds": 8.394,
+      "failures": [
+        "Expected page type hints not present: standard, action_sequence, splash, reveal_page",
+        "Expected key beats weak or missing: rival entrance, first clash, heroic resolve"
+      ],
+      "generated": {
+        "export_status_by_format": {
+          "zip": "succeeded"
+        },
+        "latest_qa_scores": [
+          58,
+          58,
+          58,
+          58,
+          58,
+          58,
+          58,
+          58
+        ],
+        "missing_key_beats": [
+          "rival entrance",
+          "first clash",
+          "heroic resolve"
+        ],
+        "missing_page_types": [
+          "standard",
+          "action_sequence",
+          "splash",
+          "reveal_page"
+        ],
+        "page_types": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "project_name": "Eval - Shonen Battle Intro"
+      },
+      "job_id": "dc229c48-8aba-489d-9bff-a34f7d8b8489",
+      "links": {
+        "project": "/projects/324c0fd6-594e-4260-b9cb-5f0882bff8ee",
+        "publishing": "/projects/324c0fd6-594e-4260-b9cb-5f0882bff8ee/publishing",
+        "story": "/projects/324c0fd6-594e-4260-b9cb-5f0882bff8ee/story"
+      },
+      "metrics": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "project_id": "324c0fd6-594e-4260-b9cb-5f0882bff8ee",
+      "scenario": {
+        "expected_character_count": 2,
+        "expected_key_beats": [
+          "dojo at risk",
+          "rival entrance",
+          "first clash",
+          "heroic resolve"
+        ],
+        "expected_location_count": 1,
+        "expected_page_types": [
+          "standard",
+          "action_sequence",
+          "splash",
+          "reveal_page"
+        ],
+        "export_requirements": [
+          "zip"
+        ],
+        "genre": [
+          "shonen battle",
+          "sports action"
+        ],
+        "id": "shonen_battle_intro",
+        "name": "Shonen Battle Intro",
+        "page_count": 8,
+        "premise": "A reckless courier challenges a masked arena champion to save his neighborhood dojo.",
+        "reading_direction": "rtl",
+        "target_audience": "Teen action manga readers",
+        "tone": "Energetic, bold, and aspirational"
+      },
+      "scores": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "status": "failed"
+    },
+    {
+      "counts": {
+        "blocking_qa_issues": 0,
+        "bubbles": 12,
+        "character_states": 0,
+        "characters": 2,
+        "compositions": 6,
+        "exports_succeeded": 1,
+        "key_objects": 1,
+        "locations": 1,
+        "pages": 6,
+        "panels": 12,
+        "prompts": 12,
+        "qa_reports": 6,
+        "renders": 12
+      },
+      "duration_seconds": 5.294,
+      "failures": [
+        "Expected page type hints not present: horror_build, silent_page, reveal_page, exposition_page",
+        "Expected key beats weak or missing: first disappearance, unseen presence"
+      ],
+      "generated": {
+        "export_status_by_format": {
+          "zip": "succeeded"
+        },
+        "latest_qa_scores": [
+          58,
+          58,
+          58,
+          58,
+          58,
+          58
+        ],
+        "missing_key_beats": [
+          "first disappearance",
+          "unseen presence"
+        ],
+        "missing_page_types": [
+          "horror_build",
+          "silent_page",
+          "reveal_page",
+          "exposition_page"
+        ],
+        "page_types": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "project_name": "Eval - Horror Shrine Mystery"
+      },
+      "job_id": "d7d86f77-204b-4192-9c3b-60c3e8e9b2fd",
+      "links": {
+        "project": "/projects/8b2ae557-6b61-414a-9838-11755730525d",
+        "publishing": "/projects/8b2ae557-6b61-414a-9838-11755730525d/publishing",
+        "story": "/projects/8b2ae557-6b61-414a-9838-11755730525d/story"
+      },
+      "metrics": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "project_id": "8b2ae557-6b61-414a-9838-11755730525d",
+      "scenario": {
+        "expected_character_count": 2,
+        "expected_key_beats": [
+          "forbidden plaque",
+          "first disappearance",
+          "shrine secret",
+          "unseen presence"
+        ],
+        "expected_location_count": 1,
+        "expected_page_types": [
+          "horror_build",
+          "silent_page",
+          "reveal_page",
+          "exposition_page"
+        ],
+        "export_requirements": [
+          "zip"
+        ],
+        "genre": [
+          "horror",
+          "mystery"
+        ],
+        "id": "horror_shrine_mystery",
+        "name": "Horror Shrine Mystery",
+        "page_count": 6,
+        "premise": "A shrine caretaker finds names appearing on prayer plaques one hour before each person vanishes.",
+        "reading_direction": "rtl",
+        "target_audience": "Older teen horror manga readers",
+        "tone": "Quiet, eerie, and escalating"
+      },
+      "scores": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "status": "failed"
+    },
+    {
+      "counts": {
+        "blocking_qa_issues": 0,
+        "bubbles": 8,
+        "character_states": 0,
+        "characters": 2,
+        "compositions": 4,
+        "exports_succeeded": 1,
+        "key_objects": 1,
+        "locations": 1,
+        "pages": 4,
+        "panels": 8,
+        "prompts": 8,
+        "qa_reports": 4,
+        "renders": 8
+      },
+      "duration_seconds": 3.705,
+      "failures": [
+        "Expected page type hints not present: comedy_reaction, dialogue_scene, standard",
+        "Expected key beats weak or missing: domestic misunderstanding, unexpected kindness"
+      ],
+      "generated": {
+        "export_status_by_format": {
+          "zip": "succeeded"
+        },
+        "latest_qa_scores": [
+          58,
+          58,
+          58,
+          58
+        ],
+        "missing_key_beats": [
+          "domestic misunderstanding",
+          "unexpected kindness"
+        ],
+        "missing_page_types": [
+          "comedy_reaction",
+          "dialogue_scene",
+          "standard"
+        ],
+        "page_types": [
+          "",
+          "",
+          "",
+          ""
+        ],
+        "project_name": "Eval - Comedy Slice-of-Life"
+      },
+      "job_id": "98497e79-ecad-4120-a0b6-9fc11ae6004d",
+      "links": {
+        "project": "/projects/9a46dcba-c0b7-451c-9da3-4f9f1be7521b",
+        "publishing": "/projects/9a46dcba-c0b7-451c-9da3-4f9f1be7521b/publishing",
+        "story": "/projects/9a46dcba-c0b7-451c-9da3-4f9f1be7521b/story"
+      },
+      "metrics": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "project_id": "9a46dcba-c0b7-451c-9da3-4f9f1be7521b",
+      "scenario": {
+        "expected_character_count": 3,
+        "expected_key_beats": [
+          "bad advice",
+          "roommate chaos",
+          "domestic misunderstanding",
+          "unexpected kindness"
+        ],
+        "expected_location_count": 1,
+        "expected_page_types": [
+          "comedy_reaction",
+          "dialogue_scene",
+          "standard"
+        ],
+        "export_requirements": [
+          "zip"
+        ],
+        "genre": [
+          "comedy",
+          "slice of life"
+        ],
+        "id": "comedy_slice_of_life",
+        "name": "Comedy Slice-of-Life",
+        "page_count": 4,
+        "premise": "Three roommates accidentally adopt a robotic rice cooker that gives terrible life advice.",
+        "reading_direction": "ltr",
+        "target_audience": "All-ages comedy manga readers",
+        "tone": "Warm, absurd, and fast-paced"
+      },
+      "scores": {
+        "character_state_coverage": 0.0,
+        "composition_success_rate": 1.0,
+        "export_success_rate": 1.0,
+        "lettering_readability_score": 1.0,
+        "page_count_accuracy": 1.0,
+        "panel_count_accuracy": 1.0,
+        "pipeline_completion_rate": 1.0,
+        "prompt_anchor_coverage": 1.0,
+        "qa_blocking_issue_count": 0,
+        "render_asset_coverage": 1.0,
+        "story_schema_validity": 1.0
+      },
+      "status": "failed"
+    }
+  ]
+}

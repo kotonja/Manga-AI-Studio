@@ -1,0 +1,953 @@
+{
+  "assets": [
+    {
+      "asset": {
+        "content_type": "application/pdf",
+        "created_at": "2026-06-25T18:25:41.630567+00:00",
+        "filename": "ghost-lantern-pdf.pdf",
+        "id": "d7ffb0a5-5d6d-4775-b16a-ddd7e43a6f4a",
+        "kind": "project_export",
+        "metadata_json": {
+          "export_id": "79212b83-ab44-4735-9c6d-07d83b3735a5",
+          "force": false,
+          "format": "pdf",
+          "options": {
+            "premise": "A lonely swordsman protects a ghost child in a ruined city.",
+            "source": "demo_pipeline"
+          },
+          "page_count": 4,
+          "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+          "public_url": "http://localhost:9000/manga-ai-dev/exports/25dcbb01-453d-4b8b-a1f9-e674d05017fa/79212b83-ab44-4735-9c6d-07d83b3735a5.pdf"
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 366773,
+        "storage_key": "exports/25dcbb01-453d-4b8b-a1f9-e674d05017fa/79212b83-ab44-4735-9c6d-07d83b3735a5.pdf",
+        "updated_at": "2026-06-25T18:25:41.630603+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "d7ffb0a5-5d6d-4775-b16a-ddd7e43a6f4a",
+        "created_at": "2026-06-25T18:25:41.644196+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Packaged by Manga AI Studio from project assets and metadata.",
+        "generation_job_id": null,
+        "id": "13e3e729-0df5-41bf-8075-870f8593ff64",
+        "license_type": "project_export",
+        "model_name": "export-pdf",
+        "prompt_id": null,
+        "provider_name": "manga-ai-exporter",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:41.645128+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "application/zip",
+        "created_at": "2026-06-25T18:25:41.294944+00:00",
+        "filename": "ghost-lantern-zip.zip",
+        "id": "ce9b8fe9-04d2-406f-914f-50bd6ad94ce4",
+        "kind": "project_export",
+        "metadata_json": {
+          "export_id": "08a5dba6-4f5a-4bdb-a396-47a6fd7a3bc7",
+          "force": false,
+          "format": "zip",
+          "options": {
+            "premise": "A lonely swordsman protects a ghost child in a ruined city.",
+            "source": "demo_pipeline"
+          },
+          "page_count": 4,
+          "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+          "public_url": "http://localhost:9000/manga-ai-dev/exports/25dcbb01-453d-4b8b-a1f9-e674d05017fa/08a5dba6-4f5a-4bdb-a396-47a6fd7a3bc7.zip"
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 183028,
+        "storage_key": "exports/25dcbb01-453d-4b8b-a1f9-e674d05017fa/08a5dba6-4f5a-4bdb-a396-47a6fd7a3bc7.zip",
+        "updated_at": "2026-06-25T18:25:41.294975+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "ce9b8fe9-04d2-406f-914f-50bd6ad94ce4",
+        "created_at": "2026-06-25T18:25:41.313406+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Packaged by Manga AI Studio from project assets and metadata.",
+        "generation_job_id": null,
+        "id": "0de27dc1-4a65-45e5-b0d1-c107cc8ee836",
+        "license_type": "project_export",
+        "model_name": "export-zip",
+        "prompt_id": null,
+        "provider_name": "manga-ai-exporter",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:41.313697+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:40.015931+00:00",
+        "filename": "page-4-composite.png",
+        "id": "c17c2dac-b455-4ae9-b81f-1be7ae35910c",
+        "kind": "page_composite",
+        "metadata_json": {
+          "approved_render_asset_ids": {},
+          "bleed": 40,
+          "bubble_count": 3,
+          "height": 1500,
+          "page_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+          "page_number": 4,
+          "panel_count": 3,
+          "panel_render_asset_ids": {
+            "acd4ac22-6043-40e2-8e85-010d0c548fac": "07467253-9f14-484b-8585-b8dc51954bc4",
+            "d834655f-da16-40ed-9bf8-96046b52052a": "8a74ea91-ca00-4f24-a5fa-3c802d261dfd",
+            "ebc49b67-4586-44f3-bf1c-97d0e2d61e22": "6b6f5bd5-3a93-42be-b122-1b7e2f09fd7f"
+          },
+          "public_url": "http://localhost:9000/manga-ai-dev/pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/9ef3363f-49b9-49fe-92ba-af7a989ac71c/composite-20260625182539975477.png",
+          "reading_direction": "rtl",
+          "safe_margin": 80,
+          "sfx_count": 0,
+          "width": 1000
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 39666,
+        "storage_key": "pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/9ef3363f-49b9-49fe-92ba-af7a989ac71c/composite-20260625182539975477.png",
+        "updated_at": "2026-06-25T18:25:40.015958+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "c17c2dac-b455-4ae9-b81f-1be7ae35910c",
+        "created_at": "2026-06-25T18:25:40.024397+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Composed by Manga AI Studio from project layouts, lettering, and panel render assets.",
+        "generation_job_id": null,
+        "id": "4cd0ef75-a1b7-4b44-a59c-7f986474411a",
+        "license_type": "project_composite",
+        "model_name": "pillow",
+        "prompt_id": null,
+        "provider_name": "manga-ai-compositor",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:40.024884+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:39.740315+00:00",
+        "filename": "page-3-composite.png",
+        "id": "c2bbeeb4-e5fa-48ef-810f-e7261263d850",
+        "kind": "page_composite",
+        "metadata_json": {
+          "approved_render_asset_ids": {},
+          "bleed": 40,
+          "bubble_count": 3,
+          "height": 1500,
+          "page_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
+          "page_number": 3,
+          "panel_count": 3,
+          "panel_render_asset_ids": {
+            "2cdb27fb-e4a5-43a7-ab89-6c3659d46772": "cba43a85-f6ce-43cb-81f4-7a9d8f46ac5f",
+            "366088ce-7ab3-4cff-b33d-520fa0436554": "4a8ddbe6-1331-4307-93df-983cfb51c060",
+            "6d532c46-3086-4b13-80f8-647ea66eb7ff": "7f46256c-475b-43b6-ad10-553ccadc51cc"
+          },
+          "public_url": "http://localhost:9000/manga-ai-dev/pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/5600e2a5-7216-4a97-8897-7b3b22a0db74/composite-20260625182539720704.png",
+          "reading_direction": "rtl",
+          "safe_margin": 80,
+          "sfx_count": 0,
+          "width": 1000
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 38354,
+        "storage_key": "pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/5600e2a5-7216-4a97-8897-7b3b22a0db74/composite-20260625182539720704.png",
+        "updated_at": "2026-06-25T18:25:39.740365+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "c2bbeeb4-e5fa-48ef-810f-e7261263d850",
+        "created_at": "2026-06-25T18:25:39.748252+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Composed by Manga AI Studio from project layouts, lettering, and panel render assets.",
+        "generation_job_id": null,
+        "id": "8bad3235-ef4e-4cc3-8d3a-ae435719563e",
+        "license_type": "project_composite",
+        "model_name": "pillow",
+        "prompt_id": null,
+        "provider_name": "manga-ai-compositor",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:39.748823+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:39.504948+00:00",
+        "filename": "page-2-composite.png",
+        "id": "340217cb-e495-4482-ae26-43bf3f46571e",
+        "kind": "page_composite",
+        "metadata_json": {
+          "approved_render_asset_ids": {},
+          "bleed": 40,
+          "bubble_count": 3,
+          "height": 1500,
+          "page_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+          "page_number": 2,
+          "panel_count": 3,
+          "panel_render_asset_ids": {
+            "66191c79-2995-4e88-b167-1bdde27a79b7": "b10e92f8-6124-48cb-aa30-f0e18453a20e",
+            "71f10212-dd8b-4e7d-aee2-2badbf87624f": "1037447f-85a3-425f-b795-e6afe04d2494",
+            "fe1881c5-9c4c-4392-ac4f-623f9855fc33": "3131cc2b-f700-46a2-a618-4d4bb916eced"
+          },
+          "public_url": "http://localhost:9000/manga-ai-dev/pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/e3f70bf4-8455-43f2-934e-a8e09665dd18/composite-20260625182539480545.png",
+          "reading_direction": "rtl",
+          "safe_margin": 80,
+          "sfx_count": 0,
+          "width": 1000
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 37279,
+        "storage_key": "pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/e3f70bf4-8455-43f2-934e-a8e09665dd18/composite-20260625182539480545.png",
+        "updated_at": "2026-06-25T18:25:39.504971+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "340217cb-e495-4482-ae26-43bf3f46571e",
+        "created_at": "2026-06-25T18:25:39.508501+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Composed by Manga AI Studio from project layouts, lettering, and panel render assets.",
+        "generation_job_id": null,
+        "id": "1a3ad4fd-9ccb-4953-b310-3aa4d6274ae4",
+        "license_type": "project_composite",
+        "model_name": "pillow",
+        "prompt_id": null,
+        "provider_name": "manga-ai-compositor",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:39.508813+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:39.344556+00:00",
+        "filename": "page-1-composite.png",
+        "id": "0386401a-c575-4a17-ba74-1da5e7f71017",
+        "kind": "page_composite",
+        "metadata_json": {
+          "approved_render_asset_ids": {},
+          "bleed": 40,
+          "bubble_count": 3,
+          "height": 1500,
+          "page_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+          "page_number": 1,
+          "panel_count": 3,
+          "panel_render_asset_ids": {
+            "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da": "4f34a8d2-9c56-4edc-97af-85ca49595997",
+            "ae061013-893f-47a8-aebc-2bef51ab76fc": "8cc76223-48a0-43e2-8ca0-5221f7b07b1e",
+            "d80152a9-dbb4-4ec9-9e12-b186caf242a8": "ee38eaba-2fd2-4b2a-8532-a2ab93c85ec8"
+          },
+          "public_url": "http://localhost:9000/manga-ai-dev/pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/52d8b6f8-16ad-4c2b-8801-3418a9450c72/composite-20260625182539324847.png",
+          "reading_direction": "rtl",
+          "safe_margin": 80,
+          "sfx_count": 0,
+          "width": 1000
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 38205,
+        "storage_key": "pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/52d8b6f8-16ad-4c2b-8801-3418a9450c72/composite-20260625182539324847.png",
+        "updated_at": "2026-06-25T18:25:39.344573+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "0386401a-c575-4a17-ba74-1da5e7f71017",
+        "created_at": "2026-06-25T18:25:39.347543+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Composed by Manga AI Studio from project layouts, lettering, and panel render assets.",
+        "generation_job_id": null,
+        "id": "2b1df5d5-7b39-4f8e-b932-561e0756bc8e",
+        "license_type": "project_composite",
+        "model_name": "pillow",
+        "prompt_id": null,
+        "provider_name": "manga-ai-compositor",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:39.347682+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:39.111611+00:00",
+        "filename": "panel-acd4ac22-6043-40e2-8e85-010d0c548fac.png",
+        "id": "07467253-9f14-484b-8585-b8dc51954bc4",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "e050cfb5-c25d-4add-b8e8-6116e26507bb",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+            "panel_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+            "panel_render_prompt_id": "0cfbb73b-f9ca-4a9b-bb41-7a4bc5e31ecf",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9012
+          },
+          "panel_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+          "panel_render_prompt_id": "0cfbb73b-f9ca-4a9b-bb41-7a4bc5e31ecf",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9012
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10634,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/e050cfb5-c25d-4add-b8e8-6116e26507bb.png",
+        "updated_at": "2026-06-25T18:25:39.111649+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "07467253-9f14-484b-8585-b8dc51954bc4",
+        "created_at": "2026-06-25T18:25:39.115598+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "e050cfb5-c25d-4add-b8e8-6116e26507bb",
+        "id": "5315473b-6b3d-455b-82ea-afc7f6f941d9",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "0cfbb73b-f9ca-4a9b-bb41-7a4bc5e31ecf",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:39.115912+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:38.893428+00:00",
+        "filename": "panel-ebc49b67-4586-44f3-bf1c-97d0e2d61e22.png",
+        "id": "6b6f5bd5-3a93-42be-b122-1b7e2f09fd7f",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "6fba8637-3f36-4c27-bf26-1559439bfbb4",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+            "panel_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+            "panel_render_prompt_id": "d8e4c9eb-ea9e-4ea9-a4f5-295e4ef19e99",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9011
+          },
+          "panel_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+          "panel_render_prompt_id": "d8e4c9eb-ea9e-4ea9-a4f5-295e4ef19e99",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9011
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10720,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/6fba8637-3f36-4c27-bf26-1559439bfbb4.png",
+        "updated_at": "2026-06-25T18:25:38.893472+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "6b6f5bd5-3a93-42be-b122-1b7e2f09fd7f",
+        "created_at": "2026-06-25T18:25:38.899799+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "6fba8637-3f36-4c27-bf26-1559439bfbb4",
+        "id": "d1329668-0f3e-4914-8ddb-117142f3ebd4",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "d8e4c9eb-ea9e-4ea9-a4f5-295e4ef19e99",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:38.900146+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:38.725106+00:00",
+        "filename": "panel-d834655f-da16-40ed-9bf8-96046b52052a.png",
+        "id": "8a74ea91-ca00-4f24-a5fa-3c802d261dfd",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "abea0623-3143-4dae-ab5d-2afc3f0792bd",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+            "panel_id": "d834655f-da16-40ed-9bf8-96046b52052a",
+            "panel_render_prompt_id": "ac22184c-6d39-4063-8ea7-9949b0e2201d",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9010
+          },
+          "panel_id": "d834655f-da16-40ed-9bf8-96046b52052a",
+          "panel_render_prompt_id": "ac22184c-6d39-4063-8ea7-9949b0e2201d",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9010
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10647,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/abea0623-3143-4dae-ab5d-2afc3f0792bd.png",
+        "updated_at": "2026-06-25T18:25:38.725127+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "8a74ea91-ca00-4f24-a5fa-3c802d261dfd",
+        "created_at": "2026-06-25T18:25:38.729145+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "abea0623-3143-4dae-ab5d-2afc3f0792bd",
+        "id": "d172332b-3f0f-42ca-ae1b-abc683e40526",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "ac22184c-6d39-4063-8ea7-9949b0e2201d",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:38.729334+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:38.618846+00:00",
+        "filename": "panel-366088ce-7ab3-4cff-b33d-520fa0436554.png",
+        "id": "4a8ddbe6-1331-4307-93df-983cfb51c060",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "658c6061-5211-4485-8acd-e32adbbe4972",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
+            "panel_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
+            "panel_render_prompt_id": "50eaaaf2-3da0-4d30-a49f-4802434e3f10",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9009
+          },
+          "panel_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
+          "panel_render_prompt_id": "50eaaaf2-3da0-4d30-a49f-4802434e3f10",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9009
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10606,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/658c6061-5211-4485-8acd-e32adbbe4972.png",
+        "updated_at": "2026-06-25T18:25:38.618878+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "4a8ddbe6-1331-4307-93df-983cfb51c060",
+        "created_at": "2026-06-25T18:25:38.622146+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "658c6061-5211-4485-8acd-e32adbbe4972",
+        "id": "7343caea-cb31-41bc-9c87-7903eff71b59",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "50eaaaf2-3da0-4d30-a49f-4802434e3f10",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:38.622317+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:38.496030+00:00",
+        "filename": "panel-2cdb27fb-e4a5-43a7-ab89-6c3659d46772.png",
+        "id": "cba43a85-f6ce-43cb-81f4-7a9d8f46ac5f",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "acf664ab-067b-4f90-99e4-5995a53aa2a0",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
+            "panel_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
+            "panel_render_prompt_id": "ff9ed33c-7b07-42de-8ed4-e1f106e216f0",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9008
+          },
+          "panel_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
+          "panel_render_prompt_id": "ff9ed33c-7b07-42de-8ed4-e1f106e216f0",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9008
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10814,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/acf664ab-067b-4f90-99e4-5995a53aa2a0.png",
+        "updated_at": "2026-06-25T18:25:38.496051+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "cba43a85-f6ce-43cb-81f4-7a9d8f46ac5f",
+        "created_at": "2026-06-25T18:25:38.498931+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "acf664ab-067b-4f90-99e4-5995a53aa2a0",
+        "id": "e17e623f-8363-40f4-8abe-55d68d1da187",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "ff9ed33c-7b07-42de-8ed4-e1f106e216f0",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:38.499277+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:38.392150+00:00",
+        "filename": "panel-6d532c46-3086-4b13-80f8-647ea66eb7ff.png",
+        "id": "7f46256c-475b-43b6-ad10-553ccadc51cc",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "0ff750f2-da8b-43f4-a34d-8c37ae808cc6",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
+            "panel_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
+            "panel_render_prompt_id": "53b9921e-713d-4822-8361-454751eb72b8",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9007
+          },
+          "panel_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
+          "panel_render_prompt_id": "53b9921e-713d-4822-8361-454751eb72b8",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9007
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10741,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/0ff750f2-da8b-43f4-a34d-8c37ae808cc6.png",
+        "updated_at": "2026-06-25T18:25:38.392179+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "7f46256c-475b-43b6-ad10-553ccadc51cc",
+        "created_at": "2026-06-25T18:25:38.395598+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "0ff750f2-da8b-43f4-a34d-8c37ae808cc6",
+        "id": "0eceb623-0f9f-40e8-8648-644afbe25154",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "53b9921e-713d-4822-8361-454751eb72b8",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:38.395783+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:38.286924+00:00",
+        "filename": "panel-71f10212-dd8b-4e7d-aee2-2badbf87624f.png",
+        "id": "1037447f-85a3-425f-b795-e6afe04d2494",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "3422f419-adaa-4f2d-bc7f-119eaba0bf1d",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+            "panel_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+            "panel_render_prompt_id": "46e47755-e6f9-42cd-bfd7-01ab6c1772d1",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9006
+          },
+          "panel_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+          "panel_render_prompt_id": "46e47755-e6f9-42cd-bfd7-01ab6c1772d1",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9006
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10437,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/3422f419-adaa-4f2d-bc7f-119eaba0bf1d.png",
+        "updated_at": "2026-06-25T18:25:38.286973+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "1037447f-85a3-425f-b795-e6afe04d2494",
+        "created_at": "2026-06-25T18:25:38.290129+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "3422f419-adaa-4f2d-bc7f-119eaba0bf1d",
+        "id": "1b17ca75-fdd8-4c29-a477-08a7d9716c51",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "46e47755-e6f9-42cd-bfd7-01ab6c1772d1",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:38.290290+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:38.128689+00:00",
+        "filename": "panel-fe1881c5-9c4c-4392-ac4f-623f9855fc33.png",
+        "id": "3131cc2b-f700-46a2-a618-4d4bb916eced",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "de80ac11-73f0-4336-aef3-27f72df975e0",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+            "panel_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+            "panel_render_prompt_id": "cc19fe92-ea56-4735-a881-910dafc5ea52",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9005
+          },
+          "panel_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+          "panel_render_prompt_id": "cc19fe92-ea56-4735-a881-910dafc5ea52",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9005
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10538,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/de80ac11-73f0-4336-aef3-27f72df975e0.png",
+        "updated_at": "2026-06-25T18:25:38.128980+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "3131cc2b-f700-46a2-a618-4d4bb916eced",
+        "created_at": "2026-06-25T18:25:38.132281+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "de80ac11-73f0-4336-aef3-27f72df975e0",
+        "id": "41b98cfb-755e-46cd-8281-765ca7beb109",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "cc19fe92-ea56-4735-a881-910dafc5ea52",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:38.132553+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:37.988866+00:00",
+        "filename": "panel-66191c79-2995-4e88-b167-1bdde27a79b7.png",
+        "id": "b10e92f8-6124-48cb-aa30-f0e18453a20e",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "e171ed69-d7a2-4af1-ac26-19dfbb8f42e6",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+            "panel_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
+            "panel_render_prompt_id": "427da56e-525c-48f4-a732-3ef901867db5",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9004
+          },
+          "panel_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
+          "panel_render_prompt_id": "427da56e-525c-48f4-a732-3ef901867db5",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9004
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10578,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/e171ed69-d7a2-4af1-ac26-19dfbb8f42e6.png",
+        "updated_at": "2026-06-25T18:25:37.988909+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "b10e92f8-6124-48cb-aa30-f0e18453a20e",
+        "created_at": "2026-06-25T18:25:37.993951+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "e171ed69-d7a2-4af1-ac26-19dfbb8f42e6",
+        "id": "68dfa54a-41fc-4106-aa58-d688c3c95864",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "427da56e-525c-48f4-a732-3ef901867db5",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:37.994251+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:37.857402+00:00",
+        "filename": "panel-3849ad00-59b8-41e2-bb8c-11cc8b6cd8da.png",
+        "id": "4f34a8d2-9c56-4edc-97af-85ca49595997",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "f76efc3e-5c1b-4393-9e97-7b2dbed56e8f",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+            "panel_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+            "panel_render_prompt_id": "919b1fb8-201a-40d6-8759-bda266f1c3d7",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9003
+          },
+          "panel_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+          "panel_render_prompt_id": "919b1fb8-201a-40d6-8759-bda266f1c3d7",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9003
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10802,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/f76efc3e-5c1b-4393-9e97-7b2dbed56e8f.png",
+        "updated_at": "2026-06-25T18:25:37.857424+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "4f34a8d2-9c56-4edc-97af-85ca49595997",
+        "created_at": "2026-06-25T18:25:37.861205+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "f76efc3e-5c1b-4393-9e97-7b2dbed56e8f",
+        "id": "d089192c-4bb1-4cc3-b573-c5e669a020f4",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "919b1fb8-201a-40d6-8759-bda266f1c3d7",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:37.861394+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:37.758762+00:00",
+        "filename": "panel-d80152a9-dbb4-4ec9-9e12-b186caf242a8.png",
+        "id": "ee38eaba-2fd2-4b2a-8532-a2ab93c85ec8",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "d00ea749-b341-4780-9b28-243888fa1a1f",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+            "panel_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+            "panel_render_prompt_id": "4e7ae2cb-5720-49dc-9cf3-0468157a7f5c",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9002
+          },
+          "panel_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+          "panel_render_prompt_id": "4e7ae2cb-5720-49dc-9cf3-0468157a7f5c",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9002
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10703,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/d00ea749-b341-4780-9b28-243888fa1a1f.png",
+        "updated_at": "2026-06-25T18:25:37.758789+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "ee38eaba-2fd2-4b2a-8532-a2ab93c85ec8",
+        "created_at": "2026-06-25T18:25:37.763138+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "d00ea749-b341-4780-9b28-243888fa1a1f",
+        "id": "83964f4d-6001-49ae-b88d-208a82f7a4ff",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "4e7ae2cb-5720-49dc-9cf3-0468157a7f5c",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:37.763307+00:00",
+        "uploaded_filename": null
+      }
+    },
+    {
+      "asset": {
+        "content_type": "image/png",
+        "created_at": "2026-06-25T18:25:37.630538+00:00",
+        "filename": "panel-ae061013-893f-47a8-aebc-2bef51ab76fc.png",
+        "id": "8cc76223-48a0-43e2-8ca0-5221f7b07b1e",
+        "kind": "render",
+        "metadata_json": {
+          "approved": false,
+          "job_id": "dc003841-23f9-41f5-8e7d-760b757d1dcb",
+          "model_name": "mock-image-v1",
+          "options": {
+            "page_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+            "panel_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
+            "panel_render_prompt_id": "d1e705a8-1225-490a-82fa-21b7068447cd",
+            "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+            "quality_mode": "draft",
+            "render_mode": "draft",
+            "seed": 9001
+          },
+          "panel_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
+          "panel_render_prompt_id": "d1e705a8-1225-490a-82fa-21b7068447cd",
+          "provider": "mock",
+          "provider_metadata": {
+            "placeholder": true,
+            "references": 0
+          },
+          "render_mode": "draft",
+          "seed": 9001
+        },
+        "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+        "size_bytes": 10715,
+        "storage_key": "renders/25dcbb01-453d-4b8b-a1f9-e674d05017fa/dc003841-23f9-41f5-8e7d-760b757d1dcb.png",
+        "updated_at": "2026-06-25T18:25:37.630555+00:00"
+      },
+      "provenance": {
+        "ai_disclosure_required": true,
+        "allow_commercial_use": true,
+        "allow_training": false,
+        "asset_id": "8cc76223-48a0-43e2-8ca0-5221f7b07b1e",
+        "created_at": "2026-06-25T18:25:37.645187+00:00",
+        "creator_user_id": null,
+        "declared_rights": "Generated inside Manga AI Studio using the configured render provider.",
+        "generation_job_id": "dc003841-23f9-41f5-8e7d-760b757d1dcb",
+        "id": "bd082458-6225-4265-8324-515512498ae1",
+        "license_type": "project_generated",
+        "model_name": "mock-image-v1",
+        "prompt_id": "d1e705a8-1225-490a-82fa-21b7068447cd",
+        "provider_name": "mock",
+        "source_type": "internal_mock",
+        "updated_at": "2026-06-25T18:25:37.645423+00:00",
+        "uploaded_filename": null
+      }
+    }
+  ],
+  "generated_at": "2026-06-25T18:25:42.051402+00:00",
+  "project": {
+    "id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+    "name": "Ghost Lantern"
+  },
+  "rights_declaration": null,
+  "summary": {
+    "ai_disclosure_required": true,
+    "assets_with_provenance": 18,
+    "missing_provenance_asset_ids": [],
+    "source_type_counts": {
+      "internal_mock": 18
+    },
+    "total_assets": 18
+  }
+}

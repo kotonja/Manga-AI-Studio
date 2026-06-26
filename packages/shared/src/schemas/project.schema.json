@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://manga-ai.local/schemas/project.schema.json",
+  "title": "Project",
+  "type": "object",
+  "required": ["id", "name", "status", "active_style_bible_id", "created_at", "updated_at"],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "description": { "type": ["string", "null"], "maxLength": 50000 },
+    "style_prompt": { "type": ["string", "null"], "maxLength": 4000 },
+    "status": { "type": "string", "enum": ["draft", "archived"] },
+    "active_style_bible_id": { "type": ["string", "null"], "format": "uuid" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}
