@@ -169,7 +169,9 @@ test("founder demo runs with one click and opens the studio project", async ({ p
   await page.getByRole("button", { name: "Generate Manga Demo" }).click();
   await expect(page.getByText("94/100 average page score")).toBeVisible();
   await expect(page.getByRole("link", { name: /ZIP Package/ })).toBeVisible();
+  const projectResponse = page.waitForResponse((response) => response.url().includes(`/projects/${projectId}`) && response.request().method() === "GET");
   await page.getByRole("link", { name: /Open in Studio/ }).click();
+  await projectResponse;
   await expect(page).toHaveURL(new RegExp(`/projects/${projectId}$`));
   await expect(page.locator("h1", { hasText: project.name })).toBeVisible();
 });

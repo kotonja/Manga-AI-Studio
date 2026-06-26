@@ -439,10 +439,10 @@ export function FounderDemoView() {
               <ExportButton label="PDF Draft" icon="pdf" exportId={exportIds.pdf} />
               <Button asChild={Boolean(projectId)} variant="outline" disabled={!projectId}>
                 {projectId ? (
-                  <Link href={`/projects/${projectId}`}>
+                  <a href={`/projects/${projectId}`}>
                     <PanelTop className="h-4 w-4" />
                     Open in Studio
-                  </Link>
+                  </a>
                 ) : (
                   <span>
                     <PanelTop className="h-4 w-4" />
