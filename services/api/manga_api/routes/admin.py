@@ -3,8 +3,9 @@ from __future__ import annotations
 from collections import Counter
 from datetime import datetime, timezone
 from typing import Any
+import uuid
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func
 from sqlmodel import Session, select
 
@@ -12,7 +13,7 @@ from manga_api.ai_tasks import PromptRegistry, list_recent_ai_task_runs
 from manga_api.auth import require_admin_access
 from manga_api.db import get_session
 from manga_api.models import AITaskRun, FeedbackItem, GenerationFeedback, GenerationJob, Project, ProjectExport, PromptTemplate, QAReport
-from manga_api.schemas import AlphaDashboardMetric, AlphaDashboardRead, AITaskRunRead, FeedbackRead, GenerationJobRead, ImprovementReportRead, PromptTemplateRead, QAReportRead
+from manga_api.schemas import AlphaDashboardMetric, AlphaDashboardRead, AITaskRunRead, FeedbackRead, FeedbackTriageUpdate, GenerationJobRead, ImprovementReportRead, PromptTemplateRead, QAReportRead
 
 router = APIRouter(prefix="/admin", tags=["admin"], dependencies=[Depends(require_admin_access)])
 
@@ -83,7 +84,7 @@ def get_alpha_dashboard(session: Session = Depends(get_session)) -> AlphaDashboa
     project_count = count_rows(session, Project.id)
     export_count = count_rows(session, ProjectExport.id)
     failed_job_count = count_rows(session, GenerationJob.id, GenerationJob.status == "failed")
-    open_feedback_count = count_rows(session, FeedbackItem.id, FeedbackItem.status == "open")
+    open_feedback_count = count_rows(session, FeedbackItem.id, FeedbackItem.status.in_(["new", "open"]))
     provider_error_count = len(provider_errors)
     blocking_qa_count = count_rows(session, QAReport.id, QAReport.blocking == True)  # noqa: E712
     return AlphaDashboardRead(
@@ -100,6 +101,40 @@ def get_alpha_dashboard(session: Session = Depends(get_session)) -> AlphaDashboa
         feedback_items=[FeedbackRead.model_validate(item) for item in feedback_items],
         recent_qa_failures=[QAReportRead.model_validate(report) for report in recent_qa_failures],
     )
+
+
+@router.get("/feedback", response_model=list[FeedbackRead])
+def get_feedback_items(
+    status_filter: str | None = Query(default=None, alias="status"),
+    limit: int = Query(default=50, ge=1, le=200),
+    session: Session = Depends(get_session),
+) -> list[FeedbackItem]:
+    statement = select(FeedbackItem).order_by(FeedbackItem.created_at.desc(), FeedbackItem.id.desc()).limit(limit)
+    if status_filter:
+        statement = statement.where(FeedbackItem.status == status_filter)
+    return list(session.exec(statement).all())
+
+
+@router.patch("/feedback/{feedback_id}", response_model=FeedbackRead)
+def update_feedback_item(
+    feedback_id: uuid.UUID,
+    payload: FeedbackTriageUpdate,
+    session: Session = Depends(get_session),
+) -> FeedbackItem:
+    item = session.get(FeedbackItem, feedback_id)
+    if item is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Feedback item not found")
+    if payload.status is not None:
+        item.status = "new" if payload.status == "open" else payload.status
+    if payload.severity is not None:
+        item.severity = "blocker" if payload.severity == "blocking" else payload.severity
+    if payload.internal_notes is not None:
+        item.internal_notes = payload.internal_notes.strip()
+    item.updated_at = datetime.now(timezone.utc)
+    session.add(item)
+    session.commit()
+    session.refresh(item)
+    return item
 
 
 @router.get("/improvement-report", response_model=ImprovementReportRead)

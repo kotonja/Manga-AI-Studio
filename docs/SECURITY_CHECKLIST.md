@@ -22,6 +22,9 @@ Use this checklist before exposing Manga AI Studio outside local development.
 - [ ] `ALPHA_SESSION_SECRET` is set to a long random secret for browser login; `ALPHA_SHARED_PASSWORD` is not used as a cookie secret.
 - [ ] `ALPHA_USER_TOKENS`, `ALPHA_SHARED_PASSWORD`, and `ALPHA_ADMIN_TOKEN` are stored as secrets and rotated before inviting testers.
 - [ ] Multi-user alpha uses `ALPHA_USER_TOKENS` or external auth; `ALPHA_SHARED_PASSWORD` is treated only as a shared single-account mode.
+- [ ] `python scripts/create-alpha-token.py --user tester-id` is used to issue per-tester tokens.
+- [ ] `python scripts/check-alpha-env.py` passes before inviting testers.
+- [ ] `/admin/alpha-readiness` has no failed checks before inviting testers.
 - [ ] Production uses `AUTH_PROVIDER_MODE=external` behind a trusted auth proxy or a real auth provider hook.
 - [ ] `TRUST_EXTERNAL_AUTH_HEADERS=true` only when the API is behind a trusted proxy that strips spoofed client identity/admin headers.
 - [ ] `MAX_REQUEST_BYTES` is set and mirrored at the reverse proxy.
@@ -63,3 +66,5 @@ Use this checklist before exposing Manga AI Studio outside local development.
 - [ ] Worker image and API image are deployed from the same commit.
 - [ ] Rollback plan covers both database and object storage changes.
 - [ ] Health checks are wired into the orchestrator.
+- [ ] `scripts/alpha-smoke-test.py` passes against the target deployment with admin and tester tokens.
+- [ ] Public beta and production remain blocked until real auth, rate limiting, provider hardening, and operational backup/restore are reviewed.

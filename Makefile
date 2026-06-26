@@ -1,4 +1,4 @@
-.PHONY: dev test reset seed lint format check-env final-check final-demo final-export
+.PHONY: dev test reset seed lint format check-env check-alpha-env final-check final-demo final-export
 
 dev:
 	sh scripts/dev.sh
@@ -21,6 +21,9 @@ format:
 
 check-env:
 	sh scripts/check-env.sh
+
+check-alpha-env:
+	python scripts/check-alpha-env.py
 
 final-check:
 	sh scripts/final-boss-check.sh

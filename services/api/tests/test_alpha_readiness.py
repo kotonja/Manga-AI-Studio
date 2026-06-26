@@ -50,7 +50,7 @@ def test_feedback_submission_works(client) -> None:
     assert response.status_code == 201
     payload = response.json()
     assert payload["project_id"] == project["id"]
-    assert payload["status"] == "open"
+    assert payload["status"] == "new"
     assert payload["browser_info"]["token"] == "[redacted]"
 
     with Session(app.state.engine) as session:

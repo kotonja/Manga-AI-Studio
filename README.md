@@ -6,6 +6,14 @@ The default local provider stack is deterministic and does not require OpenAI, C
 
 Local development is unlocked by default. Private alpha mode can enable signed browser sessions, per-user token auth, project owner scoping, and protected asset/export downloads without changing the one-command Docker workflow.
 
+Status:
+
+- Local demo is ready.
+- Controlled private alpha is ready only with per-user tester tokens.
+- Public beta is not ready.
+- Production is not ready.
+- Mock art proves pipeline behavior, not final commercial art quality.
+
 ## Structure
 
 ```text
@@ -113,11 +121,25 @@ The dev-only web page is `/admin/eval` when `ENABLE_DEV_ADMIN=true` and `NEXT_PU
 
 ## Production Deployment
 
-Production-ready Docker targets, environment examples, migration guidance, worker deployment notes, object storage configuration, reverse proxy notes, and the security checklist are documented in:
+Production-oriented Docker targets, environment examples, migration guidance, worker deployment notes, object storage configuration, reverse proxy notes, and the security checklist are documented in:
 
 - `docs/DEPLOYMENT.md`
 - `docs/ENVIRONMENT.md`
 - `docs/SECURITY_CHECKLIST.md`
+
+## Controlled Private Alpha
+
+Use these docs and tools before inviting testers:
+
+- `docs/ALPHA_LAUNCH_PLAN.md`
+- `docs/TESTER_GUIDE.md`
+- `docs/ALPHA_OPERATOR_RUNBOOK.md`
+- `docs/PRIVATE_ALPHA_BASELINE.md`
+- `python scripts/create-alpha-token.py --user tester-a`
+- `python scripts/check-alpha-env.py`
+- `python scripts/alpha-smoke-test.py --base-url http://localhost:8000 --admin-token ... --tester-a-token ...`
+
+For multi-user alpha, use `ALPHA_USER_TOKENS`. `ALPHA_SHARED_PASSWORD` is shared-account mode only and should stay empty for controlled tester launches.
 - `docker-compose.prod.example.yml`
 
 ## Developer Commands

@@ -50,6 +50,8 @@ export type ExportStatus = "queued" | "running" | "succeeded" | "failed";
 export type AssetSourceType = "user_upload" | "ai_generated" | "stock_licensed" | "internal_mock" | "imported";
 export type SafetyCheckTarget = "text_prompt" | "uploaded_image_metadata" | "generated_output_metadata" | "style_request";
 export type SafetySeverity = "safe" | "warning" | "blocked";
+export type FeedbackStatus = "new" | "triaged" | "fixed" | "wontfix" | "open" | string;
+export type FeedbackSeverity = "low" | "medium" | "high" | "blocker" | "blocking" | string;
 export type LearningTargetType = "story" | "character" | "panel_render" | "page_layout" | "export" | "style" | "page" | "panel" | string;
 export type LearningIssueType =
   | "wrong character"
@@ -617,7 +619,7 @@ export interface FeedbackCreate {
   page_id?: Id | null;
   panel_id?: Id | null;
   category: string;
-  severity: "low" | "medium" | "high" | "blocking";
+  severity: FeedbackSeverity;
   title: string;
   description: string;
   contact_email?: string | null;
@@ -628,10 +630,22 @@ export interface FeedbackCreate {
 
 export interface FeedbackItem extends FeedbackCreate {
   id: Id;
-  status: string;
+  status: FeedbackStatus;
   created_by: string | null;
+  internal_notes: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface AlphaReadinessCheck {
+  name: string;
+  status: "pass" | "warn" | "fail";
+  message: string;
+}
+
+export interface AlphaReadiness {
+  ready: boolean;
+  checks: AlphaReadinessCheck[];
 }
 
 export interface ProjectDataControls {
