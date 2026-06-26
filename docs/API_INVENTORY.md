@@ -119,4 +119,4 @@ Generated at: 2026-06-26T13:42:55.792564+00:00
 | GET | `/versions/{version_a}/diff/{version_b}` | `none` | `VersionDiffResult` | alpha user/project owner | WORKING | yes |
 | POST | `/versions/{version_id}/restore` | `none` | `VersionRestoreResult` | alpha user/project owner | WORKING | yes |
 
-Auth note: local development is unlocked by default. Private alpha can enable token/shared-password auth; project resources are owner-scoped when alpha auth is enabled. Admin/dev routes require dev/admin flags and must not be exposed publicly.
+Auth note: local development is unlocked by default. Private alpha can enable per-user token auth or signed browser sessions; project resources are owner-scoped when alpha auth is enabled. `ALPHA_SHARED_PASSWORD` is a shared single-account mode only. Browser sessions require `ALPHA_SESSION_SECRET`. External forwarded identity headers are trusted only when `TRUST_EXTERNAL_AUTH_HEADERS=true` behind a trusted proxy. Admin/dev routes require dev/admin flags or a signed admin session and must not be exposed publicly.

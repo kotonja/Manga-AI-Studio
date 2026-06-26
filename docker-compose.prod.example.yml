@@ -87,9 +87,15 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
+      APP_ENV: ${APP_ENV:-production}
       NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:?set NEXT_PUBLIC_API_BASE_URL}
       API_INTERNAL_URL: ${API_INTERNAL_URL:-http://api:8000}
       NEXT_PUBLIC_ENABLE_DEV_ADMIN: "false"
+      ALPHA_AUTH_ENABLED: ${ALPHA_AUTH_ENABLED:-true}
+      ALPHA_SHARED_PASSWORD: ${ALPHA_SHARED_PASSWORD:-}
+      ALPHA_USER_TOKENS: ${ALPHA_USER_TOKENS:-}
+      ALPHA_ADMIN_TOKEN: ${ALPHA_ADMIN_TOKEN:-}
+      ALPHA_SESSION_SECRET: ${ALPHA_SESSION_SECRET:?set ALPHA_SESSION_SECRET}
     depends_on:
       - api
     expose:

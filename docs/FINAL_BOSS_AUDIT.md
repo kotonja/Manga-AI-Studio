@@ -182,7 +182,7 @@ Generated at: 2026-06-26T13:42:56.396415+00:00
 ## 8. Broken Or Risky Areas
 
 - No high severity keyword findings outside documented provider stubs.
-- Basic private-alpha auth, project ownership, and asset/export ownership checks exist. Public production still requires a real auth provider and hardened proxy policy.
+- Private-alpha auth now supports signed browser sessions, per-user token ownership, project ownership, and asset/export ownership checks. Public production still requires a real auth provider and hardened proxy policy.
 - Local mock-generated assets are valid for demo/testing, not proof of final paid-provider quality.
 
 ## 9. Test Coverage Summary

@@ -5,7 +5,7 @@
 3. Push succeeded: yes
 4. GitHub branch URL: `https://github.com/kotonja/Manga-AI-Studio/tree/private-alpha-hardening`
 5. Changed file count: 84 files in the hardening patch commit
-6. Backend test result: `python -m pytest -q services/api/tests` -> 102 passed, 3 warnings
+6. Backend test result: `python -m pytest -q services/api/tests` -> 108 passed, 3 warnings. Targeted auth isolation: `python -m pytest -q services/api/tests/test_auth_isolation.py` -> 13 passed, 1 warning
 7. Frontend build result: `pnpm --filter @manga-ai/web build` -> passed
 8. Browser smoke result: `pnpm --filter @manga-ai/web smoke` -> 3 passed
 9. Demo final page paths:
@@ -22,4 +22,4 @@
    - Replace placeholder rate limiting with distributed/edge rate limiting before public launch.
    - Harden real provider paths for OpenAI/ComfyUI and multimodal QA beyond deterministic mock mode.
    - Treat mock art as pipeline/demo evidence, not final commercial artwork.
-13. Next recommended review step: open a draft PR from `private-alpha-hardening` into `main` and review auth/access boundaries plus export/download behavior first.
+13. Next recommended review step: review the signed alpha session cookie implementation, external-header trust gate, auth context reset middleware, and updated isolation tests before merging PR #1.

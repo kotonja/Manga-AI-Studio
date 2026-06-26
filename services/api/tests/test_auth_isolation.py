@@ -2,9 +2,21 @@ import uuid
 
 from sqlmodel import Session
 
+from manga_api.auth import (
+    ALPHA_SESSION_COOKIE_NAME,
+    clear_current_principal,
+    create_alpha_session_cookie,
+    current_principal,
+)
 from manga_api.config import get_settings
 from manga_api.main import app
 from manga_api.models import Asset, ProjectExport
+
+if not any(getattr(route, "path", None) == "/__test/current-principal" for route in app.routes):
+    @app.get("/__test/current-principal")
+    def get_test_current_principal():
+        principal = current_principal()
+        return {"user_id": principal.user_id if principal else None}
 
 
 USER_A = {"X-Alpha-Token": "token-a"}
@@ -14,6 +26,7 @@ ADMIN = {"X-Alpha-Token": "admin-token"}
 
 def enable_alpha(monkeypatch) -> None:
     monkeypatch.setenv("ALPHA_AUTH_ENABLED", "true")
+    monkeypatch.setenv("ALPHA_SESSION_SECRET", "session-secret")
     monkeypatch.setenv("ALPHA_USER_TOKENS", "user-a:token-a,user-b:token-b")
     monkeypatch.setenv("ALPHA_ADMIN_TOKEN", "admin-token")
     monkeypatch.setenv("ENABLE_DEV_ADMIN", "false")
@@ -69,17 +82,104 @@ def test_alpha_requires_auth_and_isolates_projects(client, monkeypatch) -> None:
     assert client.post(f"/projects/{project_a['id']}/pages", headers=USER_B, json={"width": 640, "height": 960}).status_code == 404
 
 
-def test_alpha_session_cookie_authenticates_web_client(client, monkeypatch) -> None:
+def test_alpha_signed_session_cookie_authenticates_web_client(client, monkeypatch) -> None:
     monkeypatch.setenv("ALPHA_AUTH_ENABLED", "true")
     monkeypatch.setenv("ALPHA_SESSION_SECRET", "session-secret")
     monkeypatch.setenv("APP_ENV", "alpha")
     get_settings.cache_clear()
 
     assert client.post("/projects", json={"name": "No Session"}).status_code == 401
-    client.cookies.set("manga_alpha_session", "session-secret")
+    client.cookies.set(
+        ALPHA_SESSION_COOKIE_NAME,
+        create_alpha_session_cookie(user_id="alpha-user", is_admin=False, secret="session-secret"),
+    )
     response = client.post("/projects", json={"name": "Session Project"})
     assert response.status_code == 201
     assert response.json()["owner_user_id"] == "alpha-user"
+
+
+def test_alpha_signed_session_cookie_isolates_per_user_projects(client, monkeypatch) -> None:
+    enable_alpha(monkeypatch)
+
+    client.cookies.set(
+        ALPHA_SESSION_COOKIE_NAME,
+        create_alpha_session_cookie(user_id="user-a", is_admin=False, secret="session-secret"),
+    )
+    project_a = client.post("/projects", json={"name": "User A browser", "description": "A"}).json()
+    assert project_a["owner_user_id"] == "user-a"
+
+    client.cookies.clear()
+    client.cookies.set(
+        ALPHA_SESSION_COOKIE_NAME,
+        create_alpha_session_cookie(user_id="user-b", is_admin=False, secret="session-secret"),
+    )
+    project_b = client.post("/projects", json={"name": "User B browser", "description": "B"}).json()
+    assert project_b["owner_user_id"] == "user-b"
+    assert client.get(f"/projects/{project_a['id']}").status_code == 404
+    assert client.get(f"/projects/{project_b['id']}").status_code == 200
+
+
+def test_shared_password_signed_session_is_documented_single_account_mode(client, monkeypatch) -> None:
+    monkeypatch.setenv("ALPHA_AUTH_ENABLED", "true")
+    monkeypatch.setenv("ALPHA_SHARED_PASSWORD", "shared-password")
+    monkeypatch.setenv("ALPHA_SESSION_SECRET", "session-secret")
+    monkeypatch.setenv("APP_ENV", "alpha")
+    get_settings.cache_clear()
+
+    client.cookies.set(
+        ALPHA_SESSION_COOKIE_NAME,
+        create_alpha_session_cookie(user_id="alpha-user", is_admin=False, secret="session-secret"),
+    )
+    response = client.post("/projects", json={"name": "Shared browser", "description": "Shared"})
+    assert response.status_code == 201
+    assert response.json()["owner_user_id"] == "alpha-user"
+
+
+def test_missing_session_secret_rejects_browser_cookie_auth(client, monkeypatch) -> None:
+    monkeypatch.setenv("ALPHA_AUTH_ENABLED", "true")
+    monkeypatch.setenv("ALPHA_SHARED_PASSWORD", "shared-password")
+    monkeypatch.setenv("ALPHA_SESSION_SECRET", "")
+    monkeypatch.setenv("APP_ENV", "alpha")
+    get_settings.cache_clear()
+
+    client.cookies.set(ALPHA_SESSION_COOKIE_NAME, "shared-password")
+    assert client.post("/projects", json={"name": "No secret"}).status_code == 401
+
+
+def test_alpha_admin_signed_session_can_access_admin_routes(client, monkeypatch) -> None:
+    enable_alpha(monkeypatch)
+
+    client.cookies.set(
+        ALPHA_SESSION_COOKIE_NAME,
+        create_alpha_session_cookie(user_id="user-a", is_admin=False, secret="session-secret"),
+    )
+    assert client.get("/admin/ai-task-runs").status_code == 401
+
+    client.cookies.clear()
+    client.cookies.set(
+        ALPHA_SESSION_COOKIE_NAME,
+        create_alpha_session_cookie(user_id="admin", is_admin=True, secret="session-secret"),
+    )
+    assert client.get("/admin/ai-task-runs").status_code == 200
+
+
+def test_invalid_and_expired_alpha_session_cookies_are_rejected(client, monkeypatch) -> None:
+    enable_alpha(monkeypatch)
+
+    client.cookies.set(ALPHA_SESSION_COOKIE_NAME, "session-secret")
+    assert client.get("/projects").status_code == 401
+
+    client.cookies.set(
+        ALPHA_SESSION_COOKIE_NAME,
+        create_alpha_session_cookie(user_id="user-a", is_admin=False, secret="wrong-secret"),
+    )
+    assert client.get("/projects").status_code == 401
+
+    client.cookies.set(
+        ALPHA_SESSION_COOKIE_NAME,
+        create_alpha_session_cookie(user_id="user-a", is_admin=False, secret="session-secret", now=1, ttl_seconds=1),
+    )
+    assert client.get("/projects").status_code == 401
 
 
 def test_alpha_isolates_pages_panels_jobs_exports_and_downloads(client, monkeypatch) -> None:
@@ -118,7 +218,7 @@ def test_alpha_admin_routes_require_admin_token(client, monkeypatch) -> None:
     assert client.get("/admin/ai-task-runs", headers=ADMIN).status_code == 200
 
 
-def test_external_auth_requires_admin_marker_for_admin_routes(client, monkeypatch) -> None:
+def test_external_auth_requires_trusted_header_gate_and_admin_marker(client, monkeypatch) -> None:
     monkeypatch.setenv("ALPHA_AUTH_ENABLED", "true")
     monkeypatch.setenv("AUTH_PROVIDER_MODE", "external")
     monkeypatch.setenv("AUTH_PROVIDER_NAME", "proxy")
@@ -128,10 +228,24 @@ def test_external_auth_requires_admin_marker_for_admin_routes(client, monkeypatc
     get_settings.cache_clear()
 
     forwarded = {"X-Authenticated-User": "proxy-user"}
+    assert client.get("/projects", headers=forwarded).status_code == 401
+    assert client.get("/admin/ai-task-runs", headers={**forwarded, "X-Authenticated-Admin": "true"}).status_code == 401
+
+    monkeypatch.setenv("TRUST_EXTERNAL_AUTH_HEADERS", "true")
+    get_settings.cache_clear()
+
     assert client.get("/projects", headers=forwarded).status_code == 200
     assert client.get("/admin/ai-task-runs", headers=forwarded).status_code == 401
     assert client.get("/admin/ai-task-runs", headers={**forwarded, "X-Authenticated-Admin": "true"}).status_code == 200
     assert client.get("/admin/ai-task-runs", headers={**forwarded, "X-Alpha-Token": "admin-token"}).status_code == 200
+
+
+def test_auth_context_is_cleared_between_requests(client, monkeypatch) -> None:
+    enable_alpha(monkeypatch)
+
+    assert client.get("/projects", headers=USER_A).status_code == 200
+    assert client.get("/__test/current-principal").json() == {"user_id": None}
+    clear_current_principal()
 
 
 def test_feedback_project_context_requires_project_access(client, monkeypatch) -> None:

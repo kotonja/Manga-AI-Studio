@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import JSONResponse
 
+from manga_api.auth import AuthContextMiddleware
 from manga_api.config import get_settings
 from manga_api.observability import (
     RateLimitMiddleware,
@@ -26,6 +27,7 @@ def create_app() -> FastAPI:
         debug=not settings.is_production,
     )
 
+    app.add_middleware(AuthContextMiddleware)
     app.add_middleware(RequestContextMiddleware, settings=settings)
     app.add_middleware(RateLimitMiddleware, enabled=settings.rate_limit_enabled, per_minute=settings.rate_limit_per_minute)
     app.add_middleware(RequestSizeLimitMiddleware, max_request_bytes=settings.max_request_bytes)

@@ -42,6 +42,7 @@ class Settings(BaseSettings):
     auth_provider_mode: str = Field(default="local", validation_alias="AUTH_PROVIDER_MODE")
     auth_provider_name: str = Field(default="local", validation_alias="AUTH_PROVIDER_NAME")
     auth_forwarded_user_header: str = Field(default="X-Authenticated-User", validation_alias="AUTH_FORWARDED_USER_HEADER")
+    trust_external_auth_headers: bool = Field(default=False, validation_alias="TRUST_EXTERNAL_AUTH_HEADERS")
     auth_jwks_url: str | None = Field(default=None, validation_alias="AUTH_JWKS_URL")
     auth_issuer: str | None = Field(default=None, validation_alias="AUTH_ISSUER")
     auth_audience: str | None = Field(default=None, validation_alias="AUTH_AUDIENCE")

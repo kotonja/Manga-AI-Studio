@@ -4,7 +4,7 @@ Manga AI Studio is a local-first AI manga creation monorepo. It includes a Next.
 
 The default local provider stack is deterministic and does not require OpenAI, ComfyUI, or external APIs.
 
-Local development is unlocked by default. Private alpha mode can enable simple shared-password/token auth, project owner scoping, and protected asset/export downloads without changing the one-command Docker workflow.
+Local development is unlocked by default. Private alpha mode can enable signed browser sessions, per-user token auth, project owner scoping, and protected asset/export downloads without changing the one-command Docker workflow.
 
 ## Structure
 
