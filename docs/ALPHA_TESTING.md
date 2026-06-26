@@ -24,10 +24,12 @@ For private alpha, set:
 
 ```bash
 ALPHA_AUTH_ENABLED=true
-ALPHA_SHARED_PASSWORD=change-me
+ALPHA_SHARED_PASSWORD=
 ALPHA_USER_TOKENS=tester-a:long-token-a,tester-b:long-token-b
 ALPHA_SESSION_SECRET=change-me-to-a-long-random-value
+ALPHA_ADMIN_TOKEN=change-me-to-a-long-random-admin-token
 ENABLE_DEV_ADMIN=false
+NEXT_PUBLIC_ENABLE_DEV_ADMIN=false
 S3_PUBLIC_READ_ENABLED=false
 ASSET_DOWNLOAD_MODE=proxy
 ```
@@ -48,6 +50,20 @@ TRUST_EXTERNAL_AUTH_HEADERS=true
 Only set `TRUST_EXTERNAL_AUTH_HEADERS=true` when the API is behind a trusted proxy that strips spoofed incoming identity/admin headers and injects authenticated identity headers itself. Without that switch, forwarded auth headers are rejected.
 
 Never commit real passwords, API keys, or provider tokens.
+
+Generate tester tokens with:
+
+```bash
+python scripts/create-alpha-token.py --user tester-a
+```
+
+Validate an alpha deployment with:
+
+```bash
+python scripts/check-alpha-env.py
+```
+
+Admins can inspect launch readiness at `/admin/alpha-readiness` or by calling `GET /alpha/readiness` with `X-Alpha-Token: <ALPHA_ADMIN_TOKEN>`.
 
 ## What Users Should Test
 
@@ -91,6 +107,7 @@ The feedback form automatically attaches current route context when it can detec
 - Real provider calls depend on external configuration and may cost money.
 - Visual consistency and multimodal QA are still placeholder/mock-first.
 - Export packages are MVP-standard skeletons, not full marketplace certification.
+- Public beta and production are not ready.
 
 ## Safety and IP Rules
 

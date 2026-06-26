@@ -691,12 +691,16 @@ class ProjectPublishingMetadataRead(ProjectPublishingMetadataUpsert):
     updated_at: datetime
 
 
+FeedbackSeverity = Literal["low", "medium", "high", "blocker", "blocking"]
+FeedbackStatus = Literal["new", "triaged", "fixed", "wontfix", "open"]
+
+
 class FeedbackCreate(BaseModel):
     project_id: uuid.UUID | None = None
     page_id: uuid.UUID | None = None
     panel_id: uuid.UUID | None = None
     category: str = Field(default="general", max_length=80)
-    severity: Literal["low", "medium", "high", "blocking"] = "medium"
+    severity: FeedbackSeverity = "medium"
     title: str = Field(min_length=1, max_length=240)
     description: str = Field(min_length=1, max_length=20_000)
     contact_email: str | None = Field(default=None, max_length=320)
@@ -711,8 +715,15 @@ class FeedbackRead(FeedbackCreate):
     id: uuid.UUID
     status: str
     created_by: str | None
+    internal_notes: str = ""
     created_at: datetime
     updated_at: datetime
+
+
+class FeedbackTriageUpdate(BaseModel):
+    status: FeedbackStatus | None = None
+    severity: FeedbackSeverity | None = None
+    internal_notes: str | None = Field(default=None, max_length=20_000)
 
 
 class GenerationFeedbackCreate(BaseModel):
@@ -773,6 +784,17 @@ class AlphaDashboardRead(BaseModel):
     provider_errors: list[GenerationJobRead]
     feedback_items: list[FeedbackRead]
     recent_qa_failures: list[QAReportRead]
+
+
+class AlphaReadinessCheck(BaseModel):
+    name: str
+    status: Literal["pass", "warn", "fail"]
+    message: str
+
+
+class AlphaReadinessResult(BaseModel):
+    ready: bool
+    checks: list[AlphaReadinessCheck]
 
 
 class ImprovementReportMetric(BaseModel):

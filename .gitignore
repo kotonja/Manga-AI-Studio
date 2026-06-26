@@ -1,4 +1,5 @@
 .env
+.alpha-tokens.generated
 .venv/
 venv/
 __pycache__/

@@ -4,6 +4,14 @@ Date: 2026-06-26
 
 This document records the private-alpha baseline created from PR #1.
 
+Status:
+
+- Local demo is ready.
+- Controlled private alpha is ready with per-user tester tokens.
+- Public beta is not ready.
+- Production is not ready.
+- Mock art proves pipeline behavior, not final commercial art quality.
+
 ## Baseline
 
 - Merge commit SHA: `cb1d8a086f38f167395270f1968b5add4994949c`
@@ -76,6 +84,24 @@ Do not enable `TRUST_EXTERNAL_AUTH_HEADERS=true` on an API that is directly reac
 - Projects created through a per-user session are owned by that tester and hidden from other testers.
 - Admin pages require either a non-production dev admin flag or a signed admin session created with `ALPHA_ADMIN_TOKEN`.
 
+Generate tester tokens with:
+
+```powershell
+python scripts/create-alpha-token.py --user tester-a
+```
+
+Validate deployment env with:
+
+```powershell
+python scripts/check-alpha-env.py
+```
+
+Operator launch docs:
+
+- `docs/ALPHA_LAUNCH_PLAN.md`
+- `docs/TESTER_GUIDE.md`
+- `docs/ALPHA_OPERATOR_RUNBOOK.md`
+
 ## Known Blockers Before Public Beta or Production
 
 - Replace private-alpha auth with a real production auth provider or a hardened trusted auth proxy.
@@ -84,4 +110,3 @@ Do not enable `TRUST_EXTERNAL_AUTH_HEADERS=true` on an API that is directly reac
 - Add stronger operational monitoring, alerting, backup, and restore drills.
 - Continue security review of upload handling, export packages, object storage permissions, and admin routes.
 - Mock art proves pipeline, not final commercial art.
-

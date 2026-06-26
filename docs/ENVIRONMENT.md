@@ -6,7 +6,10 @@ Manga AI Studio uses environment variables for API, worker, web, database, queue
 
 - Development: copy `.env.example` to `.env` and run `docker compose up --build`.
 - Test: use `.env.test.example` as a reference. Tests default to SQLite and mock providers.
+- Alpha: use per-user `ALPHA_USER_TOKENS`, signed browser sessions, protected downloads, and `scripts/check-alpha-env.py` before inviting testers.
 - Production: copy `.env.prod.example` to `.env.prod`, replace all placeholder secrets, and use `docker-compose.prod.example.yml` as a starting point.
+
+Current status: local demo is ready, controlled private alpha is ready with per-user tester tokens, public beta is not ready, and production is not ready.
 
 ## Core
 
@@ -108,3 +111,30 @@ For multi-user private alpha, prefer `ALPHA_USER_TOKENS` or external auth. A use
 Local development keeps `ALPHA_AUTH_ENABLED=false`, which maps requests to the `local-dev` user so the one-command demo remains frictionless.
 
 When `AUTH_PROVIDER_MODE=external`, forwarded identity headers are ignored unless `TRUST_EXTERNAL_AUTH_HEADERS=true`. This mode is safe only behind a trusted proxy that removes any client-supplied spoofed identity/admin headers before injecting authenticated headers.
+
+## Alpha Operations Helpers
+
+Generate one tester token pair:
+
+```bash
+python scripts/create-alpha-token.py --user tester-a
+```
+
+Append a generated pair to the local gitignored `.alpha-tokens.generated` file:
+
+```bash
+python scripts/create-alpha-token.py --user tester-b --write
+```
+
+Validate alpha env:
+
+```bash
+python scripts/check-alpha-env.py
+make check-alpha-env
+```
+
+Run an API smoke test against a deployed alpha:
+
+```bash
+python scripts/alpha-smoke-test.py --base-url https://api.example.com --admin-token "$ALPHA_ADMIN_TOKEN" --tester-a-token "$TESTER_A_TOKEN" --tester-b-token "$TESTER_B_TOKEN"
+```

@@ -56,10 +56,18 @@ export function AlphaAdminDashboardView() {
               <p className="mt-2 text-sm text-muted-foreground">Tester health, failures, QA blockers, and feedback intake.</p>
             </div>
           </div>
-          <Button variant="outline" onClick={() => void loadDashboard()} disabled={isLoading}>
-            <RefreshCcw className="h-4 w-4" />
-            Refresh
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button asChild variant="outline">
+              <Link href="/admin/alpha-readiness">
+                <ShieldCheck className="h-4 w-4" />
+                Readiness
+              </Link>
+            </Button>
+            <Button variant="outline" onClick={() => void loadDashboard()} disabled={isLoading}>
+              <RefreshCcw className="h-4 w-4" />
+              Refresh
+            </Button>
+          </div>
         </header>
 
         {error ? <div className="rounded-md border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div> : null}
@@ -137,8 +145,12 @@ export function AlphaAdminDashboardView() {
                       <div>
                         <p className="font-medium">{item.title}</p>
                         <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
+                        {item.internal_notes ? <p className="mt-2 text-xs text-muted-foreground">Internal: {item.internal_notes}</p> : null}
                       </div>
-                      <Badge>{item.severity}</Badge>
+                      <div className="flex flex-col items-end gap-2">
+                        <Badge>{item.status}</Badge>
+                        <Badge className={item.severity === "blocker" || item.severity === "blocking" ? "border-destructive/40 bg-destructive/10 text-destructive" : ""}>{item.severity}</Badge>
+                      </div>
                     </div>
                     <p className="mt-2 text-xs text-muted-foreground">{new Date(item.created_at).toLocaleString()}</p>
                   </div>
