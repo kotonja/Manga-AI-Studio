@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from manga_api.evaluation import EVALUATION_SCENARIOS, MangaEvaluationRunner
 from manga_api.db import get_session
+from manga_api.config import get_settings
 from manga_api.storage import get_object_storage
 
 
@@ -65,7 +66,9 @@ def test_eval_runner_works_with_mock_provider(client, tmp_path) -> None:
     assert (tmp_path / "latest.md").exists()
 
 
-def test_eval_run_endpoint_returns_report(client) -> None:
+def test_eval_run_endpoint_returns_report(client, monkeypatch) -> None:
+    monkeypatch.setenv("ENABLE_DEV_ADMIN", "true")
+    get_settings.cache_clear()
     response = client.post(
         "/eval/run",
         json={"scenario": "comedy_slice_of_life", "provider": "mock", "write_reports": False},

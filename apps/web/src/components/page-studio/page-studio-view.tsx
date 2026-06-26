@@ -57,7 +57,7 @@ import type {
   ReadingDirection
 } from "@manga-ai/shared";
 
-import { apiFetch } from "@/lib/api";
+import { apiFetch, getApiBaseUrl } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -230,9 +230,10 @@ export function PageStudioView({ projectId, pageId }: { projectId: string; pageI
   const panelRenderUrls = useMemo(() => {
     const urls: Record<string, string> = {};
     if (selectedPanelId) {
-      const preferred = renderHistory.find((item) => item.approved && item.render.public_url) ?? renderHistory.find((item) => item.render.public_url);
-      if (preferred?.render.public_url) {
-        urls[selectedPanelId] = preferred.render.public_url;
+      const preferred = renderHistory.find((item) => item.approved && renderImageUrl(item.render)) ?? renderHistory.find((item) => renderImageUrl(item.render));
+      const preferredUrl = preferred ? renderImageUrl(preferred.render) : null;
+      if (preferredUrl) {
+        urls[selectedPanelId] = preferredUrl;
       }
     }
     for (const job of Object.values(jobsByPanel)) {
@@ -240,7 +241,7 @@ export function PageStudioView({ projectId, pageId }: { projectId: string; pageI
         continue;
       }
       const payloadUrl = typeof job.output_payload.public_url === "string" ? job.output_payload.public_url : null;
-      const url = job.render?.public_url ?? payloadUrl;
+      const url = job.render ? renderImageUrl(job.render) ?? payloadUrl : payloadUrl;
       if (url) {
         urls[job.panel_id] = url;
       }
@@ -1408,15 +1409,15 @@ export function PageStudioView({ projectId, pageId }: { projectId: string; pageI
                   <ImageIcon className="h-4 w-4" />
                   {isComposing ? "Composing" : "Compose Page"}
                 </Button>
-                {compositePage?.public_url ? (
+                {compositePage ? (
                   <>
                     <img
-                      src={compositePage.public_url}
+                      src={assetImageUrl(compositePage.id, compositePage.public_url)}
                       alt="Final composed manga page"
                       className="max-h-[360px] rounded-md border bg-white object-contain"
                     />
                     <Button asChild variant="outline">
-                      <a href={compositePage.public_url} download={compositePage.filename}>
+                      <a href={assetImageUrl(compositePage.id, compositePage.public_url)} download={compositePage.filename}>
                         <Download className="h-4 w-4" />
                         Download PNG
                       </a>
@@ -1568,8 +1569,8 @@ export function PageStudioView({ projectId, pageId }: { projectId: string; pageI
                       <div className="grid gap-3 sm:grid-cols-2">
                         {compareItems.map((item) => (
                           <div key={item.render.id} className="rounded-md border bg-muted/30 p-2">
-                            {item.render.public_url ? (
-                              <img src={item.render.public_url} alt="Compared panel render" className="h-52 w-full rounded-md bg-white object-contain" />
+                            {renderImageUrl(item.render) ? (
+                              <img src={renderImageUrl(item.render) ?? ""} alt="Compared panel render" className="h-52 w-full rounded-md bg-white object-contain" />
                             ) : (
                               <div className="flex h-52 items-center justify-center rounded-md bg-white text-sm text-muted-foreground">No preview</div>
                             )}
@@ -1604,8 +1605,8 @@ export function PageStudioView({ projectId, pageId }: { projectId: string; pageI
                               </Button>
                             </div>
                           </div>
-                          {item.render.public_url ? (
-                            <img src={item.render.public_url} alt="Panel render history item" className="mt-3 max-h-64 w-full rounded-md border bg-white object-contain" />
+                          {renderImageUrl(item.render) ? (
+                            <img src={renderImageUrl(item.render) ?? ""} alt="Panel render history item" className="mt-3 max-h-64 w-full rounded-md border bg-white object-contain" />
                           ) : null}
                         </div>
                       ))
@@ -1621,6 +1622,14 @@ export function PageStudioView({ projectId, pageId }: { projectId: string; pageI
       ) : null}
     </main>
   );
+}
+
+function assetImageUrl(assetId: string, publicUrl?: string | null) {
+  return publicUrl || `${getApiBaseUrl()}/assets/${assetId}/download`;
+}
+
+function renderImageUrl(render: { asset_id?: string | null; public_url?: string | null }) {
+  return render.public_url || (render.asset_id ? assetImageUrl(render.asset_id) : null);
 }
 
 function PanelButton({

@@ -2,37 +2,37 @@
   {
     "composite_asset": {
       "content_type": "image/png",
-      "created_at": "2026-06-25T18:25:39.344556+00:00",
+      "created_at": "2026-06-26T13:26:53.714522+00:00",
       "filename": "page-1-composite.png",
-      "id": "0386401a-c575-4a17-ba74-1da5e7f71017",
+      "id": "0b8fd4c0-59a7-4f94-89f3-e685b26a9f6e",
       "kind": "page_composite",
       "metadata_json": {
         "approved_render_asset_ids": {},
         "bleed": 40,
         "bubble_count": 3,
         "height": 1500,
-        "page_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+        "page_id": "2754562b-0768-407d-a3b1-49a6e1c5fe45",
         "page_number": 1,
         "panel_count": 3,
         "panel_render_asset_ids": {
-          "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da": "4f34a8d2-9c56-4edc-97af-85ca49595997",
-          "ae061013-893f-47a8-aebc-2bef51ab76fc": "8cc76223-48a0-43e2-8ca0-5221f7b07b1e",
-          "d80152a9-dbb4-4ec9-9e12-b186caf242a8": "ee38eaba-2fd2-4b2a-8532-a2ab93c85ec8"
+          "4fc798aa-7f22-469d-be5b-46da5e8e047a": "621ece9b-59d3-47d1-b41f-24f5f74ea527",
+          "d14023ce-3e5a-4a82-b458-a3e174cb9eb6": "08831096-cb9a-443e-a36e-1bbb23c63778",
+          "fb09b4eb-60b3-4afe-8483-80441626a81e": "4754b6ba-bf34-4bed-8fa5-db22d052201b"
         },
-        "public_url": "http://localhost:9000/manga-ai-dev/pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/52d8b6f8-16ad-4c2b-8801-3418a9450c72/composite-20260625182539324847.png",
+        "public_url": "",
         "reading_direction": "rtl",
         "safe_margin": 80,
         "sfx_count": 0,
         "width": 1000
       },
-      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-      "size_bytes": 38205,
-      "storage_key": "pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/52d8b6f8-16ad-4c2b-8801-3418a9450c72/composite-20260625182539324847.png",
-      "updated_at": "2026-06-25T18:25:39.344573+00:00"
+      "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+      "size_bytes": 90098,
+      "storage_key": "pages/aa81052c-3048-4c83-8336-60e5a5dbd5da/2754562b-0768-407d-a3b1-49a6e1c5fe45/composite-20260626132653686954.png",
+      "updated_at": "2026-06-26T13:26:53.714541+00:00"
     },
-    "created_at": "2026-06-25T18:25:37.297234+00:00",
+    "created_at": "2026-06-26T13:26:50.405127+00:00",
     "height": 1500,
-    "id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+    "id": "2754562b-0768-407d-a3b1-49a6e1c5fe45",
     "layout_json": {
       "bleed": 40,
       "qa_overlay_enabled": false,
@@ -40,44 +40,44 @@
       "safe_margin": 80
     },
     "page_number": 1,
-    "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-    "updated_at": "2026-06-25T18:25:37.297263+00:00",
+    "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+    "updated_at": "2026-06-26T13:26:50.405163+00:00",
     "width": 1000
   },
   {
     "composite_asset": {
       "content_type": "image/png",
-      "created_at": "2026-06-25T18:25:39.504948+00:00",
+      "created_at": "2026-06-26T13:26:53.937855+00:00",
       "filename": "page-2-composite.png",
-      "id": "340217cb-e495-4482-ae26-43bf3f46571e",
+      "id": "00b6d232-5a6b-4e4c-b4be-3751dd863dd9",
       "kind": "page_composite",
       "metadata_json": {
         "approved_render_asset_ids": {},
         "bleed": 40,
         "bubble_count": 3,
         "height": 1500,
-        "page_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+        "page_id": "a54fc632-628b-4036-a674-5f5fc8fc127e",
         "page_number": 2,
         "panel_count": 3,
         "panel_render_asset_ids": {
-          "66191c79-2995-4e88-b167-1bdde27a79b7": "b10e92f8-6124-48cb-aa30-f0e18453a20e",
-          "71f10212-dd8b-4e7d-aee2-2badbf87624f": "1037447f-85a3-425f-b795-e6afe04d2494",
-          "fe1881c5-9c4c-4392-ac4f-623f9855fc33": "3131cc2b-f700-46a2-a618-4d4bb916eced"
+          "92ffd8ef-83c0-48fc-afe6-ef42e21b0131": "e7826fde-f552-43e1-81af-5e617aaea761",
+          "b0c10343-1207-4cd6-a4dc-a1a00e225bb7": "b674a222-434c-4df3-af91-cee95b261468",
+          "dd003c20-e3ce-4600-8cf4-0b4d290fc250": "d5abf87d-5058-472b-b545-3907fe4f01e9"
         },
-        "public_url": "http://localhost:9000/manga-ai-dev/pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/e3f70bf4-8455-43f2-934e-a8e09665dd18/composite-20260625182539480545.png",
+        "public_url": "",
         "reading_direction": "rtl",
         "safe_margin": 80,
         "sfx_count": 0,
         "width": 1000
       },
-      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-      "size_bytes": 37279,
-      "storage_key": "pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/e3f70bf4-8455-43f2-934e-a8e09665dd18/composite-20260625182539480545.png",
-      "updated_at": "2026-06-25T18:25:39.504971+00:00"
+      "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+      "size_bytes": 93987,
+      "storage_key": "pages/aa81052c-3048-4c83-8336-60e5a5dbd5da/a54fc632-628b-4036-a674-5f5fc8fc127e/composite-20260626132653917471.png",
+      "updated_at": "2026-06-26T13:26:53.937892+00:00"
     },
-    "created_at": "2026-06-25T18:25:37.336269+00:00",
+    "created_at": "2026-06-26T13:26:50.421500+00:00",
     "height": 1500,
-    "id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+    "id": "a54fc632-628b-4036-a674-5f5fc8fc127e",
     "layout_json": {
       "bleed": 40,
       "qa_overlay_enabled": false,
@@ -85,44 +85,44 @@
       "safe_margin": 80
     },
     "page_number": 2,
-    "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-    "updated_at": "2026-06-25T18:25:37.336301+00:00",
+    "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+    "updated_at": "2026-06-26T13:26:50.421526+00:00",
     "width": 1000
   },
   {
     "composite_asset": {
       "content_type": "image/png",
-      "created_at": "2026-06-25T18:25:39.740315+00:00",
+      "created_at": "2026-06-26T13:26:54.180155+00:00",
       "filename": "page-3-composite.png",
-      "id": "c2bbeeb4-e5fa-48ef-810f-e7261263d850",
+      "id": "636ccbaf-f89f-4b33-94ba-13622012d887",
       "kind": "page_composite",
       "metadata_json": {
         "approved_render_asset_ids": {},
         "bleed": 40,
         "bubble_count": 3,
         "height": 1500,
-        "page_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
+        "page_id": "21efdd1a-914f-418c-8654-ce1d014c00be",
         "page_number": 3,
         "panel_count": 3,
         "panel_render_asset_ids": {
-          "2cdb27fb-e4a5-43a7-ab89-6c3659d46772": "cba43a85-f6ce-43cb-81f4-7a9d8f46ac5f",
-          "366088ce-7ab3-4cff-b33d-520fa0436554": "4a8ddbe6-1331-4307-93df-983cfb51c060",
-          "6d532c46-3086-4b13-80f8-647ea66eb7ff": "7f46256c-475b-43b6-ad10-553ccadc51cc"
+          "d659613d-3609-41dd-91c7-3708649342f1": "cc363d11-cead-4e56-8dfb-bb957f352ca3",
+          "e9e4b67b-b989-4856-ae34-7d99f65a8d97": "e32058ed-50d3-43ed-b490-1639c37be7e2",
+          "ef9db3b1-60d0-4212-9897-393c931be269": "a0192c6d-d182-4b7c-b63f-148aef522b38"
         },
-        "public_url": "http://localhost:9000/manga-ai-dev/pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/5600e2a5-7216-4a97-8897-7b3b22a0db74/composite-20260625182539720704.png",
+        "public_url": "",
         "reading_direction": "rtl",
         "safe_margin": 80,
         "sfx_count": 0,
         "width": 1000
       },
-      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-      "size_bytes": 38354,
-      "storage_key": "pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/5600e2a5-7216-4a97-8897-7b3b22a0db74/composite-20260625182539720704.png",
-      "updated_at": "2026-06-25T18:25:39.740365+00:00"
+      "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+      "size_bytes": 86396,
+      "storage_key": "pages/aa81052c-3048-4c83-8336-60e5a5dbd5da/21efdd1a-914f-418c-8654-ce1d014c00be/composite-20260626132654155823.png",
+      "updated_at": "2026-06-26T13:26:54.180197+00:00"
     },
-    "created_at": "2026-06-25T18:25:37.358244+00:00",
+    "created_at": "2026-06-26T13:26:50.431892+00:00",
     "height": 1500,
-    "id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
+    "id": "21efdd1a-914f-418c-8654-ce1d014c00be",
     "layout_json": {
       "bleed": 40,
       "qa_overlay_enabled": false,
@@ -130,44 +130,44 @@
       "safe_margin": 80
     },
     "page_number": 3,
-    "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-    "updated_at": "2026-06-25T18:25:37.358283+00:00",
+    "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+    "updated_at": "2026-06-26T13:26:50.431918+00:00",
     "width": 1000
   },
   {
     "composite_asset": {
       "content_type": "image/png",
-      "created_at": "2026-06-25T18:25:40.015931+00:00",
+      "created_at": "2026-06-26T13:26:54.454443+00:00",
       "filename": "page-4-composite.png",
-      "id": "c17c2dac-b455-4ae9-b81f-1be7ae35910c",
+      "id": "f4fe8b5a-f00c-45f5-97fb-6fad6a73f9bc",
       "kind": "page_composite",
       "metadata_json": {
         "approved_render_asset_ids": {},
         "bleed": 40,
         "bubble_count": 3,
         "height": 1500,
-        "page_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+        "page_id": "a9123cfa-cbe6-4976-8a8b-38dc6e3c64ff",
         "page_number": 4,
         "panel_count": 3,
         "panel_render_asset_ids": {
-          "acd4ac22-6043-40e2-8e85-010d0c548fac": "07467253-9f14-484b-8585-b8dc51954bc4",
-          "d834655f-da16-40ed-9bf8-96046b52052a": "8a74ea91-ca00-4f24-a5fa-3c802d261dfd",
-          "ebc49b67-4586-44f3-bf1c-97d0e2d61e22": "6b6f5bd5-3a93-42be-b122-1b7e2f09fd7f"
+          "0776ee22-799c-46a9-839a-1435064fbfea": "7d582016-79f6-43d3-b79e-9c0176607ce0",
+          "a23e92ed-4221-4123-9812-116ecbeb61d6": "cb267fe1-eaf3-422f-b56e-e0c3d9107ddc",
+          "ee2e2364-0045-4348-b16d-ab75c4590cb8": "377f2bac-78d1-4722-85e9-af16ebab3f6c"
         },
-        "public_url": "http://localhost:9000/manga-ai-dev/pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/9ef3363f-49b9-49fe-92ba-af7a989ac71c/composite-20260625182539975477.png",
+        "public_url": "",
         "reading_direction": "rtl",
         "safe_margin": 80,
         "sfx_count": 0,
         "width": 1000
       },
-      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-      "size_bytes": 39666,
-      "storage_key": "pages/25dcbb01-453d-4b8b-a1f9-e674d05017fa/9ef3363f-49b9-49fe-92ba-af7a989ac71c/composite-20260625182539975477.png",
-      "updated_at": "2026-06-25T18:25:40.015958+00:00"
+      "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+      "size_bytes": 100611,
+      "storage_key": "pages/aa81052c-3048-4c83-8336-60e5a5dbd5da/a9123cfa-cbe6-4976-8a8b-38dc6e3c64ff/composite-20260626132654420591.png",
+      "updated_at": "2026-06-26T13:26:54.454484+00:00"
     },
-    "created_at": "2026-06-25T18:25:37.378892+00:00",
+    "created_at": "2026-06-26T13:26:50.441080+00:00",
     "height": 1500,
-    "id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+    "id": "a9123cfa-cbe6-4976-8a8b-38dc6e3c64ff",
     "layout_json": {
       "bleed": 40,
       "qa_overlay_enabled": false,
@@ -175,8 +175,8 @@
       "safe_margin": 80
     },
     "page_number": 4,
-    "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-    "updated_at": "2026-06-25T18:25:37.378910+00:00",
+    "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+    "updated_at": "2026-06-26T13:26:50.441103+00:00",
     "width": 1000
   }
 ]

@@ -73,6 +73,7 @@ def create_full_demo_project(
     reading_direction: str = "rtl",
     render_provider: str = "mock",
     allow_mock_assets: bool = True,
+    owner_user_id: str = "local-dev",
     style_profile: dict[str, Any] | None = None,
     event_callback: DemoEventCallback | None = None,
 ) -> DemoPipelineCreated:
@@ -93,6 +94,7 @@ def create_full_demo_project(
         project.style_prompt = style_prompt
     else:
         project = Project(
+            owner_user_id=owner_user_id,
             name=str(style_profile.get("project_name", "Ghost Lantern")),
             description=premise,
             style_prompt=style_prompt,
@@ -803,40 +805,35 @@ def demo_page_specs(page_count: int = 4) -> list[dict[str, Any]]:
 
 
 def with_final_boss_panel_geometry(pages: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Normalize the demo to the final-boss evidence contract: 4 pages, 3 panels each."""
+    """Normalize the demo to the evidence contract while varying page rhythm."""
 
-    geometry = [
-        {
-            "x": 80,
-            "y": 100,
-            "width": 840,
-            "height": 360,
-            "bubble_dx": 40,
-            "bubble_dy": 32,
-            "bubble_width": 430,
-            "bubble_height": 86,
-        },
-        {
-            "x": 80,
-            "y": 560,
-            "width": 840,
-            "height": 360,
-            "bubble_dx": 470,
-            "bubble_dy": 52,
-            "bubble_width": 320,
-            "bubble_height": 112,
-        },
-        {
-            "x": 80,
-            "y": 1020,
-            "width": 840,
-            "height": 360,
-            "bubble_dx": 42,
-            "bubble_dy": 40,
-            "bubble_width": 430,
-            "bubble_height": 90,
-        },
+    fallback_geometry = [
+        {"x": 80, "y": 100, "width": 840, "height": 460, "bubble_dx": 40, "bubble_dy": 34, "bubble_width": 430, "bubble_height": 88},
+        {"x": 80, "y": 660, "width": 400, "height": 640, "bubble_dx": 36, "bubble_dy": 42, "bubble_width": 292, "bubble_height": 112},
+        {"x": 520, "y": 660, "width": 400, "height": 640, "bubble_dx": 40, "bubble_dy": 424, "bubble_width": 300, "bubble_height": 100},
     ]
+    geometry_by_page: dict[int, list[dict[str, int]]] = {
+        1: [
+            {"x": 80, "y": 100, "width": 840, "height": 560, "bubble_dx": 42, "bubble_dy": 40, "bubble_width": 470, "bubble_height": 92},
+            {"x": 80, "y": 760, "width": 410, "height": 560, "bubble_dx": 54, "bubble_dy": 48, "bubble_width": 280, "bubble_height": 122},
+            {"x": 530, "y": 760, "width": 390, "height": 560, "bubble_dx": 42, "bubble_dy": 392, "bubble_width": 292, "bubble_height": 104},
+        ],
+        2: [
+            {"x": 80, "y": 100, "width": 410, "height": 1220, "bubble_dx": 34, "bubble_dy": 40, "bubble_width": 316, "bubble_height": 96},
+            {"x": 530, "y": 100, "width": 390, "height": 560, "bubble_dx": 42, "bubble_dy": 52, "bubble_width": 286, "bubble_height": 122},
+            {"x": 530, "y": 760, "width": 390, "height": 560, "bubble_dx": 40, "bubble_dy": 380, "bubble_width": 292, "bubble_height": 108},
+        ],
+        3: [
+            {"x": 80, "y": 100, "width": 840, "height": 720, "bubble_dx": 424, "bubble_dy": 52, "bubble_width": 352, "bubble_height": 126},
+            {"x": 80, "y": 900, "width": 840, "height": 230, "bubble_dx": 44, "bubble_dy": 34, "bubble_width": 390, "bubble_height": 84},
+            {"x": 80, "y": 1210, "width": 840, "height": 150, "bubble_dx": 486, "bubble_dy": 24, "bubble_width": 320, "bubble_height": 84},
+        ],
+        4: [
+            {"x": 80, "y": 100, "width": 840, "height": 360, "bubble_dx": 380, "bubble_dy": 42, "bubble_width": 400, "bubble_height": 118},
+            {"x": 80, "y": 560, "width": 360, "height": 760, "bubble_dx": 42, "bubble_dy": 42, "bubble_width": 270, "bubble_height": 110},
+            {"x": 480, "y": 560, "width": 440, "height": 760, "bubble_dx": 42, "bubble_dy": 574, "bubble_width": 330, "bubble_height": 104},
+        ],
+    }
     extra_panels = {
         1: {
             "order": 3,
@@ -897,7 +894,9 @@ def with_final_boss_panel_geometry(pages: list[dict[str, Any]]) -> list[dict[str
     }
 
     for page in pages:
+        geometry = geometry_by_page.get(page["page_number"], fallback_geometry)
         for index, panel in enumerate(page["panels"]):
             panel.update(geometry[index])
-        page["panels"].append({**extra_panels[page["page_number"]], **geometry[2]})
+        extra_key = page["page_number"] if page["page_number"] in extra_panels else ((page["page_number"] - 1) % 4) + 1
+        page["panels"].append({**extra_panels[extra_key], **geometry[2]})
     return pages

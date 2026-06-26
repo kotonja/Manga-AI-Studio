@@ -52,6 +52,8 @@ Manga AI Studio uses environment variables for API, worker, web, database, queue
 | `S3_SECRET_ACCESS_KEY` | yes | Store securely. |
 | `S3_BUCKET_NAME` | yes | Bucket for renders, composites, exports. |
 | `S3_REGION` | yes | Region string, `us-east-1` for MinIO. |
+| `S3_PUBLIC_READ_ENABLED` | alpha/prod | Defaults to `false`; only set `true` if bucket/CDN public reads are intentionally allowed. |
+| `ASSET_DOWNLOAD_MODE` | alpha/prod | Use `proxy` for protected API downloads. `public_url` is only honored when public reads are explicitly enabled. |
 
 ## Provider Configuration
 
@@ -77,12 +79,14 @@ Manga AI Studio uses environment variables for API, worker, web, database, queue
 | Variable | Required | Notes |
 | --- | --- | --- |
 | `ALPHA_AUTH_ENABLED` | alpha/prod | Enables the simple local alpha gate for the web app and sensitive API endpoints. |
-| `ALPHA_SHARED_PASSWORD` | alpha | Shared tester password for local/private alpha only. |
+| `ALPHA_SHARED_PASSWORD` | alpha | Shared tester password for a single shared `alpha-user` account only; it does not isolate testers from each other. |
+| `ALPHA_USER_TOKENS` | alpha | Optional comma-separated `user_id:token` pairs for per-user API and browser-login ownership isolation. |
 | `ALPHA_ADMIN_TOKEN` | optional | Token for protected admin API calls when `ENABLE_DEV_ADMIN=false`. |
-| `ALPHA_SESSION_SECRET` | alpha | Long random value stored in the browser session cookie after local alpha login. |
+| `ALPHA_SESSION_SECRET` | alpha | Required for browser login when alpha auth is enabled. Used to sign `manga_alpha_session` cookies; never falls back to `ALPHA_SHARED_PASSWORD`. |
 | `AUTH_PROVIDER_MODE` | prod | Use `local` for dev alpha, `external` behind a real auth provider or reverse proxy. |
 | `AUTH_PROVIDER_NAME` | prod | Human-readable provider label. |
 | `AUTH_FORWARDED_USER_HEADER` | prod | Trusted identity header set by the upstream auth proxy, for example `X-Authenticated-User`. |
+| `TRUST_EXTERNAL_AUTH_HEADERS` | prod | Defaults to `false`. Set `true` only when the API is behind a trusted proxy that strips spoofed incoming auth headers and injects authenticated identity headers. |
 | `AUTH_JWKS_URL` | future | Placeholder for direct JWT/JWKS validation. Prefer reverse-proxy auth until implemented. |
 | `AUTH_ISSUER` | future | JWT issuer metadata for provider integrations. |
 | `AUTH_AUDIENCE` | future | JWT audience metadata for provider integrations. |
@@ -92,3 +96,15 @@ Manga AI Studio uses environment variables for API, worker, web, database, queue
 ## Secret Loading
 
 The backend supports Pydantic settings and file-based secret loading through `SECRETS_DIR`. In container platforms, mount secret files named after the field, for example `database_url` or `s3_secret_access_key`, set `SECRETS_DIR=/run/secrets`, or inject environment variables through the platform secret manager.
+
+## Alpha Ownership
+
+When `ALPHA_AUTH_ENABLED=true`, the backend resolves the current user from `X-Alpha-Token`, `Authorization: Bearer ...`, a signed `manga_alpha_session` cookie set by the web alpha login, the admin token, or a trusted forwarded identity header in external-auth mode. Projects are stamped with `owner_user_id`, project lists are filtered by owner, and page/panel/job/export/asset routes verify ownership before returning data.
+
+The browser cookie format is `v1.<base64url_json_payload>.<base64url_hmac_sha256_signature>`, signed with `ALPHA_SESSION_SECRET`. The payload contains `user_id`, `is_admin`, `iat`, and `exp`. Expired, malformed, unsigned, or invalid-signature cookies are rejected. Browser login requires `ALPHA_SESSION_SECRET` when alpha auth is enabled.
+
+For multi-user private alpha, prefer `ALPHA_USER_TOKENS` or external auth. A user who enters the token for `tester-a:long-token-a` receives a signed session with `user_id=tester-a`. `ALPHA_SHARED_PASSWORD` remains available for small demos, but all users share the same `alpha-user` identity and therefore do not get per-tester project isolation.
+
+Local development keeps `ALPHA_AUTH_ENABLED=false`, which maps requests to the `local-dev` user so the one-command demo remains frictionless.
+
+When `AUTH_PROVIDER_MODE=external`, forwarded identity headers are ignored unless `TRUST_EXTERNAL_AUTH_HEADERS=true`. This mode is safe only behind a trusted proxy that removes any client-supplied spoofed identity/admin headers before injecting authenticated headers.

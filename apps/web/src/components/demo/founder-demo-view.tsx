@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   BookOpen,
@@ -107,7 +106,6 @@ const directions: ReadingDirection[] = ["rtl", "ltr", "vertical-rl"];
 const providers: ProviderName[] = ["mock", "openai", "comfyui"];
 
 export function FounderDemoView() {
-  const router = useRouter();
   const [draft, setDraft] = useState<FounderDemoRunRequest>({
     premise,
     style_option: "ruined_ink_elegy",
@@ -291,12 +289,6 @@ export function FounderDemoView() {
     }
   }
 
-  function openStudio() {
-    if (projectId) {
-      router.push(`/projects/${projectId}`);
-    }
-  }
-
   return (
     <main className="min-h-screen bg-[#f7f4ed] text-foreground">
       <section className="relative overflow-hidden bg-[#111417] text-white">
@@ -445,9 +437,18 @@ export function FounderDemoView() {
             <CardContent className="flex flex-col gap-2">
               <ExportButton label="ZIP Package" icon="zip" exportId={exportIds.zip} />
               <ExportButton label="PDF Draft" icon="pdf" exportId={exportIds.pdf} />
-              <Button variant="outline" onClick={openStudio} disabled={!projectId}>
-                <PanelTop className="h-4 w-4" />
-                Open in Studio
+              <Button asChild={Boolean(projectId)} variant="outline" disabled={!projectId}>
+                {projectId ? (
+                  <Link href={`/projects/${projectId}`}>
+                    <PanelTop className="h-4 w-4" />
+                    Open in Studio
+                  </Link>
+                ) : (
+                  <span>
+                    <PanelTop className="h-4 w-4" />
+                    Open in Studio
+                  </span>
+                )}
               </Button>
             </CardContent>
           </Card>
@@ -625,8 +626,8 @@ function PageThumb({
   return (
     <Link href={`/projects/${projectId}/pages/${page.id}/studio`} className="group rounded-md border bg-white p-2 transition-colors hover:border-primary/60">
       <div className="relative aspect-[2/3] overflow-hidden rounded-md bg-[#f8f8f1]">
-        {composite?.public_url ? (
-          <img src={composite.public_url} alt={`Composed page ${page.page_number}`} className="h-full w-full object-cover" />
+        {composite ? (
+          <img src={assetImageUrl(composite.id, composite.public_url)} alt={`Composed page ${page.page_number}`} className="h-full w-full object-cover" />
         ) : (
           <div className="h-full w-full p-3">
             {page.panels.map((panel) => (
@@ -652,6 +653,10 @@ function PageThumb({
       </div>
     </Link>
   );
+}
+
+function assetImageUrl(assetId: string, publicUrl?: string | null) {
+  return publicUrl || `${getApiBaseUrl()}/assets/${assetId}/download`;
 }
 
 function EmptyPreview({ title, body }: { title: string; body: string }) {

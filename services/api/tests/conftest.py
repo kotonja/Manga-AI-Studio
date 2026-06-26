@@ -12,6 +12,7 @@ os.environ["ENABLE_BACKGROUND_JOBS"] = "false"
 from manga_api.db import get_session  # noqa: E402
 from manga_api.main import app  # noqa: E402
 from manga_api import models  # noqa: E402,F401
+from manga_api.config import get_settings  # noqa: E402
 from manga_api.storage import get_object_storage  # noqa: E402
 
 
@@ -30,6 +31,13 @@ class MemoryObjectStorage:
 
     def check(self) -> None:
         return None
+
+
+@pytest.fixture(autouse=True)
+def clear_settings_cache() -> Generator[None, None, None]:
+    get_settings.cache_clear()
+    yield
+    get_settings.cache_clear()
 
 
 @pytest.fixture()

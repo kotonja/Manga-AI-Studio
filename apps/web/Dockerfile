@@ -19,6 +19,7 @@ FROM base AS deps
 RUN pnpm install --frozen-lockfile
 
 FROM deps AS builder
+ENV NEXT_OUTPUT_STANDALONE=true
 COPY apps/web ./apps/web
 COPY packages/shared ./packages/shared
 RUN pnpm --filter @manga-ai/web build

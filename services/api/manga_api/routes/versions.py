@@ -5,19 +5,19 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
 
+from manga_api.access import require_project_access, require_version_project_access
+from manga_api.auth import require_alpha_user
 from manga_api.db import get_session
 from manga_api.models import Project
 from manga_api.schemas import CheckpointCreate, VersionDiffResult, VersionRead, VersionRestoreResult
 from manga_api.versioning import VersioningService
 
-router = APIRouter(tags=["versions"])
+router = APIRouter(tags=["versions"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.get("/projects/{project_id}/versions", response_model=list[VersionRead])
 def list_project_versions(project_id: uuid.UUID, session: Session = Depends(get_session)) -> list:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    require_project_access(session, project_id)
     return VersioningService(session).list_project_versions(project_id)
 
 
@@ -27,9 +27,7 @@ def create_project_checkpoint(
     payload: CheckpointCreate,
     session: Session = Depends(get_session),
 ) -> list:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    require_project_access(session, project_id)
     try:
         return VersioningService(session).create_checkpoint(
             project_id,
@@ -44,7 +42,10 @@ def create_project_checkpoint(
 @router.post("/versions/{version_id}/restore", response_model=VersionRestoreResult)
 def restore_version(version_id: uuid.UUID, session: Session = Depends(get_session)) -> dict:
     try:
-        version = VersioningService(session).restore_snapshot(version_id)
+        service = VersioningService(session)
+        version = service.get_version(version_id)
+        require_version_project_access(session, version)
+        version = service.restore_snapshot(version_id)
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
     return {"restored_version": version}
@@ -53,6 +54,11 @@ def restore_version(version_id: uuid.UUID, session: Session = Depends(get_sessio
 @router.get("/versions/{version_a}/diff/{version_b}", response_model=VersionDiffResult)
 def diff_versions(version_a: uuid.UUID, version_b: uuid.UUID, session: Session = Depends(get_session)) -> dict:
     try:
-        return VersioningService(session).diff_versions(version_a, version_b)
+        service = VersioningService(session)
+        first = service.get_version(version_a)
+        second = service.get_version(version_b)
+        require_version_project_access(session, first)
+        require_version_project_access(session, second)
+        return service.diff_versions(version_a, version_b)
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc

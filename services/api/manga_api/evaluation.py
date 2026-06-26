@@ -228,6 +228,7 @@ class MangaEvaluationRunner:
         started = time.perf_counter()
         failures: list[str] = []
         project = Project(
+            owner_user_id="eval-runner",
             name=f"Eval - {scenario.name}",
             description=scenario.premise,
             style_prompt=f"{', '.join(scenario.genre)} manga, {scenario.tone}",

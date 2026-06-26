@@ -5,6 +5,8 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
+from manga_api.access import require_project_access
+from manga_api.auth import require_alpha_user
 from manga_api.commands import CommandInterpreter
 from manga_api.db import get_session
 from manga_api.models import CommandHistory, Project
@@ -17,7 +19,7 @@ from manga_api.schemas import (
 )
 from manga_api.storage import get_object_storage
 
-router = APIRouter(tags=["commands"])
+router = APIRouter(tags=["commands"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.post("/commands/interpret", response_model=CommandInterpretResult, status_code=status.HTTP_201_CREATED)
@@ -25,6 +27,7 @@ def interpret_command(
     payload: CommandInterpretRequest,
     session: Session = Depends(get_session),
 ) -> CommandInterpretResult:
+    require_project_access(session, payload.project_id)
     try:
         return CommandInterpreter(session).interpret(payload, persist=True)
     except ValueError as exc:
@@ -37,6 +40,7 @@ def execute_command(
     session: Session = Depends(get_session),
     storage=Depends(get_object_storage),
 ) -> CommandExecuteResult:
+    require_project_access(session, payload.project_id)
     try:
         result = CommandInterpreter(session, storage).execute(payload)
     except ValueError as exc:
@@ -52,9 +56,7 @@ def list_project_commands(
     session: Session = Depends(get_session),
     limit: int = 20,
 ) -> list[CommandHistory]:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    require_project_access(session, project_id)
     bounded_limit = max(1, min(100, limit))
     return list(
         session.exec(

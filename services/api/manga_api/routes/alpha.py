@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlmodel import Session
 
-from manga_api.auth import public_alpha_auth_info, require_alpha_user
+from manga_api.access import require_page_access, require_panel_access, require_project_access
+from manga_api.auth import public_alpha_auth_info, require_alpha_user, resolve_alpha_user
 from manga_api.db import get_session
 from manga_api.models import FeedbackItem
 from manga_api.schemas import AlphaOnboardingInfo, FeedbackCreate, FeedbackRead
@@ -63,10 +64,19 @@ def submit_feedback(
     session: Session = Depends(get_session),
 ) -> FeedbackItem:
     principal = None
-    try:
-        principal = require_alpha_user(request)
-    except Exception:
-        principal = None
+    if payload.project_id is not None or payload.page_id is not None or payload.panel_id is not None:
+        principal = resolve_alpha_user(request)
+        if payload.project_id is not None:
+            require_project_access(session, payload.project_id, principal)
+        if payload.page_id is not None:
+            require_page_access(session, payload.page_id, principal)
+        if payload.panel_id is not None:
+            require_panel_access(session, payload.panel_id, principal)
+    else:
+        try:
+            principal = resolve_alpha_user(request)
+        except HTTPException:
+            principal = None
     item = FeedbackItem(
         project_id=payload.project_id,
         page_id=payload.page_id,

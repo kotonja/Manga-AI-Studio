@@ -5,15 +5,18 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
 
+from manga_api.access import require_page_access, require_panel_access
+from manga_api.auth import require_alpha_user
 from manga_api.db import get_session
 from manga_api.reference_pack import ReferencePackBuilder
 from manga_api.schemas import PageReferencePacksRead, ReferencePackRead
 
-router = APIRouter(tags=["consistency"])
+router = APIRouter(tags=["consistency"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.get("/panels/{panel_id}/reference-pack", response_model=ReferencePackRead)
 def get_panel_reference_pack(panel_id: uuid.UUID, session: Session = Depends(get_session)) -> dict:
+    require_panel_access(session, panel_id)
     try:
         return ReferencePackBuilder(session).build_for_panel(panel_id)
     except ValueError as exc:
@@ -22,6 +25,7 @@ def get_panel_reference_pack(panel_id: uuid.UUID, session: Session = Depends(get
 
 @router.get("/pages/{page_id}/reference-packs", response_model=PageReferencePacksRead)
 def get_page_reference_packs(page_id: uuid.UUID, session: Session = Depends(get_session)) -> dict:
+    require_page_access(session, page_id)
     try:
         return ReferencePackBuilder(session).build_page_summary(page_id)
     except ValueError as exc:

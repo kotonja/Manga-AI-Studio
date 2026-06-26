@@ -20,6 +20,7 @@ class Project(TimestampMixin, table=True):
     __tablename__ = "projects"
 
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    owner_user_id: str = Field(default="local-dev", max_length=160, index=True)
     name: str = Field(min_length=1, max_length=160, index=True)
     description: str | None = Field(default=None, sa_column=Column(Text, nullable=True))
     style_prompt: str | None = Field(default=None, max_length=4000)

@@ -32,6 +32,22 @@ On Windows PowerShell, run the `docker compose ...` commands directly. The `scri
 - `sh scripts/seed-demo.sh`: calls the demo endpoint.
 - `sh scripts/smoke-frontend.sh`: checks key frontend routes against a running stack.
 
+## Frontend Smoke Tests
+
+The Playwright smoke suite starts Next on port `3100` and mocks the API boundary. It covers the dashboard, one-click Founder Demo, project detail, Story Room, Page Studio, and Publishing Room.
+
+```bash
+pnpm --filter @manga-ai/web exec playwright install chromium
+pnpm --filter @manga-ai/web smoke
+```
+
+On Windows certificate-managed networks, browser install may need:
+
+```powershell
+$env:NODE_OPTIONS="--use-system-ca"
+pnpm --filter @manga-ai/web exec playwright install chromium
+```
+
 ## Make Targets
 
 ```bash

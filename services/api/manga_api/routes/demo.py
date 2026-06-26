@@ -3,6 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
 
+from manga_api.auth import UserPrincipal, require_alpha_user
 from manga_api.config import get_settings
 from manga_api.db import get_session
 from manga_api.demo_pipeline import DemoPipelineError, create_full_demo_project
@@ -11,16 +12,17 @@ from manga_api.queue import enqueue_founder_demo_run
 from manga_api.schemas import DemoPipelineResult, FounderDemoRunRequest, FounderDemoRunResponse, ProjectRead
 from manga_api.storage import ObjectStorage, get_object_storage
 
-router = APIRouter(tags=["demo"])
+router = APIRouter(tags=["demo"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.post("/demo/create-full-project", response_model=DemoPipelineResult, status_code=status.HTTP_201_CREATED)
 def create_demo_full_project(
     session: Session = Depends(get_session),
     storage: ObjectStorage = Depends(get_object_storage),
+    principal: UserPrincipal = Depends(require_alpha_user),
 ) -> DemoPipelineResult:
     try:
-        result = create_full_demo_project(session, storage)
+        result = create_full_demo_project(session, storage, owner_user_id=principal.user_id)
     except DemoPipelineError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc)) from exc
 
@@ -42,9 +44,10 @@ def create_founder_demo_run(
     payload: FounderDemoRunRequest,
     session: Session = Depends(get_session),
     storage: ObjectStorage = Depends(get_object_storage),
+    principal: UserPrincipal = Depends(require_alpha_user),
 ) -> FounderDemoRunResponse:
     try:
-        job = create_founder_demo_job(session, payload)
+        job = create_founder_demo_job(session, payload, owner_user_id=principal.user_id)
         if get_settings().enable_background_jobs:
             enqueue_founder_demo_run(str(job.id))
         else:

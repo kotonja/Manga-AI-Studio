@@ -18,14 +18,23 @@ Manga AI Studio alpha is intended for a small tester group validating the comple
 
 ## Auth for Alpha
 
-Local development can run without auth. For private alpha, set:
+Local development can run without auth. Requests map to a local `local-dev` user so one-command demo runs stay simple.
+
+For private alpha, set:
 
 ```bash
 ALPHA_AUTH_ENABLED=true
 ALPHA_SHARED_PASSWORD=change-me
+ALPHA_USER_TOKENS=tester-a:long-token-a,tester-b:long-token-b
 ALPHA_SESSION_SECRET=change-me-to-a-long-random-value
 ENABLE_DEV_ADMIN=false
+S3_PUBLIC_READ_ENABLED=false
+ASSET_DOWNLOAD_MODE=proxy
 ```
+
+With alpha auth enabled, the web login sets a signed `manga_alpha_session` cookie and browser API requests include credentials. The cookie is signed with `ALPHA_SESSION_SECRET` and carries `user_id`, `is_admin`, `iat`, and `exp`; malformed, expired, unsigned, or invalid-signature cookies are rejected. API clients can also use `X-Alpha-Token` or `Authorization: Bearer ...`. Projects are owner-scoped: project lists, project detail, pages, panels, jobs, exports, asset downloads, provenance, and related nested resources verify ownership before returning data. General feedback without project/page/panel context remains public so testers can report onboarding or login issues.
+
+For multi-user private alpha, use `ALPHA_USER_TOKENS` or external auth. If a tester logs in with the token for `tester-a:long-token-a`, browser-created projects are owned by `tester-a`; `tester-b` receives a separate signed session and cannot access tester A's projects. `ALPHA_SHARED_PASSWORD` maps every browser login to the same shared `alpha-user` account and is only suitable for tiny demos where tester isolation is not required.
 
 Admin API access can use `ENABLE_DEV_ADMIN=true` in local development only. Production should connect a real auth provider or trusted reverse-proxy identity header:
 
@@ -33,7 +42,10 @@ Admin API access can use `ENABLE_DEV_ADMIN=true` in local development only. Prod
 AUTH_PROVIDER_MODE=external
 AUTH_PROVIDER_NAME=your-auth-provider
 AUTH_FORWARDED_USER_HEADER=X-Authenticated-User
+TRUST_EXTERNAL_AUTH_HEADERS=true
 ```
+
+Only set `TRUST_EXTERNAL_AUTH_HEADERS=true` when the API is behind a trusted proxy that strips spoofed incoming identity/admin headers and injects authenticated identity headers itself. Without that switch, forwarded auth headers are rejected.
 
 Never commit real passwords, API keys, or provider tokens.
 
@@ -74,8 +86,8 @@ The feedback form automatically attaches current route context when it can detec
 
 ## Known Limitations
 
-- No multi-user collaboration or per-user project ownership yet.
-- Local alpha auth is intentionally simple; use a real provider for production.
+- No multi-user collaboration yet; ownership is isolation-oriented rather than a sharing/collaboration model.
+- Local alpha auth is intentionally simple; use a real provider or trusted auth proxy for production.
 - Real provider calls depend on external configuration and may cost money.
 - Visual consistency and multimodal QA are still placeholder/mock-first.
 - Export packages are MVP-standard skeletons, not full marketplace certification.

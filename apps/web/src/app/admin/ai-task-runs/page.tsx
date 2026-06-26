@@ -1,20 +1,13 @@
 import { notFound } from "next/navigation";
 
 import { AITaskRunsAdminView } from "@/components/admin/ai-task-runs-admin-view";
+import { isAdminAccessAllowed } from "@/lib/admin-access";
 
 export const dynamic = "force-dynamic";
 
-export default function AITaskRunsAdminPage() {
-  if (!isDevAdminEnabled()) {
+export default async function AITaskRunsAdminPage() {
+  if (!(await isAdminAccessAllowed())) {
     notFound();
   }
   return <AITaskRunsAdminView />;
-}
-
-function isDevAdminEnabled() {
-  return (
-    process.env.NEXT_PUBLIC_ENABLE_DEV_ADMIN === "true" ||
-    process.env.ENABLE_DEV_ADMIN === "true" ||
-    process.env.NODE_ENV === "development" && process.env.NEXT_PUBLIC_ENABLE_DEV_ADMIN === "local"
-  );
 }

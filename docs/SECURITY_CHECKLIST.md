@@ -18,6 +18,12 @@ Use this checklist before exposing Manga AI Studio outside local development.
 - [ ] `API_CORS_ORIGINS` contains only trusted web origins.
 - [ ] `ENABLE_DEV_ADMIN=false`.
 - [ ] `NEXT_PUBLIC_ENABLE_DEV_ADMIN=false`.
+- [ ] `ALPHA_AUTH_ENABLED=true` for private alpha or production-like deployments.
+- [ ] `ALPHA_SESSION_SECRET` is set to a long random secret for browser login; `ALPHA_SHARED_PASSWORD` is not used as a cookie secret.
+- [ ] `ALPHA_USER_TOKENS`, `ALPHA_SHARED_PASSWORD`, and `ALPHA_ADMIN_TOKEN` are stored as secrets and rotated before inviting testers.
+- [ ] Multi-user alpha uses `ALPHA_USER_TOKENS` or external auth; `ALPHA_SHARED_PASSWORD` is treated only as a shared single-account mode.
+- [ ] Production uses `AUTH_PROVIDER_MODE=external` behind a trusted auth proxy or a real auth provider hook.
+- [ ] `TRUST_EXTERNAL_AUTH_HEADERS=true` only when the API is behind a trusted proxy that strips spoofed client identity/admin headers.
 - [ ] `MAX_REQUEST_BYTES` is set and mirrored at the reverse proxy.
 - [ ] `UPLOAD_ALLOWED_CONTENT_TYPES` is an allowlist.
 - [ ] `UPLOAD_MAX_BYTES` is appropriate for the storage budget.
@@ -30,6 +36,9 @@ Use this checklist before exposing Manga AI Studio outside local development.
 - [ ] Export packages include provenance metadata.
 - [ ] Uploaded assets require rights declarations.
 - [ ] Bucket policies do not expose private raw assets accidentally.
+- [ ] `ASSET_DOWNLOAD_MODE=proxy` unless public CDN reads are explicitly intended.
+- [ ] `S3_PUBLIC_READ_ENABLED=false` for private alpha assets.
+- [ ] Asset and export downloads are validated through owner-scoped API routes.
 
 ## Providers
 
