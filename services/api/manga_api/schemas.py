@@ -130,6 +130,7 @@ class ProjectRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: uuid.UUID
+    owner_user_id: str = "local-dev"
     name: str
     description: str | None
     style_prompt: str | None

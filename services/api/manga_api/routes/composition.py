@@ -5,13 +5,15 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
 
+from manga_api.access import require_page_access
+from manga_api.auth import require_alpha_user
 from manga_api.compositor import PageCompositor, StorageClient, get_latest_composite_asset
 from manga_api.db import get_session
 from manga_api.models import Asset, Page
 from manga_api.schemas import CompositePageRead
 from manga_api.storage import get_object_storage
 
-router = APIRouter(tags=["composition"])
+router = APIRouter(tags=["composition"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.post("/pages/{page_id}/compose", response_model=CompositePageRead, status_code=status.HTTP_201_CREATED)
@@ -20,9 +22,7 @@ def compose_page(
     session: Session = Depends(get_session),
     storage: StorageClient = Depends(get_object_storage),
 ) -> CompositePageRead:
-    page = session.get(Page, page_id)
-    if page is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Page not found")
+    page = require_page_access(session, page_id)
 
     try:
         result = PageCompositor(session, storage).compose_page(page_id)
@@ -37,9 +37,7 @@ def get_page_composite(
     session: Session = Depends(get_session),
     storage: StorageClient = Depends(get_object_storage),
 ) -> CompositePageRead:
-    page = session.get(Page, page_id)
-    if page is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Page not found")
+    page = require_page_access(session, page_id)
 
     asset = get_latest_composite_asset(session, page_id)
     if asset is None:

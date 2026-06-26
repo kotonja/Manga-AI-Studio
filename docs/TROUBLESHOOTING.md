@@ -26,6 +26,26 @@ docker compose build web
 docker compose up -d web
 ```
 
+## Local Web Build Fails On Symlink Permission
+
+Windows can block Next.js standalone output symlinks when Developer Mode is off. Local `pnpm --filter @manga-ai/web build` disables standalone output by default. Docker production builds still set `NEXT_OUTPUT_STANDALONE=true`.
+
+If you intentionally need a local standalone build, enable Windows Developer Mode or run:
+
+```powershell
+$env:NEXT_OUTPUT_STANDALONE="true"
+pnpm --filter @manga-ai/web build
+```
+
+## Playwright Browser Download Fails Certificate Verification
+
+If `playwright install chromium` fails with `UNABLE_TO_VERIFY_LEAF_SIGNATURE`, use Node's Windows certificate store:
+
+```powershell
+$env:NODE_OPTIONS="--use-system-ca"
+pnpm --filter @manga-ai/web exec playwright install chromium
+```
+
 ## API Health
 
 Check:

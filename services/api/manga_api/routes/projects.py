@@ -7,6 +7,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func
 from sqlmodel import Session, select
 
+from manga_api.access import project_filter_for_principal, require_page_access, require_project_access
+from manga_api.auth import UserPrincipal, require_alpha_user
 from manga_api.config import get_settings
 from manga_api.db import get_session
 from manga_api.models import Chapter, GenerationJob, Page, Panel, Project, ProjectExport, QAReport, Render
@@ -23,7 +25,7 @@ from manga_api.schemas import (
 )
 from manga_api.versioning import VersioningService
 
-router = APIRouter(tags=["projects"])
+router = APIRouter(tags=["projects"], dependencies=[Depends(require_alpha_user)])
 
 
 def touch(row) -> None:
@@ -31,9 +33,14 @@ def touch(row) -> None:
 
 
 @router.post("/projects", response_model=ProjectRead, status_code=status.HTTP_201_CREATED)
-def create_project(payload: ProjectCreate, session: Session = Depends(get_session)) -> Project:
+def create_project(
+    payload: ProjectCreate,
+    session: Session = Depends(get_session),
+    principal: UserPrincipal = Depends(require_alpha_user),
+) -> Project:
     settings = get_settings()
     project = Project(
+        owner_user_id=principal.user_id,
         name=payload.name,
         description=payload.description,
         style_prompt=payload.style_prompt,
@@ -51,15 +58,20 @@ def create_project(payload: ProjectCreate, session: Session = Depends(get_sessio
 
 
 @router.get("/projects", response_model=list[ProjectRead])
-def list_projects(session: Session = Depends(get_session)) -> list[Project]:
-    return list(session.exec(select(Project).order_by(Project.created_at.desc())).all())
+def list_projects(
+    session: Session = Depends(get_session),
+    principal: UserPrincipal = Depends(require_alpha_user),
+) -> list[Project]:
+    statement = select(Project)
+    ownership_filter = project_filter_for_principal(principal)
+    if ownership_filter is not None:
+        statement = statement.where(ownership_filter)
+    return list(session.exec(statement.order_by(Project.created_at.desc())).all())
 
 
 @router.get("/projects/{project_id}", response_model=ProjectDetail)
 def get_project(project_id: uuid.UUID, session: Session = Depends(get_session)) -> ProjectDetail:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
 
     pages = list(
         session.exec(
@@ -93,9 +105,7 @@ def get_project(project_id: uuid.UUID, session: Session = Depends(get_session)) 
 
 @router.get("/projects/{project_id}/workspace-summary", response_model=ProjectWorkspaceSummary)
 def get_project_workspace_summary(project_id: uuid.UUID, session: Session = Depends(get_session)) -> ProjectWorkspaceSummary:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
 
     pages = list(session.exec(select(Page).where(Page.project_id == project_id)).all())
     page_ids = [page.id for page in pages]
@@ -151,9 +161,7 @@ def get_project_workspace_summary(project_id: uuid.UUID, session: Session = Depe
 
 @router.post("/projects/{project_id}/pages", response_model=PageRead, status_code=status.HTTP_201_CREATED)
 def create_page(project_id: uuid.UUID, payload: PageCreate, session: Session = Depends(get_session)) -> Page:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
 
     page_number = payload.page_number
     if page_number is None:
@@ -182,9 +190,7 @@ def create_page(project_id: uuid.UUID, payload: PageCreate, session: Session = D
 
 @router.post("/pages/{page_id}/panels", response_model=PanelRead, status_code=status.HTTP_201_CREATED)
 def create_panel(page_id: uuid.UUID, payload: PanelCreate, session: Session = Depends(get_session)) -> Panel:
-    page = session.get(Page, page_id)
-    if page is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Page not found")
+    page = require_page_access(session, page_id)
 
     reading_order = payload.reading_order
     if reading_order is None:

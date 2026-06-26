@@ -52,6 +52,8 @@ Manga AI Studio uses environment variables for API, worker, web, database, queue
 | `S3_SECRET_ACCESS_KEY` | yes | Store securely. |
 | `S3_BUCKET_NAME` | yes | Bucket for renders, composites, exports. |
 | `S3_REGION` | yes | Region string, `us-east-1` for MinIO. |
+| `S3_PUBLIC_READ_ENABLED` | alpha/prod | Defaults to `false`; only set `true` if bucket/CDN public reads are intentionally allowed. |
+| `ASSET_DOWNLOAD_MODE` | alpha/prod | Use `proxy` for protected API downloads. `public_url` is only honored when public reads are explicitly enabled. |
 
 ## Provider Configuration
 
@@ -78,6 +80,7 @@ Manga AI Studio uses environment variables for API, worker, web, database, queue
 | --- | --- | --- |
 | `ALPHA_AUTH_ENABLED` | alpha/prod | Enables the simple local alpha gate for the web app and sensitive API endpoints. |
 | `ALPHA_SHARED_PASSWORD` | alpha | Shared tester password for local/private alpha only. |
+| `ALPHA_USER_TOKENS` | alpha | Optional comma-separated `user_id:token` pairs for API ownership isolation tests or small token-gated alpha access. |
 | `ALPHA_ADMIN_TOKEN` | optional | Token for protected admin API calls when `ENABLE_DEV_ADMIN=false`. |
 | `ALPHA_SESSION_SECRET` | alpha | Long random value stored in the browser session cookie after local alpha login. |
 | `AUTH_PROVIDER_MODE` | prod | Use `local` for dev alpha, `external` behind a real auth provider or reverse proxy. |
@@ -92,3 +95,9 @@ Manga AI Studio uses environment variables for API, worker, web, database, queue
 ## Secret Loading
 
 The backend supports Pydantic settings and file-based secret loading through `SECRETS_DIR`. In container platforms, mount secret files named after the field, for example `database_url` or `s3_secret_access_key`, set `SECRETS_DIR=/run/secrets`, or inject environment variables through the platform secret manager.
+
+## Alpha Ownership
+
+When `ALPHA_AUTH_ENABLED=true`, the backend resolves the current user from `X-Alpha-Token`, `Authorization: Bearer ...`, the `manga_alpha_session` cookie set by the web alpha login, the admin token, or the trusted forwarded identity header in external-auth mode. Projects are stamped with `owner_user_id`, project lists are filtered by owner, and page/panel/job/export/asset routes verify ownership before returning data.
+
+Local development keeps `ALPHA_AUTH_ENABLED=false`, which maps requests to the `local-dev` user so the one-command demo remains frictionless.

@@ -4,6 +4,7 @@ import base64
 import hashlib
 import json
 import logging
+import math
 import random
 import textwrap
 import uuid
@@ -117,17 +118,21 @@ class MockImageProvider:
         self._draw_screentone(draw, width, height, rng)
         self._draw_ruined_city(draw, width, height, rng)
 
-        if any(keyword in prompt_lower for keyword in ["sword", "katana", "ash", "spirit", "action", "run"]):
+        if any(keyword in prompt_lower for keyword in ["sword", "katana", "ash", "spirit", "action", "run", "claw"]):
             self._draw_speed_lines(draw, width, height, rng)
         else:
             self._draw_rain_lines(draw, width, height, rng)
 
+        self._draw_story_motif(draw, width, height, prompt_lower, rng, page_number, panel_order)
         self._draw_characters(draw, width, height, prompt_lower, font)
         if "lantern" in prompt_lower or "mio" in prompt_lower:
             self._draw_lantern(draw, width, height, rng)
+        if any(keyword in prompt_lower for keyword in ["ash", "spirit", "claw"]):
+            self._draw_ash_spirits(draw, width, height, rng)
 
-        bubble_text = self._bubble_text(prompt, page_number, panel_order)
-        self._draw_demo_bubble(draw, width, height, bubble_text, font)
+        if options.get("render_internal_lettering"):
+            bubble_text = self._bubble_text(page_number, panel_order)
+            self._draw_demo_bubble(draw, width, height, bubble_text, font)
 
         draw.rectangle(
             (border, border, width - border, height - border),
@@ -230,10 +235,13 @@ class MockImageProvider:
             )
             if not ghost:
                 draw.line((center_x + body_w // 2, ground - body_h // 2, center_x + body_w * 2, ground - body_h - head_r), fill=(8, 10, 14), width=max(3, width // 90))
-            label_w = max(58, len(label) * 7)
-            label_box = (center_x - label_w // 2, ground + 8, center_x + label_w // 2, ground + 30)
-            draw.rectangle(label_box, fill=(255, 255, 250), outline=(20, 24, 28), width=1)
-            draw.text((label_box[0] + 6, label_box[1] + 5), label, fill=(20, 24, 28), font=font)
+            if ghost:
+                halo = max(18, head_r * 2)
+                draw.ellipse(
+                    (center_x - halo, ground - body_h - head_r * 2 - halo // 3, center_x + halo, ground - body_h + halo // 3),
+                    outline=(235, 235, 226),
+                    width=max(2, width // 180),
+                )
 
     def _draw_lantern(self, draw: ImageDraw.ImageDraw, width: int, height: int, rng: random.Random) -> None:
         cx = int(width * 0.68)
@@ -247,11 +255,71 @@ class MockImageProvider:
             draw.line((line_x, lantern[1], line_x, lantern[3]), fill=(112, 112, 104), width=1)
         draw.arc((lantern[0] + 4, lantern[1] - 10, lantern[2] - 4, lantern[1] + 10), 180, 360, fill=(24, 26, 30), width=2)
 
-    def _bubble_text(self, prompt: str, page_number: Any, panel_order: Any) -> str:
-        prompt_line = " ".join(prompt.split())[:72]
-        if prompt_line:
-            return f"Draft panel {page_number}-{panel_order}\n{prompt_line}"
-        return f"Draft panel {page_number}-{panel_order}"
+    def _draw_story_motif(
+        self,
+        draw: ImageDraw.ImageDraw,
+        width: int,
+        height: int,
+        prompt_lower: str,
+        rng: random.Random,
+        page_number: Any,
+        panel_order: Any,
+    ) -> None:
+        if "stair" in prompt_lower:
+            base_y = int(height * 0.78)
+            for step in range(7):
+                x0 = int(width * 0.48) + step * max(10, width // 35)
+                y0 = base_y - step * max(9, height // 36)
+                draw.polygon(
+                    [(x0, y0), (width, y0 - max(8, height // 80)), (width, y0 + max(10, height // 60)), (x0, y0 + max(18, height // 38))],
+                    fill=(36 + step * 8, 36 + step * 8, 36 + step * 8),
+                )
+        if "bridge" in prompt_lower or str(page_number) == "4":
+            y = int(height * 0.72)
+            draw.polygon([(0, y), (width, y - height // 14), (width, y + height // 18), (0, y + height // 10)], fill=(28, 30, 34))
+            for x in range(0, width, max(26, width // 16)):
+                draw.line((x, y - height // 20, x + width // 20, y + height // 9), fill=(238, 238, 232), width=2)
+        if "lantern" in prompt_lower or "mio" in prompt_lower:
+            for radius in range(max(24, min(width, height) // 18), max(56, min(width, height) // 4), max(16, min(width, height) // 24)):
+                cx = int(width * 0.68)
+                cy = int(height * 0.62)
+                tone = 245 - min(60, radius // 4)
+                draw.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), outline=(tone, tone, tone), width=2)
+        if str(page_number) == "1" and str(panel_order) == "1":
+            draw.rectangle((0, int(height * 0.52), width, height), fill=(230, 230, 224))
+            self._draw_rain_lines(draw, width, height, rng)
+
+    def _draw_ash_spirits(self, draw: ImageDraw.ImageDraw, width: int, height: int, rng: random.Random) -> None:
+        for _ in range(8):
+            cx = rng.randint(int(width * 0.04), int(width * 0.94))
+            cy = rng.randint(int(height * 0.18), int(height * 0.72))
+            scale = rng.uniform(0.55, 1.15)
+            points = []
+            for index in range(9):
+                angle = index * 6.283185307179586 / 9
+                radius = int(min(width, height) * rng.uniform(0.018, 0.045) * scale)
+                points.append((int(cx + math.cos(angle) * radius), int(cy + math.sin(angle) * radius * 1.8)))
+            draw.polygon(points, fill=(12, 14, 18))
+            for claw in range(3):
+                x = cx + claw * int(8 * scale)
+                draw.line((x, cy, x + int(22 * scale), cy + int(34 * scale)), fill=(12, 14, 18), width=max(2, int(3 * scale)))
+
+    def _bubble_text(self, page_number: Any, panel_order: Any) -> str:
+        snippets = {
+            ("1", "1"): "Only rain answered.",
+            ("1", "2"): "A small light moved.",
+            ("1", "3"): "I was waiting.",
+            ("2", "1"): "She cast no shadow.",
+            ("2", "2"): "Stay behind me.",
+            ("2", "3"): "They fear your light.",
+            ("3", "1"): "Do not let it die.",
+            ("3", "2"): "The city answered.",
+            ("3", "3"): "When I move, run.",
+            ("4", "1"): "I know a road.",
+            ("4", "2"): "He was not alone.",
+            ("4", "3"): "The road opened for two.",
+        }
+        return snippets.get((str(page_number), str(panel_order)), "Draft manga panel")
 
     def _draw_demo_bubble(self, draw: ImageDraw.ImageDraw, width: int, height: int, text: str, font: ImageFont.ImageFont) -> None:
         x0 = int(width * 0.08)

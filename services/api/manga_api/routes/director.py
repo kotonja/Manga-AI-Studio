@@ -5,6 +5,8 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
 
+from manga_api.access import require_project_row_access
+from manga_api.auth import UserPrincipal, require_alpha_user
 from manga_api.config import get_settings
 from manga_api.db import get_session
 from manga_api.director import MangaDirectorOrchestrator
@@ -13,7 +15,7 @@ from manga_api.queue import enqueue_director_generate_draft
 from manga_api.schemas import DirectorGenerateDraftRequest, DirectorGenerateDraftResponse
 from manga_api.storage import ObjectStorage, get_object_storage
 
-router = APIRouter(tags=["director"])
+router = APIRouter(tags=["director"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.post(
@@ -26,16 +28,19 @@ def generate_director_draft(
     payload: DirectorGenerateDraftRequest,
     session: Session = Depends(get_session),
     storage: ObjectStorage = Depends(get_object_storage),
+    principal: UserPrincipal = Depends(require_alpha_user),
 ) -> DirectorGenerateDraftResponse:
     project = session.get(Project, project_id)
     if project is None:
         project = Project(
             id=project_id,
+            owner_user_id=principal.user_id,
             name=project_name_from_premise(payload.premise),
             description=payload.premise,
             style_prompt=f"{', '.join(payload.genre)} manga, {payload.tone}",
         )
     else:
+        project = require_project_row_access(session, project, principal)
         project.description = payload.premise
         project.style_prompt = project.style_prompt or f"{', '.join(payload.genre)} manga, {payload.tone}"
     session.add(project)

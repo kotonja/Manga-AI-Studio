@@ -336,12 +336,26 @@ def api_endpoint_inventory(repo_root: Path) -> list[dict[str, Any]]:
                     "tags": operation.get("tags", []),
                     "request_body": openapi_request_shape(operation),
                     "response_shape": openapi_response_shape(operation),
-                    "auth": "dev flag" if path.startswith("/admin") else "none",
+                    "auth": endpoint_auth(path),
                     "status": endpoint_status(path, tested),
                     "tested": tested,
                 }
             )
     return sorted(endpoints, key=lambda item: (item["path"], item["method"]))
+
+
+def endpoint_auth(path: str) -> str:
+    if path.startswith("/admin") or path.startswith("/eval"):
+        return "admin/dev flag"
+    if path.startswith("/health") or path in {"/alpha/onboarding", "/learning/feedback-options"}:
+        return "public"
+    if path == "/feedback":
+        return "public or project owner"
+    if path.startswith("/providers"):
+        return "sensitive alpha"
+    if path.startswith("/demo"):
+        return "alpha user"
+    return "alpha user/project owner"
 
 
 def openapi_request_shape(operation: dict[str, Any]) -> str:
@@ -424,6 +438,12 @@ def dynamic_segment(part: str) -> str:
 def frontend_purpose(path: str) -> str:
     if path == "/":
         return "Project dashboard and demo creation entry."
+    if path == "/demo":
+        return "Founder Demo one-button walkthrough."
+    if path == "/onboarding":
+        return "Private alpha onboarding and provider mode explanation."
+    if path == "/admin/alpha":
+        return "Private alpha admin health and feedback dashboard."
     if path.endswith("/director"):
         return "One-premise draft manga orchestrator."
     if path.endswith("/story"):
@@ -456,6 +476,9 @@ def frontend_purpose(path: str) -> str:
 def frontend_dependencies(path: str) -> str:
     dependency_map = {
         "/": "GET/POST /projects, POST /demo/create-full-project",
+        "/demo": "POST /demo/founder-run, GET /jobs/{id}/events, project/story/page/export endpoints",
+        "/onboarding": "GET /alpha/onboarding",
+        "/admin/alpha": "GET /admin/alpha-dashboard",
         "/admin/ai-task-runs": "GET /admin/ai-task-runs",
         "/admin/eval": "GET /eval/scenarios, POST /eval/run",
     }
@@ -494,7 +517,7 @@ def frontend_status(path: str) -> str:
 
 def frontend_issue(path: str) -> str:
     if path.startswith("/admin"):
-        return "Hidden by dev flag; no auth system exists yet."
+        return "Protected by dev flag/admin auth; keep disabled for untrusted users."
     if path.endswith("/world"):
         return "World Room is mostly metadata inspection from story generation, not a full bespoke editor."
     return "No blocker found in static inventory; covered by build and route smoke where applicable."
@@ -504,6 +527,8 @@ def stub_inventory(repo_root: Path) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
     for path in walk_repo_files(repo_root):
         if should_skip(path):
+            continue
+        if path.as_posix().endswith("services/api/app/final_boss/run.py"):
             continue
         try:
             text = path.read_text(encoding="utf-8")
@@ -599,7 +624,7 @@ def render_api_inventory(endpoints: list[dict[str, Any]]) -> str:
     rows.extend(
         [
             "",
-            "Auth note: the MVP has no user authentication. Admin routes are protected only by the development flag and must not be exposed publicly.",
+            "Auth note: local development is unlocked by default. Private alpha can enable token/shared-password auth; project resources are owner-scoped when alpha auth is enabled. Admin/dev routes require dev/admin flags and must not be exposed publicly.",
         ]
     )
     return "\n".join(rows) + "\n"
@@ -696,13 +721,13 @@ def render_audit(repo_root: Path, endpoints: list[dict[str, Any]], routes: list[
         "## 8. Broken Or Risky Areas",
         "",
         *([f"- High severity keyword finding: `{item['file']}:{item['line']}` {item['excerpt']}" for item in high_stubs] or ["- No high severity keyword findings outside documented provider stubs."]),
-        "- No authentication exists; public exposure requires an auth layer.",
+        "- Basic private-alpha auth, project ownership, and asset/export ownership checks exist. Public production still requires a real auth provider and hardened proxy policy.",
         "- Local mock-generated assets are valid for demo/testing, not proof of final paid-provider quality.",
         "",
         "## 9. Test Coverage Summary",
         "",
-        "- Backend tests cover CRUD, story, layout, labs, rendering, composition, QA, exports, director, prompt registry, provenance, versioning, evaluation, and production security basics.",
-        "- Frontend coverage is build/typecheck plus smoke route checks, not a full browser interaction suite.",
+        "- Backend tests cover CRUD, story, layout, labs, rendering, composition, QA, exports, director, prompt registry, provenance, versioning, auth isolation, evaluation, and production security basics.",
+        "- Frontend coverage includes build/typecheck and Playwright smoke for dashboard, Founder Demo, project detail, Story Room, Page Studio, and Publishing Room.",
         "",
         "## 10. Local Run Instructions",
         "",
@@ -714,7 +739,7 @@ def render_audit(repo_root: Path, endpoints: list[dict[str, Any]], routes: list[
         "",
         "## 11. Production Readiness Status",
         "",
-        "Production config, Dockerfiles, CI, deployment docs, structured logs, health checks, and migration docs exist. The app is not production-ready until authentication, real provider hardening, distributed rate limits, secret management, and external storage policies are completed.",
+        "Production config, Dockerfiles, CI, deployment docs, structured logs, health checks, project ownership checks, protected asset downloads, and migration docs exist. The app is not public-production-ready until a real auth provider, distributed rate limits, secret management, and external storage policies are fully wired and audited.",
         "",
         "## 12. Known Limitations",
         "",

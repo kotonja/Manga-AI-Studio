@@ -4,6 +4,8 @@ Manga AI Studio is a local-first AI manga creation monorepo. It includes a Next.
 
 The default local provider stack is deterministic and does not require OpenAI, ComfyUI, or external APIs.
 
+Local development is unlocked by default. Private alpha mode can enable simple shared-password/token auth, project owner scoping, and protected asset/export downloads without changing the one-command Docker workflow.
+
 ## Structure
 
 ```text
@@ -144,6 +146,15 @@ powershell -ExecutionPolicy Bypass -File scripts\final-boss-export.ps1
 
 Final-boss evidence is written to `evidence/final_boss_demo/`, with the audit in `docs/FINAL_BOSS_AUDIT.md` and results in `docs/FINAL_BOSS_RESULTS.md`.
 
+Frontend smoke tests run on an isolated port and mock the API boundary:
+
+```bash
+pnpm --filter @manga-ai/web exec playwright install chromium
+pnpm --filter @manga-ai/web smoke
+```
+
+On Windows, if Playwright browser download fails with a certificate-chain error, retry with `NODE_OPTIONS=--use-system-ca`.
+
 ## Health Checks
 
 - `GET /health`
@@ -167,6 +178,7 @@ The dependency-specific checks return clear JSON with `503` when the dependency 
 ## Implemented API Highlights
 
 - Project/page/panel CRUD
+- Private alpha auth, project ownership scoping, and protected asset/export download proxy
 - Story bible, chapter plan, page plan generation with mock LLM provider
 - Character cards and style bibles
 - Provider-based panel rendering with mock/OpenAI/ComfyUI boundaries

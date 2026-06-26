@@ -9,43 +9,59 @@
       "aliases": [
         "The Ash Ronin"
       ],
-      "allowed_variations": [],
+      "allowed_variations": [
+        "rain-soaked coat",
+        "minor ash scuffs"
+      ],
       "approved_panel_asset_ids": [],
-      "body_anchor_description": "",
+      "body_anchor_description": "Lean, tall, travel-worn swordsman build.",
       "body_type": "Lean, tall, travel-worn swordsman build.",
-      "canonical_visual_summary": "",
-      "color_notes_even_for_bw": "",
+      "canonical_visual_summary": "Tall rain-worn swordsman in a tattered dark travel coat with a chipped katana and cracked sword guard.",
+      "color_notes_even_for_bw": "Dark coat mass, pale rain highlights, chipped blade glints.",
       "continuity_rules": [
         "Ren stands between Mio and threats.",
         "Ren grips the sword only when danger is real."
       ],
-      "created_at": "2026-06-25T18:25:37.261937+00:00",
-      "current_story_state": "",
-      "emotional_baseline": "",
-      "eye_anchor_description": "",
+      "created_at": "2026-06-26T13:26:50.334802+00:00",
+      "current_story_state": "Reluctant protector beginning to care for Mio.",
+      "emotional_baseline": "Controlled grief with protective focus.",
+      "eye_anchor_description": "Dark, guarded eyes with heavy lower lids.",
       "eye_description": "Dark, watchful eyes with heavy lower lids.",
-      "face_anchor_description": "",
+      "face_anchor_description": "Long tired face with a thin brow scar and narrow watchful eyes.",
       "face_description": "Long tired face, narrow eyes, faint scar through one brow.",
       "forbidden_changes": [
         "Do not make Ren cheerful or ornate.",
         "Do not remove the cracked sword guard."
       ],
-      "forbidden_variations": [],
-      "hair_anchor_description": "",
+      "forbidden_variations": [
+        "ornate armor",
+        "missing sword guard",
+        "bright cheerful expression"
+      ],
+      "hair_anchor_description": "Rain-dark shoulder-length hair tied low.",
       "hair_description": "Rain-dark shoulder-length hair tied low.",
-      "id": "970c0501-8a85-444d-8209-e958ad6ec83b",
-      "injury_state": "",
+      "id": "6378a482-1068-47ce-ab12-c84a256df2d1",
+      "injury_state": "Old scars only; no fresh injury in the demo.",
       "name": "Ren Aki",
-      "outfit_anchor_description": "",
+      "outfit_anchor_description": "Tattered dark travel coat over layered kimono; cracked sword guard always visible.",
       "outfit_default": "Tattered dark travel coat over layered kimono, cracked sword guard.",
       "personality": "Reserved, vigilant, self-punishing, protective when it matters.",
-      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-      "recurring_props": [],
+      "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+      "recurring_props": [
+        "chipped katana",
+        "frayed scarf",
+        "cracked sword guard"
+      ],
       "reference_asset_ids": [],
       "role": "protector swordsman",
       "scars_marks": "Thin brow scar and old cuts on sword hand.",
-      "silhouette_keywords": [],
-      "updated_at": "2026-06-25T18:25:37.261956+00:00",
+      "silhouette_keywords": [
+        "tall",
+        "coat",
+        "katana",
+        "frayed scarf"
+      ],
+      "updated_at": "2026-06-26T13:26:50.334849+00:00",
       "voice_style": "Sparse, low, direct."
     },
     {
@@ -56,77 +72,91 @@
       "aliases": [
         "Lantern Child"
       ],
-      "allowed_variations": [],
+      "allowed_variations": [
+        "faint glow strength",
+        "subtle ghost edge shimmer"
+      ],
       "approved_panel_asset_ids": [],
-      "body_anchor_description": "",
+      "body_anchor_description": "Small childlike ghost silhouette with translucent edges.",
       "body_type": "Small childlike ghost silhouette.",
-      "canonical_visual_summary": "",
-      "color_notes_even_for_bw": "",
+      "canonical_visual_summary": "Small ghost child in a pale kimono, hovering above wet ground while holding a handmade paper lantern.",
+      "color_notes_even_for_bw": "Pale silhouette, translucent edge treatment, warm lantern-white highlight.",
       "continuity_rules": [
         "Mio keeps the lantern close.",
         "Mio floats slightly above wet ground."
       ],
-      "created_at": "2026-06-25T18:25:37.263661+00:00",
-      "current_story_state": "",
-      "emotional_baseline": "",
-      "eye_anchor_description": "",
+      "created_at": "2026-06-26T13:26:50.336098+00:00",
+      "current_story_state": "Trusting Ren while still afraid of the ash spirits.",
+      "emotional_baseline": "Quiet bravery and lonely hope.",
+      "eye_anchor_description": "Large reflective eyes with tiny lantern highlights.",
       "eye_description": "Large reflective eyes with tiny lantern highlights.",
-      "face_anchor_description": "",
+      "face_anchor_description": "Round small face with calm, distant eyes.",
       "face_description": "Round small face with calm, distant eyes.",
       "forbidden_changes": [
         "Do not give Mio a shadow.",
         "Do not make the lantern look electric."
       ],
-      "forbidden_variations": [],
-      "hair_anchor_description": "",
+      "forbidden_variations": [
+        "visible shadow",
+        "electric lantern",
+        "adult proportions"
+      ],
+      "hair_anchor_description": "Short pale bob that floats slightly at the ends.",
       "hair_description": "Short pale bob that floats slightly at the ends.",
-      "id": "a533bccc-79a1-4a5f-9743-74322f025b3e",
-      "injury_state": "",
+      "id": "a5a40e9a-890b-472f-b23d-d34274e235b9",
+      "injury_state": "No physical injury; ghostly translucence only.",
       "name": "Mio",
-      "outfit_anchor_description": "",
+      "outfit_anchor_description": "Simple pale kimono and bare feet hovering just above ground.",
       "outfit_default": "Simple pale kimono, bare feet hovering just above ground.",
       "personality": "Quiet, observant, gentle, braver than she looks.",
-      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
-      "recurring_props": [],
+      "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
+      "recurring_props": [
+        "paper lantern"
+      ],
       "reference_asset_ids": [],
       "role": "ghost child",
       "scars_marks": "Faint translucent edges, no shadow.",
-      "silhouette_keywords": [],
-      "updated_at": "2026-06-25T18:25:37.263689+00:00",
+      "silhouette_keywords": [
+        "small",
+        "floating",
+        "kimono",
+        "lantern"
+      ],
+      "updated_at": "2026-06-26T13:26:50.336115+00:00",
       "voice_style": "Soft, minimal, sometimes only gestures."
     }
   ],
   "characters": [
     {
-      "created_at": "2026-06-25T18:25:37.235023+00:00",
+      "created_at": "2026-06-26T13:26:50.292264+00:00",
       "description": "A quiet wanderer with a broken sword guard and a habit of standing between danger and anyone smaller than him.",
-      "id": "a8416aad-66ce-412e-b7ff-d60418d4baa1",
+      "id": "a1a6c4cc-5892-414c-b18c-2ee512e00c19",
       "name": "Ren Aki",
-      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+      "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
       "role": "Lonely swordsman protector",
-      "story_bible_id": "44854dec-6cbb-4d80-a700-e614ecee89c5",
+      "story_bible_id": "e1c28292-c330-4522-86b5-66fd5e4dd845",
       "traits": [
         "guarded",
         "precise",
         "secretly gentle"
       ],
-      "updated_at": "2026-06-25T18:25:37.235060+00:00",
+      "updated_at": "2026-06-26T13:26:50.292300+00:00",
       "visual_notes": "Long travel coat, chipped katana, tired eyes, rain-dark hair."
     },
     {
-      "created_at": "2026-06-25T18:25:37.235411+00:00",
+      "created_at": "2026-06-26T13:26:50.292728+00:00",
       "description": "A silent child spirit carrying a paper lantern that keeps the ruined city from going fully dark.",
-      "id": "8bc058d4-bc09-431d-b952-de99697264bc",
+      "id": "feb99f32-05c9-436c-82f0-fa9b344deb95",
       "name": "Mio",
-      "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+      "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
       "role": "Ghost child",
-      "story_bible_id": "44854dec-6cbb-4d80-a700-e614ecee89c5",
+      "story_bible_id": "e1c28292-c330-4522-86b5-66fd5e4dd845",
       "traits": [
         "watchful",
         "brave",
         "otherworldly"
       ],
-      "updated_at": "2026-06-25T18:25:37.235436+00:00",
+      "updated_at": "2026-06-26T13:26:50.292753+00:00",
       "visual_notes": "Small kimono, bare feet above the ground, translucent edges, lantern held close."
     }
   ]

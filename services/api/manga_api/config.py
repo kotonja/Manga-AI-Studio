@@ -37,6 +37,8 @@ class Settings(BaseSettings):
     alpha_auth_enabled: bool = Field(default=False, validation_alias="ALPHA_AUTH_ENABLED")
     alpha_shared_password: str | None = Field(default=None, validation_alias="ALPHA_SHARED_PASSWORD")
     alpha_admin_token: str | None = Field(default=None, validation_alias="ALPHA_ADMIN_TOKEN")
+    alpha_session_secret: str | None = Field(default=None, validation_alias="ALPHA_SESSION_SECRET")
+    alpha_user_tokens: str = Field(default="", validation_alias="ALPHA_USER_TOKENS")
     auth_provider_mode: str = Field(default="local", validation_alias="AUTH_PROVIDER_MODE")
     auth_provider_name: str = Field(default="local", validation_alias="AUTH_PROVIDER_NAME")
     auth_forwarded_user_header: str = Field(default="X-Authenticated-User", validation_alias="AUTH_FORWARDED_USER_HEADER")
@@ -55,6 +57,8 @@ class Settings(BaseSettings):
     rate_limit_enabled: bool = Field(default=False, validation_alias="RATE_LIMIT_ENABLED")
     rate_limit_per_minute: int = Field(default=120, validation_alias="RATE_LIMIT_PER_MINUTE")
     expose_error_details: bool | None = Field(default=None, validation_alias="EXPOSE_ERROR_DETAILS")
+    s3_public_read_enabled: bool | None = Field(default=None, validation_alias="S3_PUBLIC_READ_ENABLED")
+    asset_download_mode: str = Field(default="proxy", validation_alias="ASSET_DOWNLOAD_MODE")
 
     @property
     def cors_origins(self) -> list[str]:
@@ -77,6 +81,36 @@ class Settings(BaseSettings):
         if self.expose_error_details is not None:
             return self.expose_error_details
         return not self.is_production
+
+    @property
+    def is_local_unlocked(self) -> bool:
+        return not self.alpha_auth_enabled and not self.is_production
+
+    @property
+    def effective_s3_public_read_enabled(self) -> bool:
+        if self.s3_public_read_enabled is not None:
+            return self.s3_public_read_enabled
+        return self.is_local_unlocked
+
+    @property
+    def effective_asset_download_mode(self) -> str:
+        mode = (self.asset_download_mode or "proxy").lower().strip()
+        if mode not in {"proxy", "public_url"}:
+            return "proxy"
+        if mode == "public_url" and not self.effective_s3_public_read_enabled:
+            return "proxy"
+        return mode
+
+    @property
+    def parsed_alpha_user_tokens(self) -> dict[str, str]:
+        pairs: dict[str, str] = {}
+        for item in self.alpha_user_tokens.split(","):
+            user_id, separator, token = item.partition(":")
+            user_id = user_id.strip()
+            token = token.strip()
+            if separator and user_id and token:
+                pairs[user_id] = token
+        return pairs
 
 
 @lru_cache

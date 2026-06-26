@@ -5,6 +5,8 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
 
+from manga_api.access import require_asset_access, require_project_access
+from manga_api.auth import require_alpha_user
 from manga_api.db import get_session
 from manga_api.models import Asset, Project
 from manga_api.provenance import ProvenanceService
@@ -19,7 +21,7 @@ from manga_api.schemas import (
     SafetyCheckResult,
 )
 
-router = APIRouter(tags=["provenance"])
+router = APIRouter(tags=["provenance"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.get("/projects/{project_id}/provenance", response_model=ProjectProvenanceRead)
@@ -87,14 +89,8 @@ def check_style_ip_guard(payload: SafetyCheckRequest) -> SafetyCheckResult:
 
 
 def require_project(session: Session, project_id: uuid.UUID) -> Project:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
-    return project
+    return require_project_access(session, project_id)
 
 
 def require_asset(session: Session, asset_id: uuid.UUID) -> Asset:
-    asset = session.get(Asset, asset_id)
-    if asset is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Asset not found")
-    return asset
+    return require_asset_access(session, asset_id)

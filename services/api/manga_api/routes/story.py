@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
+from manga_api.access import require_chapter_access, require_project_access
+from manga_api.auth import require_alpha_user
 from manga_api.ai_tasks import AITaskRunner
 from manga_api.db import get_session
 from manga_api.llm import get_llm_provider
@@ -38,7 +40,7 @@ from manga_api.schemas import (
 )
 from manga_api.versioning import VersioningService
 
-router = APIRouter(tags=["story"])
+router = APIRouter(tags=["story"], dependencies=[Depends(require_alpha_user)])
 
 
 def touch(row) -> None:
@@ -47,9 +49,7 @@ def touch(row) -> None:
 
 @router.get("/projects/{project_id}/story/bible", response_model=StoryBibleResult)
 def get_story_bible(project_id: uuid.UUID, session: Session = Depends(get_session)) -> StoryBibleResult:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    require_project_access(session, project_id)
 
     story_bible = get_latest_story_bible(session, project_id)
     if story_bible is None:
@@ -63,9 +63,7 @@ def generate_story_bible(
     payload: StoryBibleCreate,
     session: Session = Depends(get_session),
 ) -> StoryBibleResult:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
 
     provider = get_llm_provider()
     result = AITaskRunner(session).run(
@@ -159,9 +157,7 @@ def generate_chapter_plan(
     project_id: uuid.UUID,
     session: Session = Depends(get_session),
 ) -> list[ChapterPlanResult]:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
 
     story_bible = get_latest_story_bible(session, project_id)
     if story_bible is None:
@@ -217,9 +213,7 @@ def generate_page_plans(
     chapter_id: uuid.UUID,
     session: Session = Depends(get_session),
 ) -> list[PagePlanResult]:
-    chapter = session.get(Chapter, chapter_id)
-    if chapter is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Chapter not found")
+    chapter = require_chapter_access(session, chapter_id)
 
     provider = get_llm_provider()
     result = AITaskRunner(session).run(
@@ -287,9 +281,7 @@ def generate_page_plans(
 
 @router.get("/projects/{project_id}/story/chapters", response_model=list[ChapterPlanResult])
 def list_chapter_plans(project_id: uuid.UUID, session: Session = Depends(get_session)) -> list[ChapterPlanResult]:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
     chapters = session.exec(
         select(Chapter)
         .where(Chapter.project_id == project.id)
@@ -300,9 +292,7 @@ def list_chapter_plans(project_id: uuid.UUID, session: Session = Depends(get_ses
 
 @router.get("/chapters/{chapter_id}/story/page-plans", response_model=list[PagePlanResult])
 def list_page_plans(chapter_id: uuid.UUID, session: Session = Depends(get_session)) -> list[PagePlanResult]:
-    chapter = session.get(Chapter, chapter_id)
-    if chapter is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Chapter not found")
+    chapter = require_chapter_access(session, chapter_id)
     page_plans = session.exec(
         select(PagePlan)
         .where(PagePlan.chapter_id == chapter.id)

@@ -16,21 +16,21 @@
   },
   "exports": [
     {
-      "asset_id": "ce9b8fe9-04d2-406f-914f-50bd6ad94ce4",
+      "asset_id": "c570b80c-bd49-4ec8-a10c-d72835174c60",
       "content_type": "application/zip",
-      "export_id": "08a5dba6-4f5a-4bdb-a396-47a6fd7a3bc7",
-      "file": "exports/zip-08a5dba6-4f5a-4bdb-a396-47a6fd7a3bc7.zip",
+      "export_id": "be896d20-ecd0-4186-9670-5ce980e52154",
+      "file": "exports/zip-be896d20-ecd0-4186-9670-5ce980e52154.zip",
       "format": "zip",
-      "size_bytes": 183028,
+      "size_bytes": 465821,
       "status": "succeeded"
     },
     {
-      "asset_id": "d7ffb0a5-5d6d-4775-b16a-ddd7e43a6f4a",
+      "asset_id": "57ce4945-942a-455c-b981-d9a888e81dbb",
       "content_type": "application/pdf",
-      "export_id": "79212b83-ab44-4735-9c6d-07d83b3735a5",
-      "file": "exports/pdf-79212b83-ab44-4735-9c6d-07d83b3735a5.pdf",
+      "export_id": "f6c27c0c-eb06-490d-bf47-2b33594fc952",
+      "file": "exports/pdf-f6c27c0c-eb06-490d-bf47-2b33594fc952.pdf",
       "format": "pdf",
-      "size_bytes": 366773,
+      "size_bytes": 821520,
       "status": "succeeded"
     }
   ],
@@ -40,9 +40,9 @@
     "final_pages/page-003.png",
     "final_pages/page-004.png"
   ],
-  "generated_at": "2026-06-25T18:25:42.079493+00:00",
+  "generated_at": "2026-06-26T13:26:57.681721+00:00",
   "premise": "A lonely swordsman protects a ghost child in a ruined city.",
-  "project_id": "25dcbb01-453d-4b8b-a1f9-e674d05017fa",
+  "project_id": "aa81052c-3048-4c83-8336-60e5a5dbd5da",
   "provenance_summary": {
     "ai_disclosure_required": true,
     "assets_with_provenance": 18,

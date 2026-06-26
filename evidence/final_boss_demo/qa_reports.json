@@ -1,70 +1,31 @@
 [
   {
-    "auto_fix_action": {
-      "bubble_id": null,
-      "issue_code": "render_resolution_too_low",
-      "panel_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
-      "safe": true,
-      "target_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
-      "target_type": "panel",
-      "type": "mark_page_for_rerender"
-    },
+    "auto_fix_action": {},
     "auto_fix_available": true,
     "blocking": false,
     "confidence": 1.0,
-    "created_at": "2026-06-25T18:25:40.315333+00:00",
-    "id": "23644a94-5fd9-4495-8cbe-b6db9e03ce59",
-    "issue_category": "render",
-    "issue_code": "render_resolution_too_low",
+    "created_at": "2026-06-26T13:26:54.685568+00:00",
+    "id": "e4ffe63b-a43a-4355-81a6-a504f71b97d9",
+    "issue_category": "story",
+    "issue_code": "dialogue_speaker_missing",
     "issues": [
-      {
-        "auto_fix_action": {
-          "bubble_id": null,
-          "issue_code": "render_resolution_too_low",
-          "panel_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
-          "safe": true,
-          "target_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
-          "target_type": "panel",
-          "type": "mark_page_for_rerender"
-        },
-        "auto_fix_available": true,
-        "blocking": false,
-        "bubble_id": null,
-        "category": "render",
-        "code": "render_resolution_too_low",
-        "confidence": 1.0,
-        "details": {
-          "height": 360,
-          "min_short_side": 512,
-          "width": 840
-        },
-        "id": "render_resolution_too_low-1",
-        "issue_category": "render",
-        "issue_code": "render_resolution_too_low",
-        "message": "Panel 1 render is below the minimum draft resolution.",
-        "page_id": null,
-        "panel_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
-        "severity": "warning",
-        "target_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
-        "target_type": "panel"
-      },
       {
         "auto_fix_action": {},
         "auto_fix_available": false,
         "blocking": false,
-        "bubble_id": "eccc3699-8a61-40a3-8c05-311039f92369",
+        "bubble_id": "b7fd70b6-de8a-49ac-ac88-f0e7f5742d38",
         "category": "story",
         "code": "dialogue_speaker_missing",
         "confidence": 1.0,
         "details": {},
-        "id": "dialogue_speaker_missing-2",
+        "id": "dialogue_speaker_missing-1",
         "issue_category": "story",
         "issue_code": "dialogue_speaker_missing",
         "message": "A dialogue bubble has no speaker assigned.",
         "page_id": null,
-        "panel_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
+        "panel_id": "d14023ce-3e5a-4a82-b458-a3e174cb9eb6",
         "severity": "warning",
-        "target_id": "eccc3699-8a61-40a3-8c05-311039f92369",
+        "target_id": "b7fd70b6-de8a-49ac-ac88-f0e7f5742d38",
         "target_type": "bubble"
       },
       {
@@ -77,26 +38,26 @@
         "confidence": 1.0,
         "details": {
           "character_ids": [
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
           ]
         },
-        "id": "character_state_missing-3",
+        "id": "character_state_missing-2",
         "issue_category": "continuity",
         "issue_code": "character_state_missing",
         "message": "Panel 1 is missing active character state for 1 character(s).",
         "page_id": null,
-        "panel_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
+        "panel_id": "d14023ce-3e5a-4a82-b458-a3e174cb9eb6",
         "severity": "warning",
-        "target_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
+        "target_id": "d14023ce-3e5a-4a82-b458-a3e174cb9eb6",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {
           "bubble_id": null,
           "issue_code": "render_resolution_too_low",
-          "panel_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+          "panel_id": "4fc798aa-7f22-469d-be5b-46da5e8e047a",
           "safe": true,
-          "target_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+          "target_id": "4fc798aa-7f22-469d-be5b-46da5e8e047a",
           "target_type": "panel",
           "type": "mark_page_for_rerender"
         },
@@ -107,37 +68,37 @@
         "code": "render_resolution_too_low",
         "confidence": 1.0,
         "details": {
-          "height": 360,
+          "height": 560,
           "min_short_side": 512,
-          "width": 840
+          "width": 410
         },
-        "id": "render_resolution_too_low-4",
+        "id": "render_resolution_too_low-3",
         "issue_category": "render",
         "issue_code": "render_resolution_too_low",
         "message": "Panel 2 render is below the minimum draft resolution.",
         "page_id": null,
-        "panel_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+        "panel_id": "4fc798aa-7f22-469d-be5b-46da5e8e047a",
         "severity": "warning",
-        "target_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+        "target_id": "4fc798aa-7f22-469d-be5b-46da5e8e047a",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {},
         "auto_fix_available": false,
         "blocking": false,
-        "bubble_id": "1c4fe08f-9579-4636-a4ec-7c25c62cc1cc",
+        "bubble_id": "a1d119e1-5335-4fe8-8ab8-e2f9d862df1b",
         "category": "story",
         "code": "dialogue_speaker_missing",
         "confidence": 1.0,
         "details": {},
-        "id": "dialogue_speaker_missing-5",
+        "id": "dialogue_speaker_missing-4",
         "issue_category": "story",
         "issue_code": "dialogue_speaker_missing",
         "message": "A dialogue bubble has no speaker assigned.",
         "page_id": null,
-        "panel_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+        "panel_id": "4fc798aa-7f22-469d-be5b-46da5e8e047a",
         "severity": "warning",
-        "target_id": "1c4fe08f-9579-4636-a4ec-7c25c62cc1cc",
+        "target_id": "a1d119e1-5335-4fe8-8ab8-e2f9d862df1b",
         "target_type": "bubble"
       },
       {
@@ -150,27 +111,27 @@
         "confidence": 1.0,
         "details": {
           "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e",
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
+            "a5a40e9a-890b-472f-b23d-d34274e235b9",
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
           ]
         },
-        "id": "character_state_missing-6",
+        "id": "character_state_missing-5",
         "issue_category": "continuity",
         "issue_code": "character_state_missing",
         "message": "Panel 2 is missing active character state for 2 character(s).",
         "page_id": null,
-        "panel_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+        "panel_id": "4fc798aa-7f22-469d-be5b-46da5e8e047a",
         "severity": "warning",
-        "target_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+        "target_id": "4fc798aa-7f22-469d-be5b-46da5e8e047a",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {
           "bubble_id": null,
           "issue_code": "render_resolution_too_low",
-          "panel_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+          "panel_id": "fb09b4eb-60b3-4afe-8483-80441626a81e",
           "safe": true,
-          "target_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+          "target_id": "fb09b4eb-60b3-4afe-8483-80441626a81e",
           "target_type": "panel",
           "type": "mark_page_for_rerender"
         },
@@ -181,37 +142,37 @@
         "code": "render_resolution_too_low",
         "confidence": 1.0,
         "details": {
-          "height": 360,
+          "height": 560,
           "min_short_side": 512,
-          "width": 840
+          "width": 390
         },
-        "id": "render_resolution_too_low-7",
+        "id": "render_resolution_too_low-6",
         "issue_category": "render",
         "issue_code": "render_resolution_too_low",
         "message": "Panel 3 render is below the minimum draft resolution.",
         "page_id": null,
-        "panel_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+        "panel_id": "fb09b4eb-60b3-4afe-8483-80441626a81e",
         "severity": "warning",
-        "target_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+        "target_id": "fb09b4eb-60b3-4afe-8483-80441626a81e",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {},
         "auto_fix_available": false,
         "blocking": false,
-        "bubble_id": "3f3e2fd3-b80f-4ec2-ac36-77e572143144",
+        "bubble_id": "dbea272f-1c63-4ed6-a926-41cd791fbc4a",
         "category": "story",
         "code": "dialogue_speaker_missing",
         "confidence": 1.0,
         "details": {},
-        "id": "dialogue_speaker_missing-8",
+        "id": "dialogue_speaker_missing-7",
         "issue_category": "story",
         "issue_code": "dialogue_speaker_missing",
         "message": "A dialogue bubble has no speaker assigned.",
         "page_id": null,
-        "panel_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+        "panel_id": "fb09b4eb-60b3-4afe-8483-80441626a81e",
         "severity": "warning",
-        "target_id": "3f3e2fd3-b80f-4ec2-ac36-77e572143144",
+        "target_id": "dbea272f-1c63-4ed6-a926-41cd791fbc4a",
         "target_type": "bubble"
       },
       {
@@ -224,18 +185,18 @@
         "confidence": 1.0,
         "details": {
           "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e",
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
+            "a5a40e9a-890b-472f-b23d-d34274e235b9",
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
           ]
         },
-        "id": "character_state_missing-9",
+        "id": "character_state_missing-8",
         "issue_category": "continuity",
         "issue_code": "character_state_missing",
         "message": "Panel 3 is missing active character state for 2 character(s).",
         "page_id": null,
-        "panel_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+        "panel_id": "fb09b4eb-60b3-4afe-8483-80441626a81e",
         "severity": "warning",
-        "target_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+        "target_id": "fb09b4eb-60b3-4afe-8483-80441626a81e",
         "target_type": "panel"
       },
       {
@@ -248,73 +209,401 @@
         "confidence": 1.0,
         "details": {
           "panel_ids": [
-            "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
-            "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
-            "ae061013-893f-47a8-aebc-2bef51ab76fc"
+            "fb09b4eb-60b3-4afe-8483-80441626a81e",
+            "4fc798aa-7f22-469d-be5b-46da5e8e047a",
+            "d14023ce-3e5a-4a82-b458-a3e174cb9eb6"
+          ]
+        },
+        "id": "unapproved_render_used_in_composite-9",
+        "issue_category": "render",
+        "issue_code": "unapproved_render_used_in_composite",
+        "message": "The composed page includes render assets that have not been approved.",
+        "page_id": "2754562b-0768-407d-a3b1-49a6e1c5fe45",
+        "panel_id": null,
+        "severity": "warning",
+        "target_id": "2754562b-0768-407d-a3b1-49a6e1c5fe45",
+        "target_type": "page"
+      }
+    ],
+    "overall_score": 37,
+    "page_id": "2754562b-0768-407d-a3b1-49a6e1c5fe45",
+    "panel_id": "d14023ce-3e5a-4a82-b458-a3e174cb9eb6",
+    "recommendations": [
+      {
+        "details": {},
+        "id": "recommendation-1",
+        "message": "Add chapter/scene/page character state before final rendering.",
+        "target_id": "d14023ce-3e5a-4a82-b458-a3e174cb9eb6",
+        "target_type": "panel"
+      },
+      {
+        "details": {},
+        "id": "recommendation-2",
+        "message": "Rerender at draft or final quality before publishing.",
+        "target_id": "4fc798aa-7f22-469d-be5b-46da5e8e047a",
+        "target_type": "panel"
+      },
+      {
+        "details": {},
+        "id": "recommendation-3",
+        "message": "Add chapter/scene/page character state before final rendering.",
+        "target_id": "4fc798aa-7f22-469d-be5b-46da5e8e047a",
+        "target_type": "panel"
+      },
+      {
+        "details": {},
+        "id": "recommendation-4",
+        "message": "Rerender at draft or final quality before publishing.",
+        "target_id": "fb09b4eb-60b3-4afe-8483-80441626a81e",
+        "target_type": "panel"
+      },
+      {
+        "details": {},
+        "id": "recommendation-5",
+        "message": "Add chapter/scene/page character state before final rendering.",
+        "target_id": "fb09b4eb-60b3-4afe-8483-80441626a81e",
+        "target_type": "panel"
+      },
+      {
+        "details": {},
+        "id": "recommendation-6",
+        "message": "Approve the chosen render versions or rerun composition after approval.",
+        "target_id": "2754562b-0768-407d-a3b1-49a6e1c5fe45",
+        "target_type": "page"
+      }
+    ],
+    "scores": {
+      "consistency": 100,
+      "continuity": 79,
+      "export": 100,
+      "layout": 100,
+      "lettering": 100,
+      "render": 79,
+      "safety": 100,
+      "story": 79,
+      "style": 100
+    },
+    "severity": "warning",
+    "target_id": "2754562b-0768-407d-a3b1-49a6e1c5fe45",
+    "target_type": "page",
+    "updated_at": "2026-06-26T13:26:54.685604+00:00"
+  },
+  {
+    "auto_fix_action": {
+      "bubble_id": null,
+      "issue_code": "render_resolution_too_low",
+      "panel_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
+      "safe": true,
+      "target_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
+      "target_type": "panel",
+      "type": "mark_page_for_rerender"
+    },
+    "auto_fix_available": true,
+    "blocking": false,
+    "confidence": 1.0,
+    "created_at": "2026-06-26T13:26:54.863864+00:00",
+    "id": "109bf659-21e7-4518-a7e1-4efe95788a3f",
+    "issue_category": "render",
+    "issue_code": "render_resolution_too_low",
+    "issues": [
+      {
+        "auto_fix_action": {
+          "bubble_id": null,
+          "issue_code": "render_resolution_too_low",
+          "panel_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
+          "safe": true,
+          "target_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
+          "target_type": "panel",
+          "type": "mark_page_for_rerender"
+        },
+        "auto_fix_available": true,
+        "blocking": false,
+        "bubble_id": null,
+        "category": "render",
+        "code": "render_resolution_too_low",
+        "confidence": 1.0,
+        "details": {
+          "height": 1024,
+          "min_short_side": 512,
+          "width": 344
+        },
+        "id": "render_resolution_too_low-1",
+        "issue_category": "render",
+        "issue_code": "render_resolution_too_low",
+        "message": "Panel 1 render is below the minimum draft resolution.",
+        "page_id": null,
+        "panel_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
+        "severity": "warning",
+        "target_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
+        "target_type": "panel"
+      },
+      {
+        "auto_fix_action": {},
+        "auto_fix_available": false,
+        "blocking": false,
+        "bubble_id": "0383918b-3434-4628-86a4-1865729fafc2",
+        "category": "story",
+        "code": "dialogue_speaker_missing",
+        "confidence": 1.0,
+        "details": {},
+        "id": "dialogue_speaker_missing-2",
+        "issue_category": "story",
+        "issue_code": "dialogue_speaker_missing",
+        "message": "A dialogue bubble has no speaker assigned.",
+        "page_id": null,
+        "panel_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
+        "severity": "warning",
+        "target_id": "0383918b-3434-4628-86a4-1865729fafc2",
+        "target_type": "bubble"
+      },
+      {
+        "auto_fix_action": {},
+        "auto_fix_available": false,
+        "blocking": false,
+        "bubble_id": null,
+        "category": "continuity",
+        "code": "character_state_missing",
+        "confidence": 1.0,
+        "details": {
+          "character_ids": [
+            "a5a40e9a-890b-472f-b23d-d34274e235b9"
+          ]
+        },
+        "id": "character_state_missing-3",
+        "issue_category": "continuity",
+        "issue_code": "character_state_missing",
+        "message": "Panel 1 is missing active character state for 1 character(s).",
+        "page_id": null,
+        "panel_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
+        "severity": "warning",
+        "target_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
+        "target_type": "panel"
+      },
+      {
+        "auto_fix_action": {
+          "bubble_id": null,
+          "issue_code": "render_resolution_too_low",
+          "panel_id": "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
+          "safe": true,
+          "target_id": "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
+          "target_type": "panel",
+          "type": "mark_page_for_rerender"
+        },
+        "auto_fix_available": true,
+        "blocking": false,
+        "bubble_id": null,
+        "category": "render",
+        "code": "render_resolution_too_low",
+        "confidence": 1.0,
+        "details": {
+          "height": 560,
+          "min_short_side": 512,
+          "width": 390
+        },
+        "id": "render_resolution_too_low-4",
+        "issue_category": "render",
+        "issue_code": "render_resolution_too_low",
+        "message": "Panel 2 render is below the minimum draft resolution.",
+        "page_id": null,
+        "panel_id": "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
+        "severity": "warning",
+        "target_id": "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
+        "target_type": "panel"
+      },
+      {
+        "auto_fix_action": {},
+        "auto_fix_available": false,
+        "blocking": false,
+        "bubble_id": "5fe01e20-4dd0-4455-82c0-aa419e0d4001",
+        "category": "story",
+        "code": "dialogue_speaker_missing",
+        "confidence": 1.0,
+        "details": {},
+        "id": "dialogue_speaker_missing-5",
+        "issue_category": "story",
+        "issue_code": "dialogue_speaker_missing",
+        "message": "A dialogue bubble has no speaker assigned.",
+        "page_id": null,
+        "panel_id": "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
+        "severity": "warning",
+        "target_id": "5fe01e20-4dd0-4455-82c0-aa419e0d4001",
+        "target_type": "bubble"
+      },
+      {
+        "auto_fix_action": {},
+        "auto_fix_available": false,
+        "blocking": false,
+        "bubble_id": null,
+        "category": "continuity",
+        "code": "character_state_missing",
+        "confidence": 1.0,
+        "details": {
+          "character_ids": [
+            "a5a40e9a-890b-472f-b23d-d34274e235b9",
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
+          ]
+        },
+        "id": "character_state_missing-6",
+        "issue_category": "continuity",
+        "issue_code": "character_state_missing",
+        "message": "Panel 2 is missing active character state for 2 character(s).",
+        "page_id": null,
+        "panel_id": "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
+        "severity": "warning",
+        "target_id": "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
+        "target_type": "panel"
+      },
+      {
+        "auto_fix_action": {
+          "bubble_id": null,
+          "issue_code": "render_resolution_too_low",
+          "panel_id": "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
+          "safe": true,
+          "target_id": "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
+          "target_type": "panel",
+          "type": "mark_page_for_rerender"
+        },
+        "auto_fix_available": true,
+        "blocking": false,
+        "bubble_id": null,
+        "category": "render",
+        "code": "render_resolution_too_low",
+        "confidence": 1.0,
+        "details": {
+          "height": 560,
+          "min_short_side": 512,
+          "width": 390
+        },
+        "id": "render_resolution_too_low-7",
+        "issue_category": "render",
+        "issue_code": "render_resolution_too_low",
+        "message": "Panel 3 render is below the minimum draft resolution.",
+        "page_id": null,
+        "panel_id": "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
+        "severity": "warning",
+        "target_id": "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
+        "target_type": "panel"
+      },
+      {
+        "auto_fix_action": {},
+        "auto_fix_available": false,
+        "blocking": false,
+        "bubble_id": "82ae7280-a3d1-42a2-97dd-759545999c17",
+        "category": "story",
+        "code": "dialogue_speaker_missing",
+        "confidence": 1.0,
+        "details": {},
+        "id": "dialogue_speaker_missing-8",
+        "issue_category": "story",
+        "issue_code": "dialogue_speaker_missing",
+        "message": "A dialogue bubble has no speaker assigned.",
+        "page_id": null,
+        "panel_id": "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
+        "severity": "warning",
+        "target_id": "82ae7280-a3d1-42a2-97dd-759545999c17",
+        "target_type": "bubble"
+      },
+      {
+        "auto_fix_action": {},
+        "auto_fix_available": false,
+        "blocking": false,
+        "bubble_id": null,
+        "category": "continuity",
+        "code": "character_state_missing",
+        "confidence": 1.0,
+        "details": {
+          "character_ids": [
+            "a5a40e9a-890b-472f-b23d-d34274e235b9",
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
+          ]
+        },
+        "id": "character_state_missing-9",
+        "issue_category": "continuity",
+        "issue_code": "character_state_missing",
+        "message": "Panel 3 is missing active character state for 2 character(s).",
+        "page_id": null,
+        "panel_id": "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
+        "severity": "warning",
+        "target_id": "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
+        "target_type": "panel"
+      },
+      {
+        "auto_fix_action": {},
+        "auto_fix_available": false,
+        "blocking": false,
+        "bubble_id": null,
+        "category": "render",
+        "code": "unapproved_render_used_in_composite",
+        "confidence": 1.0,
+        "details": {
+          "panel_ids": [
+            "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
+            "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
+            "b0c10343-1207-4cd6-a4dc-a1a00e225bb7"
           ]
         },
         "id": "unapproved_render_used_in_composite-10",
         "issue_category": "render",
         "issue_code": "unapproved_render_used_in_composite",
         "message": "The composed page includes render assets that have not been approved.",
-        "page_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+        "page_id": "a54fc632-628b-4036-a674-5f5fc8fc127e",
         "panel_id": null,
         "severity": "warning",
-        "target_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+        "target_id": "a54fc632-628b-4036-a674-5f5fc8fc127e",
         "target_type": "page"
       }
     ],
     "overall_score": 30,
-    "page_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
-    "panel_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
+    "page_id": "a54fc632-628b-4036-a674-5f5fc8fc127e",
+    "panel_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
     "recommendations": [
       {
         "details": {},
         "id": "recommendation-1",
         "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
+        "target_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-2",
         "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "ae061013-893f-47a8-aebc-2bef51ab76fc",
+        "target_id": "b0c10343-1207-4cd6-a4dc-a1a00e225bb7",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-3",
         "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+        "target_id": "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-4",
         "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "d80152a9-dbb4-4ec9-9e12-b186caf242a8",
+        "target_id": "92ffd8ef-83c0-48fc-afe6-ef42e21b0131",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-5",
         "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+        "target_id": "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-6",
         "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "3849ad00-59b8-41e2-bb8c-11cc8b6cd8da",
+        "target_id": "dd003c20-e3ce-4600-8cf4-0b4d290fc250",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-7",
         "message": "Approve the chosen render versions or rerun composition after approval.",
-        "target_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+        "target_id": "a54fc632-628b-4036-a674-5f5fc8fc127e",
         "target_type": "page"
       }
     ],
@@ -330,76 +619,37 @@
       "style": 100
     },
     "severity": "warning",
-    "target_id": "52d8b6f8-16ad-4c2b-8801-3418a9450c72",
+    "target_id": "a54fc632-628b-4036-a674-5f5fc8fc127e",
     "target_type": "page",
-    "updated_at": "2026-06-25T18:25:40.315363+00:00"
+    "updated_at": "2026-06-26T13:26:54.863883+00:00"
   },
   {
-    "auto_fix_action": {
-      "bubble_id": null,
-      "issue_code": "render_resolution_too_low",
-      "panel_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
-      "safe": true,
-      "target_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
-      "target_type": "panel",
-      "type": "mark_page_for_rerender"
-    },
+    "auto_fix_action": {},
     "auto_fix_available": true,
     "blocking": false,
     "confidence": 1.0,
-    "created_at": "2026-06-25T18:25:40.544422+00:00",
-    "id": "02216850-3ed8-42bd-be36-f94705b0a009",
-    "issue_category": "render",
-    "issue_code": "render_resolution_too_low",
+    "created_at": "2026-06-26T13:26:55.139172+00:00",
+    "id": "cee1e7b4-cbf4-44e1-8b67-c38d93972d2d",
+    "issue_category": "story",
+    "issue_code": "dialogue_speaker_missing",
     "issues": [
-      {
-        "auto_fix_action": {
-          "bubble_id": null,
-          "issue_code": "render_resolution_too_low",
-          "panel_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
-          "safe": true,
-          "target_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
-          "target_type": "panel",
-          "type": "mark_page_for_rerender"
-        },
-        "auto_fix_available": true,
-        "blocking": false,
-        "bubble_id": null,
-        "category": "render",
-        "code": "render_resolution_too_low",
-        "confidence": 1.0,
-        "details": {
-          "height": 360,
-          "min_short_side": 512,
-          "width": 840
-        },
-        "id": "render_resolution_too_low-1",
-        "issue_category": "render",
-        "issue_code": "render_resolution_too_low",
-        "message": "Panel 1 render is below the minimum draft resolution.",
-        "page_id": null,
-        "panel_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
-        "severity": "warning",
-        "target_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
-        "target_type": "panel"
-      },
       {
         "auto_fix_action": {},
         "auto_fix_available": false,
         "blocking": false,
-        "bubble_id": "ab6a516d-3a8f-4bdf-9a98-3b740ea0914e",
+        "bubble_id": "01b3a347-359a-494b-b754-700aee1e781a",
         "category": "story",
         "code": "dialogue_speaker_missing",
         "confidence": 1.0,
         "details": {},
-        "id": "dialogue_speaker_missing-2",
+        "id": "dialogue_speaker_missing-1",
         "issue_category": "story",
         "issue_code": "dialogue_speaker_missing",
         "message": "A dialogue bubble has no speaker assigned.",
         "page_id": null,
-        "panel_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
+        "panel_id": "ef9db3b1-60d0-4212-9897-393c931be269",
         "severity": "warning",
-        "target_id": "ab6a516d-3a8f-4bdf-9a98-3b740ea0914e",
+        "target_id": "01b3a347-359a-494b-b754-700aee1e781a",
         "target_type": "bubble"
       },
       {
@@ -412,26 +662,26 @@
         "confidence": 1.0,
         "details": {
           "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e"
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
           ]
         },
-        "id": "character_state_missing-3",
+        "id": "character_state_missing-2",
         "issue_category": "continuity",
         "issue_code": "character_state_missing",
         "message": "Panel 1 is missing active character state for 1 character(s).",
         "page_id": null,
-        "panel_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
+        "panel_id": "ef9db3b1-60d0-4212-9897-393c931be269",
         "severity": "warning",
-        "target_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
+        "target_id": "ef9db3b1-60d0-4212-9897-393c931be269",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {
           "bubble_id": null,
           "issue_code": "render_resolution_too_low",
-          "panel_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+          "panel_id": "d659613d-3609-41dd-91c7-3708649342f1",
           "safe": true,
-          "target_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+          "target_id": "d659613d-3609-41dd-91c7-3708649342f1",
           "target_type": "panel",
           "type": "mark_page_for_rerender"
         },
@@ -442,37 +692,37 @@
         "code": "render_resolution_too_low",
         "confidence": 1.0,
         "details": {
-          "height": 360,
+          "height": 230,
           "min_short_side": 512,
           "width": 840
         },
-        "id": "render_resolution_too_low-4",
+        "id": "render_resolution_too_low-3",
         "issue_category": "render",
         "issue_code": "render_resolution_too_low",
         "message": "Panel 2 render is below the minimum draft resolution.",
         "page_id": null,
-        "panel_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+        "panel_id": "d659613d-3609-41dd-91c7-3708649342f1",
         "severity": "warning",
-        "target_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+        "target_id": "d659613d-3609-41dd-91c7-3708649342f1",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {},
         "auto_fix_available": false,
         "blocking": false,
-        "bubble_id": "624abe39-aac3-46d6-9717-7cb11a3a36b4",
+        "bubble_id": "783c93c8-fe16-4050-88b7-da8b80e3831c",
         "category": "story",
         "code": "dialogue_speaker_missing",
         "confidence": 1.0,
         "details": {},
-        "id": "dialogue_speaker_missing-5",
+        "id": "dialogue_speaker_missing-4",
         "issue_category": "story",
         "issue_code": "dialogue_speaker_missing",
         "message": "A dialogue bubble has no speaker assigned.",
         "page_id": null,
-        "panel_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+        "panel_id": "d659613d-3609-41dd-91c7-3708649342f1",
         "severity": "warning",
-        "target_id": "624abe39-aac3-46d6-9717-7cb11a3a36b4",
+        "target_id": "783c93c8-fe16-4050-88b7-da8b80e3831c",
         "target_type": "bubble"
       },
       {
@@ -485,27 +735,27 @@
         "confidence": 1.0,
         "details": {
           "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e",
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
+            "a5a40e9a-890b-472f-b23d-d34274e235b9",
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
           ]
         },
-        "id": "character_state_missing-6",
+        "id": "character_state_missing-5",
         "issue_category": "continuity",
         "issue_code": "character_state_missing",
         "message": "Panel 2 is missing active character state for 2 character(s).",
         "page_id": null,
-        "panel_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+        "panel_id": "d659613d-3609-41dd-91c7-3708649342f1",
         "severity": "warning",
-        "target_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+        "target_id": "d659613d-3609-41dd-91c7-3708649342f1",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {
           "bubble_id": null,
           "issue_code": "render_resolution_too_low",
-          "panel_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+          "panel_id": "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
           "safe": true,
-          "target_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+          "target_id": "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
           "target_type": "panel",
           "type": "mark_page_for_rerender"
         },
@@ -516,37 +766,37 @@
         "code": "render_resolution_too_low",
         "confidence": 1.0,
         "details": {
-          "height": 360,
+          "height": 150,
           "min_short_side": 512,
           "width": 840
         },
-        "id": "render_resolution_too_low-7",
+        "id": "render_resolution_too_low-6",
         "issue_category": "render",
         "issue_code": "render_resolution_too_low",
         "message": "Panel 3 render is below the minimum draft resolution.",
         "page_id": null,
-        "panel_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+        "panel_id": "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
         "severity": "warning",
-        "target_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+        "target_id": "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {},
         "auto_fix_available": false,
         "blocking": false,
-        "bubble_id": "db0a13a0-8aca-4861-bfbf-7fa483edf98f",
+        "bubble_id": "62e7b8ce-dd86-4943-af27-897dfe4ac9d3",
         "category": "story",
         "code": "dialogue_speaker_missing",
         "confidence": 1.0,
         "details": {},
-        "id": "dialogue_speaker_missing-8",
+        "id": "dialogue_speaker_missing-7",
         "issue_category": "story",
         "issue_code": "dialogue_speaker_missing",
         "message": "A dialogue bubble has no speaker assigned.",
         "page_id": null,
-        "panel_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+        "panel_id": "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
         "severity": "warning",
-        "target_id": "db0a13a0-8aca-4861-bfbf-7fa483edf98f",
+        "target_id": "62e7b8ce-dd86-4943-af27-897dfe4ac9d3",
         "target_type": "bubble"
       },
       {
@@ -559,18 +809,18 @@
         "confidence": 1.0,
         "details": {
           "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e",
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
+            "a5a40e9a-890b-472f-b23d-d34274e235b9",
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
           ]
         },
-        "id": "character_state_missing-9",
+        "id": "character_state_missing-8",
         "issue_category": "continuity",
         "issue_code": "character_state_missing",
         "message": "Panel 3 is missing active character state for 2 character(s).",
         "page_id": null,
-        "panel_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+        "panel_id": "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
         "severity": "warning",
-        "target_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+        "target_id": "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
         "target_type": "panel"
       },
       {
@@ -583,73 +833,66 @@
         "confidence": 1.0,
         "details": {
           "panel_ids": [
-            "71f10212-dd8b-4e7d-aee2-2badbf87624f",
-            "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
-            "66191c79-2995-4e88-b167-1bdde27a79b7"
+            "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
+            "d659613d-3609-41dd-91c7-3708649342f1",
+            "ef9db3b1-60d0-4212-9897-393c931be269"
           ]
         },
-        "id": "unapproved_render_used_in_composite-10",
+        "id": "unapproved_render_used_in_composite-9",
         "issue_category": "render",
         "issue_code": "unapproved_render_used_in_composite",
         "message": "The composed page includes render assets that have not been approved.",
-        "page_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+        "page_id": "21efdd1a-914f-418c-8654-ce1d014c00be",
         "panel_id": null,
         "severity": "warning",
-        "target_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+        "target_id": "21efdd1a-914f-418c-8654-ce1d014c00be",
         "target_type": "page"
       }
     ],
-    "overall_score": 30,
-    "page_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
-    "panel_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
+    "overall_score": 37,
+    "page_id": "21efdd1a-914f-418c-8654-ce1d014c00be",
+    "panel_id": "ef9db3b1-60d0-4212-9897-393c931be269",
     "recommendations": [
       {
         "details": {},
         "id": "recommendation-1",
-        "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
+        "message": "Add chapter/scene/page character state before final rendering.",
+        "target_id": "ef9db3b1-60d0-4212-9897-393c931be269",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-2",
-        "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "66191c79-2995-4e88-b167-1bdde27a79b7",
+        "message": "Rerender at draft or final quality before publishing.",
+        "target_id": "d659613d-3609-41dd-91c7-3708649342f1",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-3",
-        "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+        "message": "Add chapter/scene/page character state before final rendering.",
+        "target_id": "d659613d-3609-41dd-91c7-3708649342f1",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-4",
-        "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "fe1881c5-9c4c-4392-ac4f-623f9855fc33",
+        "message": "Rerender at draft or final quality before publishing.",
+        "target_id": "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-5",
-        "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
+        "message": "Add chapter/scene/page character state before final rendering.",
+        "target_id": "e9e4b67b-b989-4856-ae34-7d99f65a8d97",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-6",
-        "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "71f10212-dd8b-4e7d-aee2-2badbf87624f",
-        "target_type": "panel"
-      },
-      {
-        "details": {},
-        "id": "recommendation-7",
         "message": "Approve the chosen render versions or rerun composition after approval.",
-        "target_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+        "target_id": "21efdd1a-914f-418c-8654-ce1d014c00be",
         "target_type": "page"
       }
     ],
@@ -659,31 +902,31 @@
       "export": 100,
       "layout": 100,
       "lettering": 100,
-      "render": 72,
+      "render": 79,
       "safety": 100,
       "story": 79,
       "style": 100
     },
     "severity": "warning",
-    "target_id": "e3f70bf4-8455-43f2-934e-a8e09665dd18",
+    "target_id": "21efdd1a-914f-418c-8654-ce1d014c00be",
     "target_type": "page",
-    "updated_at": "2026-06-25T18:25:40.544453+00:00"
+    "updated_at": "2026-06-26T13:26:55.139203+00:00"
   },
   {
     "auto_fix_action": {
       "bubble_id": null,
       "issue_code": "render_resolution_too_low",
-      "panel_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
+      "panel_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
       "safe": true,
-      "target_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
+      "target_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
       "target_type": "panel",
       "type": "mark_page_for_rerender"
     },
     "auto_fix_available": true,
     "blocking": false,
     "confidence": 1.0,
-    "created_at": "2026-06-25T18:25:40.700912+00:00",
-    "id": "0e268ae6-c403-4a90-bdc4-db2c6920973d",
+    "created_at": "2026-06-26T13:26:55.367455+00:00",
+    "id": "36570836-ee76-49e9-be3f-cc9d8c3c1527",
     "issue_category": "render",
     "issue_code": "render_resolution_too_low",
     "issues": [
@@ -691,9 +934,9 @@
         "auto_fix_action": {
           "bubble_id": null,
           "issue_code": "render_resolution_too_low",
-          "panel_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
+          "panel_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
           "safe": true,
-          "target_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
+          "target_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
           "target_type": "panel",
           "type": "mark_page_for_rerender"
         },
@@ -713,16 +956,16 @@
         "issue_code": "render_resolution_too_low",
         "message": "Panel 1 render is below the minimum draft resolution.",
         "page_id": null,
-        "panel_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
+        "panel_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
         "severity": "warning",
-        "target_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
+        "target_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {},
         "auto_fix_available": false,
         "blocking": false,
-        "bubble_id": "5bb6b010-550e-4b80-8693-33137427b2f1",
+        "bubble_id": "ca340e0a-6070-49d8-bc02-6aed9d551e19",
         "category": "story",
         "code": "dialogue_speaker_missing",
         "confidence": 1.0,
@@ -732,9 +975,9 @@
         "issue_code": "dialogue_speaker_missing",
         "message": "A dialogue bubble has no speaker assigned.",
         "page_id": null,
-        "panel_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
+        "panel_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
         "severity": "warning",
-        "target_id": "5bb6b010-550e-4b80-8693-33137427b2f1",
+        "target_id": "ca340e0a-6070-49d8-bc02-6aed9d551e19",
         "target_type": "bubble"
       },
       {
@@ -747,343 +990,8 @@
         "confidence": 1.0,
         "details": {
           "character_ids": [
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
-          ]
-        },
-        "id": "character_state_missing-3",
-        "issue_category": "continuity",
-        "issue_code": "character_state_missing",
-        "message": "Panel 1 is missing active character state for 1 character(s).",
-        "page_id": null,
-        "panel_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
-        "severity": "warning",
-        "target_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
-        "target_type": "panel"
-      },
-      {
-        "auto_fix_action": {
-          "bubble_id": null,
-          "issue_code": "render_resolution_too_low",
-          "panel_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-          "safe": true,
-          "target_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-          "target_type": "panel",
-          "type": "mark_page_for_rerender"
-        },
-        "auto_fix_available": true,
-        "blocking": false,
-        "bubble_id": null,
-        "category": "render",
-        "code": "render_resolution_too_low",
-        "confidence": 1.0,
-        "details": {
-          "height": 360,
-          "min_short_side": 512,
-          "width": 840
-        },
-        "id": "render_resolution_too_low-4",
-        "issue_category": "render",
-        "issue_code": "render_resolution_too_low",
-        "message": "Panel 2 render is below the minimum draft resolution.",
-        "page_id": null,
-        "panel_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-        "severity": "warning",
-        "target_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-        "target_type": "panel"
-      },
-      {
-        "auto_fix_action": {},
-        "auto_fix_available": false,
-        "blocking": false,
-        "bubble_id": "e580dc0c-6a1a-4a54-a538-b3a1a7898214",
-        "category": "story",
-        "code": "dialogue_speaker_missing",
-        "confidence": 1.0,
-        "details": {},
-        "id": "dialogue_speaker_missing-5",
-        "issue_category": "story",
-        "issue_code": "dialogue_speaker_missing",
-        "message": "A dialogue bubble has no speaker assigned.",
-        "page_id": null,
-        "panel_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-        "severity": "warning",
-        "target_id": "e580dc0c-6a1a-4a54-a538-b3a1a7898214",
-        "target_type": "bubble"
-      },
-      {
-        "auto_fix_action": {},
-        "auto_fix_available": false,
-        "blocking": false,
-        "bubble_id": null,
-        "category": "continuity",
-        "code": "character_state_missing",
-        "confidence": 1.0,
-        "details": {
-          "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e",
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
-          ]
-        },
-        "id": "character_state_missing-6",
-        "issue_category": "continuity",
-        "issue_code": "character_state_missing",
-        "message": "Panel 2 is missing active character state for 2 character(s).",
-        "page_id": null,
-        "panel_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-        "severity": "warning",
-        "target_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-        "target_type": "panel"
-      },
-      {
-        "auto_fix_action": {
-          "bubble_id": null,
-          "issue_code": "render_resolution_too_low",
-          "panel_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
-          "safe": true,
-          "target_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
-          "target_type": "panel",
-          "type": "mark_page_for_rerender"
-        },
-        "auto_fix_available": true,
-        "blocking": false,
-        "bubble_id": null,
-        "category": "render",
-        "code": "render_resolution_too_low",
-        "confidence": 1.0,
-        "details": {
-          "height": 360,
-          "min_short_side": 512,
-          "width": 840
-        },
-        "id": "render_resolution_too_low-7",
-        "issue_category": "render",
-        "issue_code": "render_resolution_too_low",
-        "message": "Panel 3 render is below the minimum draft resolution.",
-        "page_id": null,
-        "panel_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
-        "severity": "warning",
-        "target_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
-        "target_type": "panel"
-      },
-      {
-        "auto_fix_action": {},
-        "auto_fix_available": false,
-        "blocking": false,
-        "bubble_id": "353d1edd-e6ab-4598-b807-d0994fb71731",
-        "category": "story",
-        "code": "dialogue_speaker_missing",
-        "confidence": 1.0,
-        "details": {},
-        "id": "dialogue_speaker_missing-8",
-        "issue_category": "story",
-        "issue_code": "dialogue_speaker_missing",
-        "message": "A dialogue bubble has no speaker assigned.",
-        "page_id": null,
-        "panel_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
-        "severity": "warning",
-        "target_id": "353d1edd-e6ab-4598-b807-d0994fb71731",
-        "target_type": "bubble"
-      },
-      {
-        "auto_fix_action": {},
-        "auto_fix_available": false,
-        "blocking": false,
-        "bubble_id": null,
-        "category": "continuity",
-        "code": "character_state_missing",
-        "confidence": 1.0,
-        "details": {
-          "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e",
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
-          ]
-        },
-        "id": "character_state_missing-9",
-        "issue_category": "continuity",
-        "issue_code": "character_state_missing",
-        "message": "Panel 3 is missing active character state for 2 character(s).",
-        "page_id": null,
-        "panel_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
-        "severity": "warning",
-        "target_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
-        "target_type": "panel"
-      },
-      {
-        "auto_fix_action": {},
-        "auto_fix_available": false,
-        "blocking": false,
-        "bubble_id": null,
-        "category": "render",
-        "code": "unapproved_render_used_in_composite",
-        "confidence": 1.0,
-        "details": {
-          "panel_ids": [
-            "366088ce-7ab3-4cff-b33d-520fa0436554",
-            "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-            "6d532c46-3086-4b13-80f8-647ea66eb7ff"
-          ]
-        },
-        "id": "unapproved_render_used_in_composite-10",
-        "issue_category": "render",
-        "issue_code": "unapproved_render_used_in_composite",
-        "message": "The composed page includes render assets that have not been approved.",
-        "page_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
-        "panel_id": null,
-        "severity": "warning",
-        "target_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
-        "target_type": "page"
-      }
-    ],
-    "overall_score": 30,
-    "page_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
-    "panel_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
-    "recommendations": [
-      {
-        "details": {},
-        "id": "recommendation-1",
-        "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
-        "target_type": "panel"
-      },
-      {
-        "details": {},
-        "id": "recommendation-2",
-        "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "6d532c46-3086-4b13-80f8-647ea66eb7ff",
-        "target_type": "panel"
-      },
-      {
-        "details": {},
-        "id": "recommendation-3",
-        "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-        "target_type": "panel"
-      },
-      {
-        "details": {},
-        "id": "recommendation-4",
-        "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "2cdb27fb-e4a5-43a7-ab89-6c3659d46772",
-        "target_type": "panel"
-      },
-      {
-        "details": {},
-        "id": "recommendation-5",
-        "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
-        "target_type": "panel"
-      },
-      {
-        "details": {},
-        "id": "recommendation-6",
-        "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "366088ce-7ab3-4cff-b33d-520fa0436554",
-        "target_type": "panel"
-      },
-      {
-        "details": {},
-        "id": "recommendation-7",
-        "message": "Approve the chosen render versions or rerun composition after approval.",
-        "target_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
-        "target_type": "page"
-      }
-    ],
-    "scores": {
-      "consistency": 100,
-      "continuity": 79,
-      "export": 100,
-      "layout": 100,
-      "lettering": 100,
-      "render": 72,
-      "safety": 100,
-      "story": 79,
-      "style": 100
-    },
-    "severity": "warning",
-    "target_id": "5600e2a5-7216-4a97-8897-7b3b22a0db74",
-    "target_type": "page",
-    "updated_at": "2026-06-25T18:25:40.700928+00:00"
-  },
-  {
-    "auto_fix_action": {
-      "bubble_id": null,
-      "issue_code": "render_resolution_too_low",
-      "panel_id": "d834655f-da16-40ed-9bf8-96046b52052a",
-      "safe": true,
-      "target_id": "d834655f-da16-40ed-9bf8-96046b52052a",
-      "target_type": "panel",
-      "type": "mark_page_for_rerender"
-    },
-    "auto_fix_available": true,
-    "blocking": false,
-    "confidence": 1.0,
-    "created_at": "2026-06-25T18:25:40.825496+00:00",
-    "id": "125ec298-9e72-4f8a-88f2-c5c222b78fde",
-    "issue_category": "render",
-    "issue_code": "render_resolution_too_low",
-    "issues": [
-      {
-        "auto_fix_action": {
-          "bubble_id": null,
-          "issue_code": "render_resolution_too_low",
-          "panel_id": "d834655f-da16-40ed-9bf8-96046b52052a",
-          "safe": true,
-          "target_id": "d834655f-da16-40ed-9bf8-96046b52052a",
-          "target_type": "panel",
-          "type": "mark_page_for_rerender"
-        },
-        "auto_fix_available": true,
-        "blocking": false,
-        "bubble_id": null,
-        "category": "render",
-        "code": "render_resolution_too_low",
-        "confidence": 1.0,
-        "details": {
-          "height": 360,
-          "min_short_side": 512,
-          "width": 840
-        },
-        "id": "render_resolution_too_low-1",
-        "issue_category": "render",
-        "issue_code": "render_resolution_too_low",
-        "message": "Panel 1 render is below the minimum draft resolution.",
-        "page_id": null,
-        "panel_id": "d834655f-da16-40ed-9bf8-96046b52052a",
-        "severity": "warning",
-        "target_id": "d834655f-da16-40ed-9bf8-96046b52052a",
-        "target_type": "panel"
-      },
-      {
-        "auto_fix_action": {},
-        "auto_fix_available": false,
-        "blocking": false,
-        "bubble_id": "aada8173-a399-410e-88a4-acaf0a0082c1",
-        "category": "story",
-        "code": "dialogue_speaker_missing",
-        "confidence": 1.0,
-        "details": {},
-        "id": "dialogue_speaker_missing-2",
-        "issue_category": "story",
-        "issue_code": "dialogue_speaker_missing",
-        "message": "A dialogue bubble has no speaker assigned.",
-        "page_id": null,
-        "panel_id": "d834655f-da16-40ed-9bf8-96046b52052a",
-        "severity": "warning",
-        "target_id": "aada8173-a399-410e-88a4-acaf0a0082c1",
-        "target_type": "bubble"
-      },
-      {
-        "auto_fix_action": {},
-        "auto_fix_available": false,
-        "blocking": false,
-        "bubble_id": null,
-        "category": "continuity",
-        "code": "character_state_missing",
-        "confidence": 1.0,
-        "details": {
-          "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e",
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
+            "a5a40e9a-890b-472f-b23d-d34274e235b9",
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
           ]
         },
         "id": "character_state_missing-3",
@@ -1091,18 +999,18 @@
         "issue_code": "character_state_missing",
         "message": "Panel 1 is missing active character state for 2 character(s).",
         "page_id": null,
-        "panel_id": "d834655f-da16-40ed-9bf8-96046b52052a",
+        "panel_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
         "severity": "warning",
-        "target_id": "d834655f-da16-40ed-9bf8-96046b52052a",
+        "target_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {
           "bubble_id": null,
           "issue_code": "render_resolution_too_low",
-          "panel_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+          "panel_id": "a23e92ed-4221-4123-9812-116ecbeb61d6",
           "safe": true,
-          "target_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+          "target_id": "a23e92ed-4221-4123-9812-116ecbeb61d6",
           "target_type": "panel",
           "type": "mark_page_for_rerender"
         },
@@ -1113,25 +1021,25 @@
         "code": "render_resolution_too_low",
         "confidence": 1.0,
         "details": {
-          "height": 360,
+          "height": 760,
           "min_short_side": 512,
-          "width": 840
+          "width": 360
         },
         "id": "render_resolution_too_low-4",
         "issue_category": "render",
         "issue_code": "render_resolution_too_low",
         "message": "Panel 2 render is below the minimum draft resolution.",
         "page_id": null,
-        "panel_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+        "panel_id": "a23e92ed-4221-4123-9812-116ecbeb61d6",
         "severity": "warning",
-        "target_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+        "target_id": "a23e92ed-4221-4123-9812-116ecbeb61d6",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {},
         "auto_fix_available": false,
         "blocking": false,
-        "bubble_id": "e775028e-88b1-492e-b49e-4c816d843c5a",
+        "bubble_id": "0f184f91-9f74-4c54-b7bc-3c9daea68774",
         "category": "story",
         "code": "dialogue_speaker_missing",
         "confidence": 1.0,
@@ -1141,9 +1049,9 @@
         "issue_code": "dialogue_speaker_missing",
         "message": "A dialogue bubble has no speaker assigned.",
         "page_id": null,
-        "panel_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+        "panel_id": "a23e92ed-4221-4123-9812-116ecbeb61d6",
         "severity": "warning",
-        "target_id": "e775028e-88b1-492e-b49e-4c816d843c5a",
+        "target_id": "0f184f91-9f74-4c54-b7bc-3c9daea68774",
         "target_type": "bubble"
       },
       {
@@ -1156,8 +1064,8 @@
         "confidence": 1.0,
         "details": {
           "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e",
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
+            "a5a40e9a-890b-472f-b23d-d34274e235b9",
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
           ]
         },
         "id": "character_state_missing-6",
@@ -1165,18 +1073,18 @@
         "issue_code": "character_state_missing",
         "message": "Panel 2 is missing active character state for 2 character(s).",
         "page_id": null,
-        "panel_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+        "panel_id": "a23e92ed-4221-4123-9812-116ecbeb61d6",
         "severity": "warning",
-        "target_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+        "target_id": "a23e92ed-4221-4123-9812-116ecbeb61d6",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {
           "bubble_id": null,
           "issue_code": "render_resolution_too_low",
-          "panel_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+          "panel_id": "0776ee22-799c-46a9-839a-1435064fbfea",
           "safe": true,
-          "target_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+          "target_id": "0776ee22-799c-46a9-839a-1435064fbfea",
           "target_type": "panel",
           "type": "mark_page_for_rerender"
         },
@@ -1187,25 +1095,25 @@
         "code": "render_resolution_too_low",
         "confidence": 1.0,
         "details": {
-          "height": 360,
+          "height": 760,
           "min_short_side": 512,
-          "width": 840
+          "width": 440
         },
         "id": "render_resolution_too_low-7",
         "issue_category": "render",
         "issue_code": "render_resolution_too_low",
         "message": "Panel 3 render is below the minimum draft resolution.",
         "page_id": null,
-        "panel_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+        "panel_id": "0776ee22-799c-46a9-839a-1435064fbfea",
         "severity": "warning",
-        "target_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+        "target_id": "0776ee22-799c-46a9-839a-1435064fbfea",
         "target_type": "panel"
       },
       {
         "auto_fix_action": {},
         "auto_fix_available": false,
         "blocking": false,
-        "bubble_id": "8f4f31e8-b708-451b-91db-1f6e4937d671",
+        "bubble_id": "f4533265-1fba-4228-9454-9cc20a03b4e7",
         "category": "story",
         "code": "dialogue_speaker_missing",
         "confidence": 1.0,
@@ -1215,9 +1123,9 @@
         "issue_code": "dialogue_speaker_missing",
         "message": "A dialogue bubble has no speaker assigned.",
         "page_id": null,
-        "panel_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+        "panel_id": "0776ee22-799c-46a9-839a-1435064fbfea",
         "severity": "warning",
-        "target_id": "8f4f31e8-b708-451b-91db-1f6e4937d671",
+        "target_id": "f4533265-1fba-4228-9454-9cc20a03b4e7",
         "target_type": "bubble"
       },
       {
@@ -1230,8 +1138,8 @@
         "confidence": 1.0,
         "details": {
           "character_ids": [
-            "a533bccc-79a1-4a5f-9743-74322f025b3e",
-            "970c0501-8a85-444d-8209-e958ad6ec83b"
+            "a5a40e9a-890b-472f-b23d-d34274e235b9",
+            "6378a482-1068-47ce-ab12-c84a256df2d1"
           ]
         },
         "id": "character_state_missing-9",
@@ -1239,9 +1147,9 @@
         "issue_code": "character_state_missing",
         "message": "Panel 3 is missing active character state for 2 character(s).",
         "page_id": null,
-        "panel_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+        "panel_id": "0776ee22-799c-46a9-839a-1435064fbfea",
         "severity": "warning",
-        "target_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+        "target_id": "0776ee22-799c-46a9-839a-1435064fbfea",
         "target_type": "panel"
       },
       {
@@ -1254,73 +1162,73 @@
         "confidence": 1.0,
         "details": {
           "panel_ids": [
-            "acd4ac22-6043-40e2-8e85-010d0c548fac",
-            "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
-            "d834655f-da16-40ed-9bf8-96046b52052a"
+            "0776ee22-799c-46a9-839a-1435064fbfea",
+            "a23e92ed-4221-4123-9812-116ecbeb61d6",
+            "ee2e2364-0045-4348-b16d-ab75c4590cb8"
           ]
         },
         "id": "unapproved_render_used_in_composite-10",
         "issue_category": "render",
         "issue_code": "unapproved_render_used_in_composite",
         "message": "The composed page includes render assets that have not been approved.",
-        "page_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+        "page_id": "a9123cfa-cbe6-4976-8a8b-38dc6e3c64ff",
         "panel_id": null,
         "severity": "warning",
-        "target_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+        "target_id": "a9123cfa-cbe6-4976-8a8b-38dc6e3c64ff",
         "target_type": "page"
       }
     ],
     "overall_score": 30,
-    "page_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
-    "panel_id": "d834655f-da16-40ed-9bf8-96046b52052a",
+    "page_id": "a9123cfa-cbe6-4976-8a8b-38dc6e3c64ff",
+    "panel_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
     "recommendations": [
       {
         "details": {},
         "id": "recommendation-1",
         "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "d834655f-da16-40ed-9bf8-96046b52052a",
+        "target_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-2",
         "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "d834655f-da16-40ed-9bf8-96046b52052a",
+        "target_id": "ee2e2364-0045-4348-b16d-ab75c4590cb8",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-3",
         "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+        "target_id": "a23e92ed-4221-4123-9812-116ecbeb61d6",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-4",
         "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "ebc49b67-4586-44f3-bf1c-97d0e2d61e22",
+        "target_id": "a23e92ed-4221-4123-9812-116ecbeb61d6",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-5",
         "message": "Rerender at draft or final quality before publishing.",
-        "target_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+        "target_id": "0776ee22-799c-46a9-839a-1435064fbfea",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-6",
         "message": "Add chapter/scene/page character state before final rendering.",
-        "target_id": "acd4ac22-6043-40e2-8e85-010d0c548fac",
+        "target_id": "0776ee22-799c-46a9-839a-1435064fbfea",
         "target_type": "panel"
       },
       {
         "details": {},
         "id": "recommendation-7",
         "message": "Approve the chosen render versions or rerun composition after approval.",
-        "target_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+        "target_id": "a9123cfa-cbe6-4976-8a8b-38dc6e3c64ff",
         "target_type": "page"
       }
     ],
@@ -1336,8 +1244,8 @@
       "style": 100
     },
     "severity": "warning",
-    "target_id": "9ef3363f-49b9-49fe-92ba-af7a989ac71c",
+    "target_id": "a9123cfa-cbe6-4976-8a8b-38dc6e3c64ff",
     "target_type": "page",
-    "updated_at": "2026-06-25T18:25:40.825527+00:00"
+    "updated_at": "2026-06-26T13:26:55.367488+00:00"
   }
 ]

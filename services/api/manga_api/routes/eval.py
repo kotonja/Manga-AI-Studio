@@ -5,13 +5,14 @@ from dataclasses import asdict
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
 
+from manga_api.auth import require_admin_access
 from manga_api.db import get_session
 from manga_api.evaluation import EVALUATION_SCENARIOS, MangaEvaluationRunner
 from manga_api.models import EvalMetricSnapshot, EvalRun
 from manga_api.schemas import EvalRunReport, EvalRunRequest, EvalScenarioRead
 from manga_api.storage import ObjectStorage, get_object_storage
 
-router = APIRouter(prefix="/eval", tags=["evaluation"])
+router = APIRouter(prefix="/eval", tags=["evaluation"], dependencies=[Depends(require_admin_access)])
 
 
 @router.get("/scenarios", response_model=list[EvalScenarioRead])

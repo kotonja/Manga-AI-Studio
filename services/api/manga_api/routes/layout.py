@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
+from manga_api.access import require_bubble_access, require_layout_template_access, require_page_access, require_panel_access, require_project_access
+from manga_api.auth import require_alpha_user
 from manga_api.db import get_session
 from manga_api.layout_planner import LayoutPlanner, LayoutValidationError, validate_panel_inputs
 from manga_api.models import Bubble, LayoutTemplate, Page, PagePlan, Panel, Project, StyleBible
@@ -25,7 +27,7 @@ from manga_api.schemas import (
 )
 from manga_api.versioning import VersioningService
 
-router = APIRouter(tags=["layout"])
+router = APIRouter(tags=["layout"], dependencies=[Depends(require_alpha_user)])
 
 
 def touch(row) -> None:
@@ -34,9 +36,7 @@ def touch(row) -> None:
 
 @router.get("/pages/{page_id}/layout", response_model=PageLayoutRead)
 def get_page_layout(page_id: uuid.UUID, session: Session = Depends(get_session)) -> PageLayoutRead:
-    page = session.get(Page, page_id)
-    if page is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Page not found")
+    page = require_page_access(session, page_id)
     return build_page_layout(session, page)
 
 
@@ -46,18 +46,14 @@ def suggest_page_layout(
     payload: LayoutSuggestRequest,
     session: Session = Depends(get_session),
 ) -> LayoutSuggestionRead:
-    page = session.get(Page, page_id)
-    if page is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Page not found")
+    page = require_page_access(session, page_id)
     project = session.get(Project, page.project_id)
     if project is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
 
     template = None
     if payload.template_id is not None:
-        template = session.get(LayoutTemplate, payload.template_id)
-        if template is None:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Layout template not found")
+        template = require_layout_template_access(session, payload.template_id)
         if template.project_id != project.id:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Layout template does not belong to project")
 
@@ -103,9 +99,7 @@ def update_page_layout(
     payload: PageLayoutUpdate,
     session: Session = Depends(get_session),
 ) -> PageLayoutRead:
-    page = session.get(Page, page_id)
-    if page is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Page not found")
+    page = require_page_access(session, page_id)
 
     VersioningService(session).create_snapshot(
         page,
@@ -161,9 +155,7 @@ def create_layout_template(
     payload: LayoutTemplateCreate,
     session: Session = Depends(get_session),
 ) -> LayoutTemplate:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
     template = LayoutTemplate(project_id=project.id, **payload.model_dump())
     touch(project)
     session.add(template)
@@ -175,9 +167,7 @@ def create_layout_template(
 
 @router.get("/projects/{project_id}/layout-templates", response_model=list[LayoutTemplateRead])
 def list_layout_templates(project_id: uuid.UUID, session: Session = Depends(get_session)) -> list[LayoutTemplate]:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
     return list(
         session.exec(
             select(LayoutTemplate)
@@ -193,9 +183,7 @@ def create_bubble(
     payload: BubbleCreate,
     session: Session = Depends(get_session),
 ) -> Bubble:
-    panel = session.get(Panel, panel_id)
-    if panel is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Panel not found")
+    panel, _page_for_access = require_panel_access(session, panel_id)
 
     page = session.get(Page, panel.page_id)
     if page is not None:
@@ -242,9 +230,7 @@ def update_bubble(
     payload: BubbleUpdate,
     session: Session = Depends(get_session),
 ) -> Bubble:
-    bubble = session.get(Bubble, bubble_id)
-    if bubble is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bubble not found")
+    bubble = require_bubble_access(session, bubble_id)
 
     panel = session.get(Panel, bubble.panel_id)
     page = session.get(Page, panel.page_id) if panel is not None else None
@@ -288,9 +274,7 @@ def validate_panel_layouts(panels: list[PanelLayoutInput], page_width: int, page
 def load_locked_panels(session: Session, page_id: uuid.UUID, locked_panel_ids: list[uuid.UUID]) -> list[Panel]:
     locked_panels: list[Panel] = []
     for panel_id in locked_panel_ids:
-        panel = session.get(Panel, panel_id)
-        if panel is None:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Locked panel not found: {panel_id}")
+        panel, _page = require_panel_access(session, panel_id)
         if panel.page_id != page_id:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Locked panel does not belong to page")
         locked_panels.append(panel)

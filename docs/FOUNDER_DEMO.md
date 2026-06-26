@@ -97,16 +97,16 @@ A successful run creates:
 - page QA reports
 - ZIP and PDF exports
 
-The mock panel art intentionally shows placeholder visual language: panel borders, screentone, rain or speed lines, character silhouette labels, lantern accents, dialogue bubble, page number, and panel number.
+The mock panel art intentionally shows placeholder visual language: panel borders, screentone, rain or speed lines, character silhouettes, lantern accents, dialogue bubbles, page number, and panel number.
 
 ## Verified Local Smoke Test
 
 This pass verified:
 
 - `POST /demo/founder-run` completed against the running Docker Compose stack.
-- A 4-page mock run produced 12 panel renders, 4 composites, 4 QA reports, and ZIP/PDF exports.
-- `/demo` loaded in the browser with the prefilled premise, 3 style options, and the generate button visible.
-- Frontend production build included the `/demo` route.
+- A 4-page mock run produced 12 panel renders, 4 composites, 4 QA reports, protected asset provenance, and ZIP/PDF exports.
+- `/demo` loaded in browser smoke with the prefilled premise, 3 style options, the generate button, live timeline, QA reveal, export buttons, and Open in Studio flow.
+- Frontend production build and Playwright smoke include the `/demo` route.
 
 ![Founder Demo smoke screenshot](./founder-demo-smoke.png)
 

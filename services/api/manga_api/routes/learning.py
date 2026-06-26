@@ -7,6 +7,8 @@ from typing import Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
+from manga_api.access import require_feedback_target_access, require_project_access
+from manga_api.auth import require_alpha_user
 from manga_api.db import get_session
 from manga_api.models import (
     CharacterCard,
@@ -31,7 +33,7 @@ from manga_api.schemas import (
     ProjectDataControlsUpdate,
 )
 
-router = APIRouter(tags=["product-learning"])
+router = APIRouter(tags=["product-learning"], dependencies=[Depends(require_alpha_user)])
 
 ISSUE_TAGS = [
     "wrong character",
@@ -64,6 +66,12 @@ def create_generation_feedback(
     payload: GenerationFeedbackCreate,
     session: Session = Depends(get_session),
 ) -> GenerationFeedback:
+    require_feedback_target_access(
+        session,
+        target_type=payload.target_type,
+        target_id=payload.target_id,
+        project_id=payload.project_id,
+    )
     project = resolve_feedback_project(session, payload)
     allow_improvement = bool(project and project.allow_product_improvement and payload.allow_use_for_product_improvement)
     feedback = GenerationFeedback(
@@ -199,10 +207,7 @@ def create_specialized_rating(session: Session, project: Project | None, feedbac
 
 
 def require_project(session: Session, project_id: uuid.UUID) -> Project:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
-    return project
+    return require_project_access(session, project_id)
 
 
 def missing_target(label: str):

@@ -75,9 +75,10 @@ def utc_now() -> datetime:
     return datetime.now(timezone.utc)
 
 
-def create_founder_demo_job(session: Session, payload: FounderDemoRunRequest) -> GenerationJob:
+def create_founder_demo_job(session: Session, payload: FounderDemoRunRequest, *, owner_user_id: str = "local-dev") -> GenerationJob:
     style = founder_style_profile(payload.style_option)
     project = Project(
+        owner_user_id=owner_user_id,
         name=str(style.get("project_name", "Ghost Lantern")),
         description=payload.premise,
         style_prompt=str(style.get("prompt_style_positive", "")),
@@ -93,6 +94,7 @@ def create_founder_demo_job(session: Session, payload: FounderDemoRunRequest) ->
         input_payload={
             "request": payload.model_dump(mode="json"),
             "style_profile": style,
+            "owner_user_id": owner_user_id,
         },
         output_payload={
             "founder_state": {
@@ -145,6 +147,7 @@ class FounderDemoRunner:
                 reading_direction=request.reading_direction,
                 render_provider=request.render_provider,
                 allow_mock_assets=request.allow_mock_assets,
+                owner_user_id=str((job.input_payload or {}).get("owner_user_id") or "local-dev"),
                 style_profile=style,
                 event_callback=lambda event_type, message, payload: self._emit(job, event_type, message, payload),
             )

@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlmodel import Session
 
+from manga_api.access import require_page_access, require_panel_access, require_sfx_access
+from manga_api.auth import require_alpha_user
 from manga_api.db import get_session
 from manga_api.lettering import LetteringPlanner, lettering_svg_for_page
 from manga_api.models import Page, Panel, SFXElement
@@ -18,7 +20,7 @@ from manga_api.schemas import (
 )
 from manga_api.versioning import VersioningService
 
-router = APIRouter(tags=["lettering"])
+router = APIRouter(tags=["lettering"], dependencies=[Depends(require_alpha_user)])
 
 
 def touch(row) -> None:
@@ -66,9 +68,7 @@ def create_sfx(page_id: uuid.UUID, payload: SFXElementCreate, session: Session =
 
 @router.put("/sfx/{sfx_id}", response_model=SFXElementRead)
 def update_sfx(sfx_id: uuid.UUID, payload: SFXElementUpdate, session: Session = Depends(get_session)) -> SFXElement:
-    element = session.get(SFXElement, sfx_id)
-    if element is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="SFX element not found")
+    element = require_sfx_access(session, sfx_id)
     updates = payload.model_dump(exclude_unset=True)
     if "panel_id" in updates and updates["panel_id"] is not None:
         require_panel_on_page(session, updates["panel_id"], element.page_id)
@@ -91,9 +91,7 @@ def update_sfx(sfx_id: uuid.UUID, payload: SFXElementUpdate, session: Session = 
 
 @router.delete("/sfx/{sfx_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_sfx(sfx_id: uuid.UUID, session: Session = Depends(get_session)) -> Response:
-    element = session.get(SFXElement, sfx_id)
-    if element is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="SFX element not found")
+    element = require_sfx_access(session, sfx_id)
     page = require_page(session, element.page_id)
     VersioningService(session).create_snapshot(
         page,
@@ -114,16 +112,11 @@ def get_page_lettering_svg(page_id: uuid.UUID, session: Session = Depends(get_se
 
 
 def require_page(session: Session, page_id: uuid.UUID) -> Page:
-    page = session.get(Page, page_id)
-    if page is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Page not found")
-    return page
+    return require_page_access(session, page_id)
 
 
 def require_panel_on_page(session: Session, panel_id: uuid.UUID, page_id: uuid.UUID) -> Panel:
-    panel = session.get(Panel, panel_id)
-    if panel is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Panel not found")
+    panel, _page = require_panel_access(session, panel_id)
     if panel.page_id != page_id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="SFX panel does not belong to page")
     return panel

@@ -9,6 +9,8 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from PIL import Image, ImageDraw, ImageFont
 from sqlmodel import Session, select
 
+from manga_api.access import require_character_card_access, require_project_access, require_style_bible_access
+from manga_api.auth import require_alpha_user
 from manga_api.ai_tasks import AITaskRunner
 from manga_api.db import get_session
 from manga_api.llm import get_llm_provider
@@ -57,7 +59,7 @@ from manga_api.style_guard import StyleRiskError, evaluate_style_safety, require
 from manga_api.uploads import UploadValidationError, validate_upload_metadata
 from manga_api.versioning import VersioningService
 
-router = APIRouter(tags=["labs"])
+router = APIRouter(tags=["labs"], dependencies=[Depends(require_alpha_user)])
 
 
 def touch(row) -> None:
@@ -618,24 +620,15 @@ def set_active_project_style(
 
 
 def require_project(session: Session, project_id: uuid.UUID) -> Project:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
-    return project
+    return require_project_access(session, project_id)
 
 
 def require_character_card(session: Session, character_id: uuid.UUID) -> CharacterCard:
-    card = session.get(CharacterCard, character_id)
-    if card is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Character card not found")
-    return card
+    return require_character_card_access(session, character_id)
 
 
 def require_style_bible(session: Session, style_bible_id: uuid.UUID) -> StyleBible:
-    style_bible = session.get(StyleBible, style_bible_id)
-    if style_bible is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Style bible not found")
-    return style_bible
+    return require_style_bible_access(session, style_bible_id)
 
 
 def validate_character_state_links(

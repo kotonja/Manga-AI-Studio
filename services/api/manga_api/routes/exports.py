@@ -5,6 +5,8 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlmodel import Session
 
+from manga_api.access import require_asset_access, require_export_access, require_project_access
+from manga_api.auth import require_alpha_user
 from manga_api.db import get_session
 from manga_api.exporting import ExportError, ProjectExporter
 from manga_api.models import Asset, Project, ProjectExport
@@ -29,7 +31,7 @@ from manga_api.schemas import (
 )
 from manga_api.storage import ObjectStorage, get_object_storage
 
-router = APIRouter(tags=["exports"])
+router = APIRouter(tags=["exports"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.get("/export-presets", response_model=list[ExportPresetRead])
@@ -39,9 +41,7 @@ def get_export_presets() -> list[ExportPresetRead]:
 
 @router.get("/projects/{project_id}/publishing-metadata", response_model=ProjectPublishingMetadataRead)
 def get_publishing_metadata(project_id: uuid.UUID, session: Session = Depends(get_session)) -> ProjectPublishingMetadataRead:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
     metadata = get_project_publishing_metadata(session, project.id)
     if metadata is None:
         metadata = upsert_project_publishing_metadata(session, project, default_metadata_from_project(project))
@@ -56,9 +56,7 @@ def update_publishing_metadata(
     payload: ProjectPublishingMetadataUpsert,
     session: Session = Depends(get_session),
 ) -> ProjectPublishingMetadataRead:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
     metadata = upsert_project_publishing_metadata(session, project, payload)
     session.commit()
     session.refresh(metadata)
@@ -71,6 +69,7 @@ def get_export_readiness(
     preset_id: str = "archive_package",
     session: Session = Depends(get_session),
 ) -> ExportReadinessResult:
+    require_project_access(session, project_id)
     try:
         return ExportReadinessService(session).readiness(project_id, preset_id)
     except ValueError as exc:
@@ -84,6 +83,7 @@ def preview_project_export(
     session: Session = Depends(get_session),
 ) -> ExportPreviewResult:
     payload = payload or ExportCreateAdvanced()
+    require_project_access(session, project_id)
     try:
         return ExportReadinessService(session).preview(project_id, payload.preset_id, payload.options)
     except ValueError as exc:
@@ -97,9 +97,7 @@ def create_project_export_advanced(
     session: Session = Depends(get_session),
     storage: ObjectStorage = Depends(get_object_storage),
 ) -> ExportRead:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
     if payload.metadata is not None:
         upsert_project_publishing_metadata(session, project, payload.metadata)
         session.commit()
@@ -130,9 +128,7 @@ def create_project_export(
     session: Session = Depends(get_session),
     storage: ObjectStorage = Depends(get_object_storage),
 ) -> ExportRead:
-    project = session.get(Project, project_id)
-    if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    project = require_project_access(session, project_id)
 
     try:
         export = ProjectExporter(session, storage).export_project(
@@ -148,9 +144,7 @@ def create_project_export(
 
 @router.get("/exports/{export_id}", response_model=ExportRead)
 def get_export(export_id: uuid.UUID, session: Session = Depends(get_session)) -> ExportRead:
-    export = session.get(ProjectExport, export_id)
-    if export is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Export not found")
+    export = require_export_access(session, export_id)
     return export_read(session, export)
 
 
@@ -160,15 +154,28 @@ def download_export(
     session: Session = Depends(get_session),
     storage: ObjectStorage = Depends(get_object_storage),
 ) -> Response:
-    export = session.get(ProjectExport, export_id)
-    if export is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Export not found")
+    export = require_export_access(session, export_id)
     if export.file_asset_id is None:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Export file is not available")
-    asset = session.get(Asset, export.file_asset_id)
-    if asset is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Export asset not found")
+    asset = require_asset_access(session, export.file_asset_id)
+    if asset.project_id != export.project_id:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Export asset does not belong to export project")
 
+    data = storage.get_bytes(asset.storage_key)
+    return Response(
+        content=data,
+        media_type=asset.content_type,
+        headers={"Content-Disposition": f'attachment; filename="{asset.filename}"'},
+    )
+
+
+@router.get("/assets/{asset_id}/download")
+def download_asset(
+    asset_id: uuid.UUID,
+    session: Session = Depends(get_session),
+    storage: ObjectStorage = Depends(get_object_storage),
+) -> Response:
+    asset = require_asset_access(session, asset_id)
     data = storage.get_bytes(asset.storage_key)
     return Response(
         content=data,

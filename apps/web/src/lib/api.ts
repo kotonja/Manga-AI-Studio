@@ -11,6 +11,7 @@ export function getApiBaseUrl() {
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${getApiBaseUrl()}${path}`, {
     cache: "no-store",
+    credentials: "include",
     ...init,
     headers: {
       "Content-Type": "application/json",

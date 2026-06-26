@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
+  ...(process.env.NEXT_OUTPUT_STANDALONE === "true" ? { output: "standalone" } : {}),
   transpilePackages: ["@manga-ai/shared"],
   webpack: (config) => {
     config.resolve.alias = {

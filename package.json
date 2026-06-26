@@ -14,6 +14,7 @@
     "test:api": "docker compose run --rm --no-deps -e ENABLE_BACKGROUND_JOBS=false api sh -lc \"python -m pip install -e /app/services/api[test] >/dev/null && pytest\"",
     "typecheck:web": "pnpm --filter @manga-ai/web typecheck",
     "build:web": "pnpm --filter @manga-ai/web build",
+    "smoke:web": "pnpm --filter @manga-ai/web smoke",
     "seed:demo": "sh scripts/seed-demo.sh"
   },
   "engines": {

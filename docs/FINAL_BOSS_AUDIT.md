@@ -1,15 +1,15 @@
 # Final Boss Audit
 
-Generated at: 2026-06-25T18:29:37.970550+00:00
+Generated at: 2026-06-26T13:42:56.396415+00:00
 
 ## 1. Full Repo Structure Summary
 
 - `.github/` (1 entries)
-- `apps/` (52 entries)
-- `services/` (123 entries)
+- `apps/` (68 entries)
+- `services/` (147 entries)
 - `packages/` (10 entries)
 - `infra/` (1 entries)
-- `docs/` (20 entries)
+- `docs/` (24 entries)
 - `scripts/` (12 entries)
 - `eval_reports/` (3 entries)
 - `evidence/` (37 entries)
@@ -22,7 +22,10 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 ## 2. Backend Modules Implemented
 
 - `services/api/manga_api/__init__.py`
+- `services/api/manga_api/access.py`
 - `services/api/manga_api/ai_tasks.py`
+- `services/api/manga_api/auth.py`
+- `services/api/manga_api/commands.py`
 - `services/api/manga_api/compositor.py`
 - `services/api/manga_api/config.py`
 - `services/api/manga_api/db.py`
@@ -30,14 +33,18 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 - `services/api/manga_api/director.py`
 - `services/api/manga_api/evaluation.py`
 - `services/api/manga_api/exporting.py`
+- `services/api/manga_api/founder_demo.py`
 - `services/api/manga_api/layout_planner.py`
 - `services/api/manga_api/lettering.py`
 - `services/api/manga_api/llm.py`
 - `services/api/manga_api/main.py`
 - `services/api/manga_api/models.py`
 - `services/api/manga_api/observability.py`
+- `services/api/manga_api/pacing.py`
 - `services/api/manga_api/panel_render_director.py`
 - `services/api/manga_api/provenance.py`
+- `services/api/manga_api/provider_registry.py`
+- `services/api/manga_api/publishing.py`
 - `services/api/manga_api/qa.py`
 - `services/api/manga_api/qa_autofix.py`
 - `services/api/manga_api/queue.py`
@@ -51,6 +58,8 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 - `services/api/manga_api/versioning.py`
 - `services/api/manga_api/routes/__init__.py`
 - `services/api/manga_api/routes/admin.py`
+- `services/api/manga_api/routes/alpha.py`
+- `services/api/manga_api/routes/commands.py`
 - `services/api/manga_api/routes/composition.py`
 - `services/api/manga_api/routes/consistency.py`
 - `services/api/manga_api/routes/demo.py`
@@ -61,10 +70,13 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 - `services/api/manga_api/routes/jobs.py`
 - `services/api/manga_api/routes/labs.py`
 - `services/api/manga_api/routes/layout.py`
+- `services/api/manga_api/routes/learning.py`
 - `services/api/manga_api/routes/lettering.py`
+- `services/api/manga_api/routes/pacing.py`
 - `services/api/manga_api/routes/panel_render.py`
 - `services/api/manga_api/routes/projects.py`
 - `services/api/manga_api/routes/provenance.py`
+- `services/api/manga_api/routes/providers.py`
 - `services/api/manga_api/routes/qa.py`
 - `services/api/manga_api/routes/story.py`
 - `services/api/manga_api/routes/versions.py`
@@ -72,7 +84,10 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 ## 3. Frontend Pages Implemented
 
 - `/admin/ai-task-runs`: Developer-only AI task run inspector. [PARTIAL]
+- `/admin/alpha`: Private alpha admin health and feedback dashboard. [PARTIAL]
 - `/admin/eval`: Developer-only evaluation harness UI. [PARTIAL]
+- `/demo`: Founder Demo one-button walkthrough. [WORKING]
+- `/onboarding`: Private alpha onboarding and provider mode explanation. [WORKING]
 - `/`: Project dashboard and demo creation entry. [WORKING]
 - `/projects/{id}/characters`: Character cards, references, and continuity state. [WORKING]
 - `/projects/{id}/director`: One-premise draft manga orchestrator. [WORKING]
@@ -92,6 +107,7 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 - `manga_worker.render_panel`
 - `manga_worker.mock_render_panel`
 - `manga_worker.director_generate_draft`
+- `manga_worker.founder_demo_run`
 
 ## 5. Database Models Implemented
 
@@ -105,9 +121,15 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 - `character_reference_assets`
 - `character_states`
 - `characters`
+- `command_history`
+- `eval_metric_snapshots`
+- `eval_runs`
+- `export_ratings`
 - `export_versions`
 - `exports`
 - `expression_sheets`
+- `feedback_items`
+- `generation_feedback`
 - `generation_jobs`
 - `job_events`
 - `key_objects`
@@ -117,12 +139,15 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 - `locations`
 - `outfit_variants`
 - `page_plans`
+- `page_ratings`
 - `page_versions`
 - `pages`
 - `panel_plans`
+- `panel_ratings`
 - `panel_render_prompts`
 - `panel_versions`
 - `panels`
+- `project_publishing_metadata`
 - `project_versions`
 - `projects`
 - `prompt_templates`
@@ -137,11 +162,12 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 - `style_bible_versions`
 - `style_bibles`
 - `style_sample_assets`
+- `user_corrections`
 
 ## 6. API Endpoints Implemented
 
-- Total endpoints: 87
-- Endpoints with direct/static test coverage signal: 75
+- Total endpoints: 114
+- Endpoints with direct/static test coverage signal: 100
 - See `docs/API_INVENTORY.md` for method/path/request/response details.
 
 ## 7. Missing Or Stubbed Areas
@@ -155,17 +181,14 @@ Generated at: 2026-06-25T18:29:37.970550+00:00
 
 ## 8. Broken Or Risky Areas
 
-- High severity keyword finding: `services/api/app/final_boss/run.py:47` "NotImplemented",
-- High severity keyword finding: `services/api/app/final_boss/run.py:553` if "notimplemented" in text or "not implemented" in text:
-- High severity keyword finding: `services/api/app/final_boss/run.py:566` if "notimplemented" in text or "not implemented" in text:
-- High severity keyword finding: `services/api/app/final_boss/run.py:579` if "notimplemented" in text or "not implemented" in text:
-- No authentication exists; public exposure requires an auth layer.
+- No high severity keyword findings outside documented provider stubs.
+- Basic private-alpha auth, project ownership, and asset/export ownership checks exist. Public production still requires a real auth provider and hardened proxy policy.
 - Local mock-generated assets are valid for demo/testing, not proof of final paid-provider quality.
 
 ## 9. Test Coverage Summary
 
-- Backend tests cover CRUD, story, layout, labs, rendering, composition, QA, exports, director, prompt registry, provenance, versioning, evaluation, and production security basics.
-- Frontend coverage is build/typecheck plus smoke route checks, not a full browser interaction suite.
+- Backend tests cover CRUD, story, layout, labs, rendering, composition, QA, exports, director, prompt registry, provenance, versioning, auth isolation, evaluation, and production security basics.
+- Frontend coverage includes build/typecheck and Playwright smoke for dashboard, Founder Demo, project detail, Story Room, Page Studio, and Publishing Room.
 
 ## 10. Local Run Instructions
 
@@ -177,7 +200,7 @@ make final-demo
 
 ## 11. Production Readiness Status
 
-Production config, Dockerfiles, CI, deployment docs, structured logs, health checks, and migration docs exist. The app is not production-ready until authentication, real provider hardening, distributed rate limits, secret management, and external storage policies are completed.
+Production config, Dockerfiles, CI, deployment docs, structured logs, health checks, project ownership checks, protected asset downloads, and migration docs exist. The app is not public-production-ready until a real auth provider, distributed rate limits, secret management, and external storage policies are fully wired and audited.
 
 ## 12. Known Limitations
 

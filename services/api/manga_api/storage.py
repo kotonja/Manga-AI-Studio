@@ -29,6 +29,8 @@ class ObjectStorage:
         return response["Body"].read()
 
     def public_url(self, key: str) -> str:
+        if self.settings.effective_asset_download_mode != "public_url":
+            return ""
         public_base = self.settings.s3_public_url.rstrip("/")
         return f"{public_base}/{self.settings.s3_bucket_name}/{key}"
 

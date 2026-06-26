@@ -6,6 +6,8 @@ from typing import Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
+from manga_api.access import require_job_access, require_panel_access
+from manga_api.auth import require_alpha_user
 from manga_api.config import get_settings
 from manga_api.db import get_session
 from manga_api.models import GenerationJob, JobEvent, Page, Panel, Render
@@ -23,7 +25,7 @@ from manga_api.schemas import (
 )
 from manga_api.storage import get_object_storage
 
-router = APIRouter(tags=["jobs"])
+router = APIRouter(tags=["jobs"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.post("/jobs/mock-render-panel", response_model=GenerationJobRead, status_code=status.HTTP_202_ACCEPTED)
@@ -32,6 +34,7 @@ def create_mock_render_job(
     session: Session = Depends(get_session),
     storage: ObjectStore = Depends(get_object_storage),
 ) -> GenerationJob:
+    require_panel_access(session, payload.panel_id)
     return create_render_job_for_panel(payload.panel_id, "mock", {}, session, storage)
 
 
@@ -41,6 +44,7 @@ def create_render_job(
     session: Session = Depends(get_session),
     storage: ObjectStore = Depends(get_object_storage),
 ) -> GenerationJob:
+    require_panel_access(session, payload.panel_id)
     return create_render_job_for_panel(payload.panel_id, payload.provider_name, payload.options, session, storage)
 
 
@@ -93,9 +97,7 @@ def create_render_job_for_panel(
 
 @router.get("/jobs/{job_id}", response_model=GenerationJobDetail)
 def get_job(job_id: uuid.UUID, session: Session = Depends(get_session)) -> GenerationJobDetail:
-    job = session.get(GenerationJob, job_id)
-    if job is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+    job = require_job_access(session, job_id)
 
     render = session.exec(select(Render).where(Render.job_id == job_id)).first()
     job_read = GenerationJobRead.model_validate(job)
@@ -113,9 +115,7 @@ def retry_failed_job(
     storage: ObjectStore = Depends(get_object_storage),
 ) -> GenerationJobRetryResult:
     payload = payload or JobRetryRequest()
-    source_job = session.get(GenerationJob, job_id)
-    if source_job is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+    source_job = require_job_access(session, job_id)
     if source_job.status != "failed":
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Only failed jobs can be retried")
     if source_job.job_type != "render_panel" or source_job.panel_id is None:
@@ -143,9 +143,7 @@ def retry_failed_job(
 
 @router.get("/jobs/{job_id}/events", response_model=list[JobEventRead])
 def get_job_events(job_id: uuid.UUID, session: Session = Depends(get_session)) -> list[JobEvent]:
-    job = session.get(GenerationJob, job_id)
-    if job is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+    require_job_access(session, job_id)
     return list(
         session.exec(
             select(JobEvent)

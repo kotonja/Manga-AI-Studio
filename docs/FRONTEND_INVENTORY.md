@@ -1,11 +1,14 @@
 # Frontend Inventory
 
-Generated at: 2026-06-25T18:29:37.553316+00:00
+Generated at: 2026-06-26T13:42:55.804404+00:00
 
 | Route | Purpose | Backend Dependencies | Status | Known UI Issues |
 | --- | --- | --- | --- | --- |
-| `/admin/ai-task-runs` | Developer-only AI task run inspector. | GET /admin/ai-task-runs | PARTIAL | Hidden by dev flag; no auth system exists yet. |
-| `/admin/eval` | Developer-only evaluation harness UI. | GET /eval/scenarios, POST /eval/run | PARTIAL | Hidden by dev flag; no auth system exists yet. |
+| `/admin/ai-task-runs` | Developer-only AI task run inspector. | GET /admin/ai-task-runs | PARTIAL | Protected by dev flag/admin auth; keep disabled for untrusted users. |
+| `/admin/alpha` | Private alpha admin health and feedback dashboard. | GET /admin/alpha-dashboard | PARTIAL | Protected by dev flag/admin auth; keep disabled for untrusted users. |
+| `/admin/eval` | Developer-only evaluation harness UI. | GET /eval/scenarios, POST /eval/run | PARTIAL | Protected by dev flag/admin auth; keep disabled for untrusted users. |
+| `/demo` | Founder Demo one-button walkthrough. | POST /demo/founder-run, GET /jobs/{id}/events, project/story/page/export endpoints | WORKING | No blocker found in static inventory; covered by build and route smoke where applicable. |
+| `/onboarding` | Private alpha onboarding and provider mode explanation. | GET /alpha/onboarding | WORKING | No blocker found in static inventory; covered by build and route smoke where applicable. |
 | `/` | Project dashboard and demo creation entry. | GET/POST /projects, POST /demo/create-full-project | WORKING | No blocker found in static inventory; covered by build and route smoke where applicable. |
 | `/projects/{id}/characters` | Character cards, references, and continuity state. | character CRUD and reference asset metadata endpoints | WORKING | No blocker found in static inventory; covered by build and route smoke where applicable. |
 | `/projects/{id}/director` | One-premise draft manga orchestrator. | POST /projects/{id}/director/generate-draft, GET /jobs/{id}/events | WORKING | No blocker found in static inventory; covered by build and route smoke where applicable. |

@@ -7,6 +7,8 @@ from typing import Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
+from manga_api.access import require_panel_access, require_render_access
+from manga_api.auth import require_alpha_user
 from manga_api.config import get_settings
 from manga_api.db import get_session
 from manga_api.models import Asset, GenerationJob, Page, Panel, PanelRenderPrompt, Render
@@ -28,7 +30,7 @@ from manga_api.schemas import (
 from manga_api.storage import get_object_storage
 from manga_api.versioning import VersioningService
 
-router = APIRouter(tags=["panel-render"])
+router = APIRouter(tags=["panel-render"], dependencies=[Depends(require_alpha_user)])
 
 
 @router.post("/panels/{panel_id}/render", response_model=PanelRenderStartResult, status_code=status.HTTP_202_ACCEPTED)
@@ -180,9 +182,7 @@ def list_panel_renders(panel_id: uuid.UUID, session: Session = Depends(get_sessi
 
 @router.post("/renders/{render_id}/approve", response_model=PanelRenderHistoryItem)
 def approve_render(render_id: uuid.UUID, session: Session = Depends(get_session)) -> PanelRenderHistoryItem:
-    render = session.get(Render, render_id)
-    if render is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Render not found")
+    render = require_render_access(session, render_id)
     panel_renders = session.exec(select(Render).where(Render.panel_id == render.panel_id)).all()
     for panel_render in panel_renders:
         if panel_render.asset_id is None:
@@ -254,13 +254,7 @@ def start_render_job(
 
 
 def require_panel_page(session: Session, panel_id: uuid.UUID) -> tuple[Panel, Page]:
-    panel = session.get(Panel, panel_id)
-    if panel is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Panel not found")
-    page = session.get(Page, panel.page_id)
-    if page is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Page not found")
-    return panel, page
+    return require_panel_access(session, panel_id)
 
 
 def latest_panel_prompt(session: Session, panel_id: uuid.UUID) -> PanelRenderPrompt | None:

@@ -18,14 +18,21 @@ Manga AI Studio alpha is intended for a small tester group validating the comple
 
 ## Auth for Alpha
 
-Local development can run without auth. For private alpha, set:
+Local development can run without auth. Requests map to a local `local-dev` user so one-command demo runs stay simple.
+
+For private alpha, set:
 
 ```bash
 ALPHA_AUTH_ENABLED=true
 ALPHA_SHARED_PASSWORD=change-me
+ALPHA_USER_TOKENS=tester-a:long-token-a,tester-b:long-token-b
 ALPHA_SESSION_SECRET=change-me-to-a-long-random-value
 ENABLE_DEV_ADMIN=false
+S3_PUBLIC_READ_ENABLED=false
+ASSET_DOWNLOAD_MODE=proxy
 ```
+
+With alpha auth enabled, the web login sets a `manga_alpha_session` cookie and browser API requests include credentials. API clients can also use `X-Alpha-Token` or `Authorization: Bearer ...`. Projects are owner-scoped: project lists, project detail, pages, panels, jobs, exports, asset downloads, provenance, and related nested resources verify ownership before returning data. General feedback without project/page/panel context remains public so testers can report onboarding or login issues.
 
 Admin API access can use `ENABLE_DEV_ADMIN=true` in local development only. Production should connect a real auth provider or trusted reverse-proxy identity header:
 
@@ -74,8 +81,8 @@ The feedback form automatically attaches current route context when it can detec
 
 ## Known Limitations
 
-- No multi-user collaboration or per-user project ownership yet.
-- Local alpha auth is intentionally simple; use a real provider for production.
+- No multi-user collaboration yet; ownership is isolation-oriented rather than a sharing/collaboration model.
+- Local alpha auth is intentionally simple; use a real provider or trusted auth proxy for production.
 - Real provider calls depend on external configuration and may cost money.
 - Visual consistency and multimodal QA are still placeholder/mock-first.
 - Export packages are MVP-standard skeletons, not full marketplace certification.
