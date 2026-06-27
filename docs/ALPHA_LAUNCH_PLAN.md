@@ -4,7 +4,9 @@ Manga AI Studio `v0.1.0-private-alpha` is ready for a small controlled tester la
 
 ## Audience
 
-This alpha is for trusted testers who can give detailed product feedback and understand that generated art is mock/draft quality. It is not for public signup, paid customers, press demos, or commercial publishing.
+This alpha is for trusted testers who can give detailed product feedback and
+understand that generated art is mock/draft quality. It is not for public
+signup, paid customers, press demos, or commercial publishing.
 
 ## What Testers Can Do
 

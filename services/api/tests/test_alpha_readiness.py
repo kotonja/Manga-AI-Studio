@@ -31,6 +31,19 @@ def test_onboarding_route_loads(client) -> None:
     assert {mode["id"] for mode in payload["provider_modes"]} == {"mock", "real"}
 
 
+def test_onboarding_does_not_report_jwks_as_active_external_auth(client, monkeypatch) -> None:
+    monkeypatch.setenv("AUTH_PROVIDER_MODE", "external")
+    monkeypatch.setenv("AUTH_JWKS_URL", "https://issuer.example/.well-known/jwks.json")
+    monkeypatch.setenv("TRUST_EXTERNAL_AUTH_HEADERS", "false")
+    get_settings.cache_clear()
+
+    response = client.get("/alpha/onboarding")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["auth"]["external_auth_hook_configured"] is False
+
+
 def test_feedback_submission_works(client) -> None:
     project = client.post("/projects", json={"name": "Alpha Feedback", "description": "Testing feedback"}).json()
     response = client.post(

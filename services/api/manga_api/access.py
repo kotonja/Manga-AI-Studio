@@ -272,4 +272,3 @@ def require_version_project_access(session: Session, version: Any, principal: Us
     project_id = getattr(version, "project_id", None)
     if project_id is not None:
         require_project_access(session, project_id, principal)
-

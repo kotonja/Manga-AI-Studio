@@ -83,9 +83,16 @@ def validate(values: dict[str, str]) -> tuple[list[str], list[str]]:
 
     auth_mode = values.get("AUTH_PROVIDER_MODE", "local").strip().lower()
     external_auth = auth_mode == "external"
+    trust_external = truthy(values.get("TRUST_EXTERNAL_AUTH_HEADERS"))
+    forwarded_header = values.get("AUTH_FORWARDED_USER_HEADER", "").strip()
+    jwks_url = values.get("AUTH_JWKS_URL", "").strip()
+    trusted_forwarded_auth = external_auth and trust_external and bool(forwarded_header)
     pairs = token_pairs(values.get("ALPHA_USER_TOKENS"))
-    if not pairs and not external_auth:
-        failures.append("ALPHA_USER_TOKENS is required for multi-user private alpha unless external auth is configured.")
+    if not pairs and not trusted_forwarded_auth:
+        failures.append(
+            "ALPHA_USER_TOKENS is required for multi-user private alpha unless trusted "
+            "forwarded headers are deliberately configured."
+        )
     for user_id, token in pairs:
         if len(token) < 24:
             failures.append(f"Token for {user_id} is too short; use scripts/create-alpha-token.py.")
@@ -94,7 +101,9 @@ def validate(values: dict[str, str]) -> tuple[list[str], list[str]]:
 
     shared_password = values.get("ALPHA_SHARED_PASSWORD", "")
     if not empty(shared_password):
-        warnings.append("ALPHA_SHARED_PASSWORD is shared-account only and does not isolate testers.")
+        warnings.append(
+            "ALPHA_SHARED_PASSWORD is shared-account only and does not isolate testers."
+        )
         if looks_placeholder(shared_password):
             failures.append("ALPHA_SHARED_PASSWORD appears to be a placeholder.")
 
@@ -109,20 +118,62 @@ def validate(values: dict[str, str]) -> tuple[list[str], list[str]]:
     if truthy(values.get("NEXT_PUBLIC_ENABLE_DEV_ADMIN")):
         failures.append("NEXT_PUBLIC_ENABLE_DEV_ADMIN must be false for alpha/production.")
 
-    trust_external = truthy(values.get("TRUST_EXTERNAL_AUTH_HEADERS"))
     if trust_external and not external_auth:
-        failures.append("TRUST_EXTERNAL_AUTH_HEADERS=true is only allowed with AUTH_PROVIDER_MODE=external.")
+        failures.append(
+            "TRUST_EXTERNAL_AUTH_HEADERS=true is only allowed with "
+            "AUTH_PROVIDER_MODE=external."
+        )
     if external_auth and trust_external:
-        warnings.append("TRUST_EXTERNAL_AUTH_HEADERS=true requires a trusted proxy that strips spoofed headers.")
-    if external_auth and not (trust_external or values.get("AUTH_JWKS_URL")):
-        failures.append("External auth requires AUTH_JWKS_URL or TRUST_EXTERNAL_AUTH_HEADERS=true behind a trusted proxy.")
+        warnings.append(
+            "TRUST_EXTERNAL_AUTH_HEADERS=true requires a trusted proxy that strips spoofed "
+            "identity/admin headers before forwarding requests."
+        )
+        if not forwarded_header:
+            failures.append(
+                "AUTH_FORWARDED_USER_HEADER is required when "
+                "TRUST_EXTERNAL_AUTH_HEADERS=true."
+            )
+        if not pairs:
+            warnings.append(
+                "Controlled private alpha should use ALPHA_USER_TOKENS by default unless "
+                "trusted forwarded headers are intentionally deployed."
+            )
+    if jwks_url:
+        if pairs:
+            warnings.append(
+                "AUTH_JWKS_URL is configured, but JWKS bearer-token validation is not "
+                "implemented yet; it is ignored while ALPHA_USER_TOKENS is used."
+            )
+        elif trusted_forwarded_auth:
+            warnings.append(
+                "AUTH_JWKS_URL is configured, but JWKS bearer-token validation is not "
+                "implemented yet; it is ignored while trusted forwarded headers are used."
+            )
+        else:
+            failures.append(
+                "AUTH_JWKS_URL is configured, but JWKS bearer-token validation is not "
+                "implemented yet. Configure ALPHA_USER_TOKENS or trusted forwarded headers."
+            )
+    if external_auth and not pairs and not trusted_forwarded_auth:
+        failures.append(
+            "External auth is only implemented through trusted forwarded headers right now; "
+            "JWKS bearer-token validation is reserved for future work."
+        )
 
     if truthy(values.get("S3_PUBLIC_READ_ENABLED")):
         failures.append("S3_PUBLIC_READ_ENABLED must be false.")
     if values.get("ASSET_DOWNLOAD_MODE", "proxy").strip().lower() != "proxy":
         failures.append("ASSET_DOWNLOAD_MODE must be proxy.")
 
-    for key in ("DATABASE_URL", "REDIS_URL", "S3_ENDPOINT_URL", "S3_ACCESS_KEY_ID", "S3_SECRET_ACCESS_KEY", "S3_BUCKET_NAME"):
+    required_keys = (
+        "DATABASE_URL",
+        "REDIS_URL",
+        "S3_ENDPOINT_URL",
+        "S3_ACCESS_KEY_ID",
+        "S3_SECRET_ACCESS_KEY",
+        "S3_BUCKET_NAME",
+    )
+    for key in required_keys:
         if empty(values.get(key)):
             failures.append(f"{key} is required.")
     for key in ("S3_ACCESS_KEY_ID", "S3_SECRET_ACCESS_KEY"):
@@ -130,16 +181,27 @@ def validate(values: dict[str, str]) -> tuple[list[str], list[str]]:
             failures.append(f"{key} appears to be a placeholder.")
 
     if values.get("OPENAI_API_KEY") and looks_placeholder(values.get("OPENAI_API_KEY")):
-        warnings.append("OPENAI_API_KEY looks like placeholder text; mock mode does not require it.")
+        warnings.append(
+            "OPENAI_API_KEY looks like placeholder text; mock mode does not require it."
+        )
     if not values.get("OPENAI_API_KEY") and not values.get("COMFYUI_BASE_URL"):
-        warnings.append("No real image provider is configured; alpha will rely on deterministic mock providers.")
+        warnings.append(
+            "No real image provider is configured; alpha will rely on deterministic "
+            "mock providers."
+        )
 
     return failures, warnings
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Validate private-alpha launch environment variables.")
-    parser.add_argument("--env-file", default=".env", help="Env file to read before process environment. Defaults to .env.")
+    parser = argparse.ArgumentParser(
+        description="Validate private-alpha launch environment variables."
+    )
+    parser.add_argument(
+        "--env-file",
+        default=".env",
+        help="Env file to read before process environment. Defaults to .env.",
+    )
     args = parser.parse_args()
 
     values = merged_env(Path(args.env_file))

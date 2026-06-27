@@ -89,8 +89,8 @@ Current status: local demo is ready, controlled private alpha is ready with per-
 | `AUTH_PROVIDER_MODE` | prod | Use `local` for dev alpha, `external` behind a real auth provider or reverse proxy. |
 | `AUTH_PROVIDER_NAME` | prod | Human-readable provider label. |
 | `AUTH_FORWARDED_USER_HEADER` | prod | Trusted identity header set by the upstream auth proxy, for example `X-Authenticated-User`. |
-| `TRUST_EXTERNAL_AUTH_HEADERS` | prod | Defaults to `false`. Set `true` only when the API is behind a trusted proxy that strips spoofed incoming auth headers and injects authenticated identity headers. |
-| `AUTH_JWKS_URL` | future | Placeholder for direct JWT/JWKS validation. Prefer reverse-proxy auth until implemented. |
+| `TRUST_EXTERNAL_AUTH_HEADERS` | prod | Defaults to `false`. Use only behind a trusted proxy that strips spoofed auth headers. |
+| `AUTH_JWKS_URL` | future | Reserved for direct JWT/JWKS validation. Setting it does not currently authenticate users. |
 | `AUTH_ISSUER` | future | JWT issuer metadata for provider integrations. |
 | `AUTH_AUDIENCE` | future | JWT audience metadata for provider integrations. |
 | `DEFAULT_PROJECT_ALLOW_TRAINING` | no | Defaults new projects to training opt-in. Keep `false` for alpha unless explicitly approved. |
@@ -98,19 +98,43 @@ Current status: local demo is ready, controlled private alpha is ready with per-
 
 ## Secret Loading
 
-The backend supports Pydantic settings and file-based secret loading through `SECRETS_DIR`. In container platforms, mount secret files named after the field, for example `database_url` or `s3_secret_access_key`, set `SECRETS_DIR=/run/secrets`, or inject environment variables through the platform secret manager.
+The backend supports Pydantic settings and file-based secret loading through `SECRETS_DIR`.
+In container platforms, mount secret files named after the field, for example
+`database_url` or `s3_secret_access_key`, set `SECRETS_DIR=/run/secrets`, or inject
+environment variables through the platform secret manager.
 
 ## Alpha Ownership
 
-When `ALPHA_AUTH_ENABLED=true`, the backend resolves the current user from `X-Alpha-Token`, `Authorization: Bearer ...`, a signed `manga_alpha_session` cookie set by the web alpha login, the admin token, or a trusted forwarded identity header in external-auth mode. Projects are stamped with `owner_user_id`, project lists are filtered by owner, and page/panel/job/export/asset routes verify ownership before returning data.
+When `ALPHA_AUTH_ENABLED=true`, the backend resolves the current user from
+`X-Alpha-Token`, `Authorization: Bearer ...`, a signed `manga_alpha_session`
+cookie set by the web alpha login, the admin token, or a trusted forwarded
+identity header in external-auth mode.
 
-The browser cookie format is `v1.<base64url_json_payload>.<base64url_hmac_sha256_signature>`, signed with `ALPHA_SESSION_SECRET`. The payload contains `user_id`, `is_admin`, `iat`, and `exp`. Expired, malformed, unsigned, or invalid-signature cookies are rejected. Browser login requires `ALPHA_SESSION_SECRET` when alpha auth is enabled.
+Projects are stamped with `owner_user_id`, project lists are filtered by owner,
+and page/panel/job/export/asset routes verify ownership before returning data.
 
-For multi-user private alpha, prefer `ALPHA_USER_TOKENS` or external auth. A user who enters the token for `tester-a:long-token-a` receives a signed session with `user_id=tester-a`. `ALPHA_SHARED_PASSWORD` remains available for small demos, but all users share the same `alpha-user` identity and therefore do not get per-tester project isolation.
+The browser cookie format is
+`v1.<base64url_json_payload>.<base64url_hmac_sha256_signature>`, signed with
+`ALPHA_SESSION_SECRET`. The payload contains `user_id`, `is_admin`, `iat`, and
+`exp`. Expired, malformed, unsigned, or invalid-signature cookies are rejected.
+Browser login requires `ALPHA_SESSION_SECRET` when alpha auth is enabled.
+
+For multi-user private alpha, prefer `ALPHA_USER_TOKENS`. A user who enters the
+token for `tester-a:long-token-a` receives a signed session with
+`user_id=tester-a`. `ALPHA_SHARED_PASSWORD` remains available for small demos,
+but all users share the same `alpha-user` identity and therefore do not get
+per-tester project isolation.
 
 Local development keeps `ALPHA_AUTH_ENABLED=false`, which maps requests to the `local-dev` user so the one-command demo remains frictionless.
 
-When `AUTH_PROVIDER_MODE=external`, forwarded identity headers are ignored unless `TRUST_EXTERNAL_AUTH_HEADERS=true`. This mode is safe only behind a trusted proxy that removes any client-supplied spoofed identity/admin headers before injecting authenticated headers.
+When `AUTH_PROVIDER_MODE=external`, forwarded identity headers are ignored unless
+`TRUST_EXTERNAL_AUTH_HEADERS=true`. This mode is safe only behind a trusted proxy
+that removes any client-supplied spoofed identity/admin headers before injecting
+authenticated headers.
+
+`AUTH_JWKS_URL` is reserved for future JWT/JWKS bearer-token validation. The API
+does not currently validate JWKS bearer tokens, so setting only `AUTH_JWKS_URL`
+does not make external auth ready.
 
 ## Alpha Operations Helpers
 

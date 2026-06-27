@@ -1,6 +1,7 @@
 # Private Alpha Operator Runbook
 
-This runbook is for operating Manga AI Studio `v0.1.0-private-alpha` for a small controlled tester group.
+This runbook is for operating Manga AI Studio `v0.1.0-private-alpha` for a small
+controlled tester group.
 
 ## Environment Variables
 
@@ -37,6 +38,23 @@ Run:
 python scripts/check-alpha-env.py
 ```
 
+Controlled alpha should use `ALPHA_USER_TOKENS` by default. The web alpha login
+turns a valid tester token into a signed browser session tied to that tester's
+user id.
+
+External trusted-header mode is implemented only when all of these are true:
+
+- `AUTH_PROVIDER_MODE=external`
+- `TRUST_EXTERNAL_AUTH_HEADERS=true`
+- `AUTH_FORWARDED_USER_HEADER` names the trusted identity header
+
+Only use that mode behind a trusted proxy that strips client-supplied identity
+and admin headers before forwarding requests to the API.
+
+`AUTH_JWKS_URL` is reserved for future bearer-token validation. Setting a JWKS URL
+does not currently validate users and should not be treated as production-ready
+external auth.
+
 ## Deployment Startup
 
 Local Docker startup:
@@ -46,7 +64,9 @@ Copy-Item .env.example .env
 docker compose up --build
 ```
 
-For hosted alpha, deploy API, worker, web, PostgreSQL, Redis, and object storage together. API and web must share `ALPHA_SESSION_SECRET` so signed browser sessions validate consistently.
+For hosted alpha, deploy API, worker, web, PostgreSQL, Redis, and object storage
+together. API and web must share `ALPHA_SESSION_SECRET` so signed browser
+sessions validate consistently.
 
 ## Health Checks
 

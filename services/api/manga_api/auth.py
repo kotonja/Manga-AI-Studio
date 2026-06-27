@@ -261,8 +261,6 @@ def public_alpha_auth_info() -> dict[str, object]:
         "dev_admin_enabled": settings.enable_dev_admin and not settings.is_production,
         "production_requires_external_auth": settings.is_production and mode != "external",
         "external_auth_hook_configured": mode == "external"
-        and (
-            bool(settings.auth_jwks_url)
-            or (settings.trust_external_auth_headers and bool(settings.auth_forwarded_user_header))
-        ),
+        and settings.trust_external_auth_headers
+        and bool(settings.auth_forwarded_user_header),
     }
