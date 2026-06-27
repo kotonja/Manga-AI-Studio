@@ -65,8 +65,14 @@ BINARY_SUFFIXES = {
     ".zip",
 }
 
-MIN_MULTILINE_LINES = {
-    ".gitattributes": 10,
+CRITICAL_LF_MINIMUMS = {
+    ".gitattributes": 20,
+    "scripts/check-alpha-env.py": 150,
+    "scripts/create-alpha-token.py": 40,
+    "scripts/alpha-smoke-test.py": 100,
+    "scripts/scan-hidden-unicode.py": 150,
+    "scripts/normalize-text-files.py": 150,
+    "services/api/manga_api/routes/alpha.py": 150,
 }
 
 SKIP_PARTS = {
@@ -216,6 +222,14 @@ def normalize_text(data: bytes) -> bytes:
     return ("".join(normalized).rstrip("\n") + "\n").encode("utf-8")
 
 
+def critical_lf_minimum(path: Path) -> int | None:
+    normalized = path.as_posix()
+    for suffix, minimum in CRITICAL_LF_MINIMUMS.items():
+        if normalized.endswith(suffix):
+            return minimum
+    return None
+
+
 def analyze_file(path: Path) -> FileReport:
     data = path.read_bytes()
     lf_count = data.count(b"\n")
@@ -224,10 +238,8 @@ def analyze_file(path: Path) -> FileReport:
     lone_cr_count = cr_count - crlf_count
     ends_with_newline = data.endswith(b"\n")
     has_bom = data.startswith(b"\xef\xbb\xbf")
-    minimum_lines = MIN_MULTILINE_LINES.get(path.name)
-    collapsed_multiline = (
-        minimum_lines is not None and len(data.splitlines()) < minimum_lines
-    )
+    minimum_lf = critical_lf_minimum(path)
+    collapsed_multiline = minimum_lf is not None and lf_count < minimum_lf
     decode_error: str | None = None
     unicode_findings: list[UnicodeFinding] = []
 
@@ -337,6 +349,7 @@ def main() -> int:
     suspicious_files = sum(1 for report in reports if report.has_suspicious_unicode)
     collapsed_files = sum(1 for report in reports if report.collapsed_multiline)
     dirty_files = sum(1 for report in reports if report.would_change)
+    problem_files = sum(1 for report in reports if not report.is_clean or report.would_change)
     print(
         "SUMMARY "
         f"text_files={len(reports)} "
@@ -349,7 +362,7 @@ def main() -> int:
         f"collapsed_multiline_files={collapsed_files}"
     )
 
-    if args.check and (dirty_files or collapsed_files):
+    if args.check and problem_files:
         return 1
     return 0
 
