@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Smoke-test a local or deployed private-alpha API."""
+"""Smoke-test a local or deployed private-alpha API.
+
+The smoke path uses mock-safe endpoints and never requires paid providers.
+This script is intentionally stored as real LF-delimited text in Git.
+Raw GitHub byte checks should show this as normal multiline Python.
+"""
 
 from __future__ import annotations
 
