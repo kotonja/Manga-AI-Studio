@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Validate a controlled private-alpha environment."""
+"""Validate a controlled private-alpha environment.
+
+Template files are expected to fail until every placeholder secret is replaced.
+"""
 
 from __future__ import annotations
 

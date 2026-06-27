@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Report and normalize tracked text files for LF-only source control."""
+"""Report and normalize tracked text files for LF-only source control.
+
+The implementation intentionally works from bytes first so collapsed line
+endings, UTF-8 BOMs, and invisible Unicode are visible before Python text
+decoding can hide them.
+"""
 
 from __future__ import annotations
 
@@ -58,6 +63,10 @@ BINARY_SUFFIXES = {
     ".zip",
 }
 
+MIN_MULTILINE_LINES = {
+    ".gitattributes": 10,
+}
+
 SKIP_PARTS = {
     ".git",
     ".next",
@@ -101,6 +110,7 @@ class FileReport:
     ends_with_newline: bool
     has_bom: bool
     unicode_findings: list[UnicodeFinding]
+    collapsed_multiline: bool
     decode_error: str | None
     would_change: bool
 
@@ -110,13 +120,14 @@ class FileReport:
 
     @property
     def has_line_ending_issue(self) -> bool:
-        return self.crlf_count > 0 or self.lone_cr_count > 0
+        return self.cr_count > 0
 
     @property
     def is_clean(self) -> bool:
         return (
             not self.has_line_ending_issue
             and self.ends_with_newline
+            and not self.collapsed_multiline
             and not self.has_suspicious_unicode
         )
 
@@ -211,6 +222,10 @@ def analyze_file(path: Path) -> FileReport:
     lone_cr_count = cr_count - crlf_count
     ends_with_newline = data.endswith(b"\n")
     has_bom = data.startswith(b"\xef\xbb\xbf")
+    minimum_lines = MIN_MULTILINE_LINES.get(path.name)
+    collapsed_multiline = (
+        minimum_lines is not None and len(data.splitlines()) < minimum_lines
+    )
     decode_error: str | None = None
     unicode_findings: list[UnicodeFinding] = []
 
@@ -243,6 +258,7 @@ def analyze_file(path: Path) -> FileReport:
         ends_with_newline=ends_with_newline,
         has_bom=has_bom,
         unicode_findings=unicode_findings,
+        collapsed_multiline=collapsed_multiline,
         decode_error=decode_error,
         would_change=would_change,
     )
@@ -261,6 +277,7 @@ def print_report(report: FileReport, root: Path) -> None:
         f"{relative}: LF={report.lf_count} CR={report.cr_count} "
         f"CRLF={report.crlf_count} lone_cr={report.lone_cr_count > 0} "
         f"final_newline={report.ends_with_newline} "
+        f"collapsed_multiline={report.collapsed_multiline} "
         f"suspicious_unicode={report.has_suspicious_unicode} "
         f"would_change={report.would_change}"
     )
@@ -316,6 +333,7 @@ def main() -> int:
     lone_cr_files = sum(1 for report in reports if report.lone_cr_count > 0)
     no_final_newline_files = sum(1 for report in reports if not report.ends_with_newline)
     suspicious_files = sum(1 for report in reports if report.has_suspicious_unicode)
+    collapsed_files = sum(1 for report in reports if report.collapsed_multiline)
     dirty_files = sum(1 for report in reports if report.would_change)
     print(
         "SUMMARY "
@@ -325,10 +343,11 @@ def main() -> int:
         f"crlf_files={crlf_files} "
         f"lone_cr_files={lone_cr_files} "
         f"no_final_newline_files={no_final_newline_files} "
-        f"suspicious_unicode_files={suspicious_files}"
+        f"suspicious_unicode_files={suspicious_files} "
+        f"collapsed_multiline_files={collapsed_files}"
     )
 
-    if args.check and dirty_files:
+    if args.check and (dirty_files or collapsed_files):
         return 1
     return 0
 

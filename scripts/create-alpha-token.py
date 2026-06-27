@@ -4,6 +4,7 @@
 This script only creates new token material. It never reads existing secrets,
 never overwrites .env, and writes only to .alpha-tokens.generated when --write is
 explicitly passed.
+Generated token output is plain LF-delimited text for easy copying.
 """
 
 from __future__ import annotations

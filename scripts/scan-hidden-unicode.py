@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scan tracked text files for hidden Unicode and non-LF line endings."""
+"""Scan tracked text files for hidden Unicode and byte-level text problems."""
 
 from __future__ import annotations
 
@@ -41,6 +41,10 @@ TEXT_NAMES = {
     ".gitignore",
     "Dockerfile",
     "Makefile",
+}
+
+MIN_MULTILINE_LINES = {
+    ".gitattributes": 10,
 }
 
 BINARY_SUFFIXES = {
@@ -165,8 +169,6 @@ def suspicious_codepoint(char: str) -> tuple[str, str] | None:
     category = unicodedata.category(char)
     if codepoint in ALLOWED_CONTROL_CODEPOINTS:
         return None
-    if char == "\r":
-        return None
     if codepoint == 0x00A0:
         return f"U+{codepoint:04X}", unicodedata.name(char, "UNKNOWN")
     if 0x2000 <= codepoint <= 0x200A:
@@ -188,6 +190,20 @@ def scan_file(path: Path) -> list[Finding]:
     data = path.read_bytes()
     findings: list[Finding] = []
 
+    minimum_lines = MIN_MULTILINE_LINES.get(path.name)
+    if minimum_lines is not None and len(data.splitlines()) < minimum_lines:
+        findings.append(
+            Finding(
+                path=path,
+                line=1,
+                column=1,
+                byte_offset=0,
+                pattern="COLLAPSED_TEXT",
+                name=f"expected at least {minimum_lines} LF-delimited lines",
+                context=render_context_bytes(data, 0, 1) if data else "[EMPTY]",
+            )
+        )
+
     if data.startswith(b"\xef\xbb\xbf"):
         findings.append(byte_finding(path, data, 0, 3, "UTF-8-BOM", "BYTE ORDER MARK"))
 
@@ -201,9 +217,7 @@ def scan_file(path: Path) -> list[Finding]:
 
     for index, value in enumerate(data):
         if value == 0x0D:
-            next_byte = data[index + 1] if index + 1 < len(data) else None
-            if next_byte != 0x0A:
-                findings.append(byte_finding(path, data, index, 1, "LONE_CR", "lone carriage return"))
+            findings.append(byte_finding(path, data, index, 1, "CR_BYTE", "carriage return byte"))
 
     if not data.endswith(b"\n"):
         line, column = line_column_from_bytes(data, len(data))
