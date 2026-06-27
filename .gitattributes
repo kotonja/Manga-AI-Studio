@@ -1,3 +1,4 @@
+# Keep source and docs as LF-delimited text in Git.
 * text=auto eol=lf
 
 *.py text eol=lf

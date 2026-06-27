@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Scan tracked text files for hidden Unicode and byte-level text problems."""
+"""Scan tracked text files for hidden Unicode and byte-level text problems.
+
+The scanner is intentionally stored as real LF-delimited text in Git.
+"""
 
 from __future__ import annotations
 

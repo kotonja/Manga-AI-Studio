@@ -2,6 +2,7 @@
 """Validate a controlled private-alpha environment.
 
 Template files are expected to fail until every placeholder secret is replaced.
+This script is intentionally stored as real LF-delimited text in Git.
 """
 
 from __future__ import annotations

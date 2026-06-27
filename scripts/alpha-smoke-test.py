@@ -2,6 +2,7 @@
 """Smoke-test a local or deployed private-alpha API.
 
 The smoke path uses mock-safe endpoints and never requires paid providers.
+This script is intentionally stored as real LF-delimited text in Git.
 """
 
 from __future__ import annotations
