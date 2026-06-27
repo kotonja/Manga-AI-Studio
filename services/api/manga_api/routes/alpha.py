@@ -1,4 +1,7 @@
-"""Private-alpha operational routes."""
+"""Private-alpha operational routes.
+
+Raw GitHub byte checks should show this as normal multiline Python.
+"""
 
 from __future__ import annotations
 

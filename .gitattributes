@@ -1,4 +1,5 @@
 # Keep source and docs as LF-delimited text in Git.
+# Raw GitHub byte checks should show these as separate LF lines.
 * text=auto eol=lf
 
 *.py text eol=lf

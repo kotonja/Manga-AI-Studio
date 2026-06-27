@@ -2,6 +2,7 @@
 """Scan tracked text files for hidden Unicode and byte-level text problems.
 
 The scanner is intentionally stored as real LF-delimited text in Git.
+Raw GitHub byte checks should show this as normal multiline Python.
 """
 
 from __future__ import annotations

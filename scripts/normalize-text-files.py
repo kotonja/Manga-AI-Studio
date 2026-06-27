@@ -5,6 +5,7 @@ The implementation intentionally works from bytes first so collapsed line
 endings, UTF-8 BOMs, and invisible Unicode are visible before Python text
 decoding can hide them.
 The normalizer is intentionally stored as real LF-delimited text in Git.
+Raw GitHub byte checks should show this as normal multiline Python.
 """
 
 from __future__ import annotations

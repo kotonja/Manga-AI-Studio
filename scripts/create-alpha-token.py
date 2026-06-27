@@ -6,6 +6,7 @@ never overwrites .env, and writes only to .alpha-tokens.generated when --write i
 explicitly passed.
 Generated token output is plain LF-delimited text for easy copying.
 The script itself is intentionally stored as real LF-delimited text in Git.
+Raw GitHub byte checks should show this as normal multiline Python.
 """
 
 from __future__ import annotations
