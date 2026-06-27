@@ -50,9 +50,13 @@ Use per-user tokens for controlled alpha testers. Generate tokens with:
 python scripts/create-alpha-token.py tester-a tester-b
 ```
 
-Copy the generated `user-id:token` pairs into `ALPHA_USER_TOKENS`. Keep `ALPHA_SHARED_PASSWORD` empty for multi-user alpha so tester projects stay isolated by owner.
+Copy the generated `user-id:token` pairs into `ALPHA_USER_TOKENS`. Keep
+`ALPHA_SHARED_PASSWORD` empty for multi-user alpha so tester projects stay
+isolated by owner.
 
-To revoke a tester, remove that tester's pair from `ALPHA_USER_TOKENS` and restart the API/web services. Rotate `ALPHA_SESSION_SECRET` when active browser sessions must be invalidated immediately.
+To revoke a tester, remove that tester's pair from `ALPHA_USER_TOKENS` and
+restart the API/web services. Rotate `ALPHA_SESSION_SECRET` when active browser
+sessions must be invalidated immediately.
 
 ## Required Alpha Environment
 
@@ -87,9 +91,15 @@ NEXT_PUBLIC_API_BASE_URL=https://api.example.com
 
 Run `python scripts/check-alpha-env.py` before inviting testers.
 
+`AUTH_PROVIDER_MODE=external` is implemented only for trusted forwarded identity
+headers when `TRUST_EXTERNAL_AUTH_HEADERS=true` and the API is behind a trusted
+proxy. `AUTH_JWKS_URL` is reserved for future bearer-token validation and does
+not currently authenticate users.
+
 ## Remaining Public Beta And Production Blockers
 
-- Real auth provider or trusted reverse-proxy auth hardening.
+- Real auth provider or trusted reverse-proxy auth hardening, including JWKS/JWT
+  bearer-token validation if that mode is used.
 - Real rate limiting and abuse controls.
 - Provider hardening for paid image/LLM calls, quotas, and cost controls.
 - Backup and restore rehearsal for database and object storage.

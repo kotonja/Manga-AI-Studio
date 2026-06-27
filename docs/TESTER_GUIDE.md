@@ -4,9 +4,13 @@ Welcome to the Manga AI Studio private alpha. This is an early test version for 
 
 ## What It Is
 
-Manga AI Studio helps turn a story idea into a draft manga project. It can create a story bible, characters, page plans, panel layouts, mock panel art, lettering, QA reports, and export files.
+Manga AI Studio helps turn a story idea into a draft manga project. It can
+create a story bible, characters, page plans, panel layouts, mock panel art,
+lettering, QA reports, and export files.
 
-This alpha is mostly about testing the workflow. Some art is mock art, which means it is generated as placeholder manga-style test art so we can prove the pipeline works without paid image APIs.
+This alpha is mostly about testing the workflow. Some art is mock art, which
+means it is generated as placeholder manga-style test art so we can prove the
+pipeline works without paid image APIs.
 
 ## Logging In
 
@@ -86,4 +90,6 @@ Do not upload:
 
 ## Privacy Warning
 
-This is a private alpha, not a finished consumer product. Operators may inspect project metadata, feedback, errors, and logs to fix bugs. Do not put highly sensitive personal material into alpha projects.
+This is a private alpha, not a finished consumer product. Operators may inspect
+project metadata, feedback, errors, and logs to fix bugs. Do not put highly
+sensitive personal material into alpha projects.

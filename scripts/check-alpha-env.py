@@ -83,9 +83,16 @@ def validate(values: dict[str, str]) -> tuple[list[str], list[str]]:
 
     auth_mode = values.get("AUTH_PROVIDER_MODE", "local").strip().lower()
     external_auth = auth_mode == "external"
+    trust_external = truthy(values.get("TRUST_EXTERNAL_AUTH_HEADERS"))
+    forwarded_header = values.get("AUTH_FORWARDED_USER_HEADER", "").strip()
+    jwks_url = values.get("AUTH_JWKS_URL", "").strip()
+    trusted_forwarded_auth = external_auth and trust_external and bool(forwarded_header)
     pairs = token_pairs(values.get("ALPHA_USER_TOKENS"))
-    if not pairs and not external_auth:
-        failures.append("ALPHA_USER_TOKENS is required for multi-user private alpha unless external auth is configured.")
+    if not pairs and not trusted_forwarded_auth:
+        failures.append(
+            "ALPHA_USER_TOKENS is required for multi-user private alpha unless trusted "
+            "forwarded headers are deliberately configured."
+        )
     for user_id, token in pairs:
         if len(token) < 24:
             failures.append(f"Token for {user_id} is too short; use scripts/create-alpha-token.py.")
@@ -109,13 +116,31 @@ def validate(values: dict[str, str]) -> tuple[list[str], list[str]]:
     if truthy(values.get("NEXT_PUBLIC_ENABLE_DEV_ADMIN")):
         failures.append("NEXT_PUBLIC_ENABLE_DEV_ADMIN must be false for alpha/production.")
 
-    trust_external = truthy(values.get("TRUST_EXTERNAL_AUTH_HEADERS"))
     if trust_external and not external_auth:
         failures.append("TRUST_EXTERNAL_AUTH_HEADERS=true is only allowed with AUTH_PROVIDER_MODE=external.")
     if external_auth and trust_external:
-        warnings.append("TRUST_EXTERNAL_AUTH_HEADERS=true requires a trusted proxy that strips spoofed headers.")
-    if external_auth and not (trust_external or values.get("AUTH_JWKS_URL")):
-        failures.append("External auth requires AUTH_JWKS_URL or TRUST_EXTERNAL_AUTH_HEADERS=true behind a trusted proxy.")
+        warnings.append(
+            "TRUST_EXTERNAL_AUTH_HEADERS=true requires a trusted proxy that strips spoofed "
+            "identity/admin headers before forwarding requests."
+        )
+        if not forwarded_header:
+            failures.append("AUTH_FORWARDED_USER_HEADER is required when TRUST_EXTERNAL_AUTH_HEADERS=true.")
+        if not pairs:
+            warnings.append(
+                "Controlled private alpha should use ALPHA_USER_TOKENS by default unless "
+                "trusted forwarded headers are intentionally deployed."
+            )
+    if jwks_url:
+        message = "AUTH_JWKS_URL is configured, but JWKS bearer-token validation is not implemented yet."
+        if trusted_forwarded_auth:
+            warnings.append(message)
+        else:
+            failures.append(message)
+    if external_auth and not pairs and not trusted_forwarded_auth:
+        failures.append(
+            "External auth is only implemented through trusted forwarded headers right now; "
+            "JWKS bearer-token validation is reserved for future work."
+        )
 
     if truthy(values.get("S3_PUBLIC_READ_ENABLED")):
         failures.append("S3_PUBLIC_READ_ENABLED must be false.")

@@ -89,27 +89,62 @@ def get_alpha_readiness(
     add(
         "session secret",
         "pass" if len(session_secret) >= 32 else "fail",
-        "ALPHA_SESSION_SECRET is configured with sufficient length." if len(session_secret) >= 32 else "ALPHA_SESSION_SECRET should be at least 32 characters and must not be shared with testers.",
+        (
+            "ALPHA_SESSION_SECRET is configured with sufficient length."
+            if len(session_secret) >= 32
+            else "ALPHA_SESSION_SECRET should be at least 32 characters and must not be shared with testers."
+        ),
     )
 
-    external_configured = settings.auth_provider_mode.lower().strip() == "external" and (
-        bool(settings.auth_jwks_url) or settings.trust_external_auth_headers
+    auth_mode = settings.auth_provider_mode.lower().strip()
+    trusted_external_headers = (
+        auth_mode == "external"
+        and settings.trust_external_auth_headers
+        and bool(settings.auth_forwarded_user_header.strip())
     )
     has_user_tokens = bool(settings.parsed_alpha_user_tokens)
+    if has_user_tokens:
+        tester_identity_message = "Per-user ALPHA_USER_TOKENS are configured."
+    elif trusted_external_headers:
+        tester_identity_message = "Trusted forwarded identity headers are enabled for external auth."
+    elif auth_mode == "external" and settings.auth_jwks_url:
+        tester_identity_message = (
+            "AUTH_JWKS_URL is configured, but bearer-token JWKS validation is not implemented yet. "
+            "Configure ALPHA_USER_TOKENS or trusted forwarded headers."
+        )
+    else:
+        tester_identity_message = (
+            "Configure ALPHA_USER_TOKENS for multi-user alpha or explicitly enable trusted "
+            "forwarded headers behind an external auth proxy."
+        )
     add(
         "tester identity",
-        "pass" if has_user_tokens or external_configured else "fail",
-        "Per-user tester tokens or external auth are configured." if has_user_tokens or external_configured else "Configure ALPHA_USER_TOKENS for multi-user alpha or a trusted external auth provider.",
+        "pass" if has_user_tokens or trusted_external_headers else "fail",
+        tester_identity_message,
     )
+    if settings.auth_jwks_url:
+        add(
+            "jwks bearer validation",
+            "warn",
+            "JWKS URL is configured but bearer-token validation is not implemented yet.",
+        )
     add(
         "dev admin disabled",
         "pass" if not (app_env in {"alpha", "production"} and settings.enable_dev_admin) else "fail",
-        "ENABLE_DEV_ADMIN is disabled for alpha/production." if not (app_env in {"alpha", "production"} and settings.enable_dev_admin) else "ENABLE_DEV_ADMIN must be false for controlled alpha and production.",
+        (
+            "ENABLE_DEV_ADMIN is disabled for alpha/production."
+            if not (app_env in {"alpha", "production"} and settings.enable_dev_admin)
+            else "ENABLE_DEV_ADMIN must be false for controlled alpha and production."
+        ),
     )
     add(
         "public storage disabled",
         "pass" if not settings.effective_s3_public_read_enabled else "fail",
-        "S3_PUBLIC_READ_ENABLED is false/effectively disabled." if not settings.effective_s3_public_read_enabled else "S3_PUBLIC_READ_ENABLED must be false; assets should go through protected proxy downloads.",
+        (
+            "S3_PUBLIC_READ_ENABLED is false/effectively disabled."
+            if not settings.effective_s3_public_read_enabled
+            else "S3_PUBLIC_READ_ENABLED must be false; assets should go through protected proxy downloads."
+        ),
     )
     add(
         "asset download mode",

@@ -25,8 +25,10 @@ Use this checklist before exposing Manga AI Studio outside local development.
 - [ ] `python scripts/create-alpha-token.py --user tester-id` is used to issue per-tester tokens.
 - [ ] `python scripts/check-alpha-env.py` passes before inviting testers.
 - [ ] `/admin/alpha-readiness` has no failed checks before inviting testers.
+- [ ] Controlled private alpha uses `ALPHA_USER_TOKENS` by default.
 - [ ] Production uses `AUTH_PROVIDER_MODE=external` behind a trusted auth proxy or a real auth provider hook.
 - [ ] `TRUST_EXTERNAL_AUTH_HEADERS=true` only when the API is behind a trusted proxy that strips spoofed client identity/admin headers.
+- [ ] `AUTH_JWKS_URL` is treated as future/reserved until JWKS bearer-token validation is implemented.
 - [ ] `MAX_REQUEST_BYTES` is set and mirrored at the reverse proxy.
 - [ ] `UPLOAD_ALLOWED_CONTENT_TYPES` is an allowlist.
 - [ ] `UPLOAD_MAX_BYTES` is appropriate for the storage budget.
