@@ -62,6 +62,23 @@ def test_alpha_readiness_endpoint_requires_admin_and_reports_checks(client, monk
     assert checks["real providers"]["status"] == "warn"
 
 
+def test_alpha_readiness_passes_with_tokens_and_jwks_warning(client, monkeypatch) -> None:
+    enable_alpha(monkeypatch)
+    monkeypatch.setenv("AUTH_JWKS_URL", "https://issuer.example/.well-known/jwks.json")
+    get_settings.cache_clear()
+    stub_readiness_dependencies(monkeypatch)
+
+    response = client.get("/alpha/readiness", headers=ADMIN)
+
+    assert response.status_code == 200
+    payload = response.json()
+    checks = {item["name"]: item for item in payload["checks"]}
+    assert payload["ready"] is True
+    assert checks["tester identity"]["status"] == "pass"
+    assert checks["jwks bearer validation"]["status"] == "warn"
+    assert "not implemented yet" in checks["jwks bearer validation"]["message"]
+
+
 def test_alpha_readiness_passes_with_trusted_external_headers(client, monkeypatch) -> None:
     enable_alpha(monkeypatch)
     monkeypatch.setenv("AUTH_PROVIDER_MODE", "external")
@@ -69,7 +86,7 @@ def test_alpha_readiness_passes_with_trusted_external_headers(client, monkeypatc
     monkeypatch.setenv("ALPHA_USER_TOKENS", "")
     monkeypatch.setenv("TRUST_EXTERNAL_AUTH_HEADERS", "true")
     monkeypatch.setenv("AUTH_FORWARDED_USER_HEADER", "X-Authenticated-User")
-    monkeypatch.delenv("AUTH_JWKS_URL", raising=False)
+    monkeypatch.setenv("AUTH_JWKS_URL", "https://issuer.example/.well-known/jwks.json")
     get_settings.cache_clear()
     stub_readiness_dependencies(monkeypatch)
 
@@ -84,6 +101,7 @@ def test_alpha_readiness_passes_with_trusted_external_headers(client, monkeypatc
     assert payload["ready"] is True
     assert checks["tester identity"]["status"] == "pass"
     assert "Trusted forwarded identity headers" in checks["tester identity"]["message"]
+    assert checks["jwks bearer validation"]["status"] == "warn"
 
 
 def test_alpha_readiness_does_not_pass_external_headers_unless_trusted(client, monkeypatch) -> None:
@@ -126,7 +144,11 @@ def test_alpha_readiness_warns_and_fails_with_jwks_only(client, monkeypatch) -> 
 
 def test_feedback_admin_triage_is_protected(client, monkeypatch) -> None:
     enable_alpha(monkeypatch)
-    project = client.post("/projects", headers=USER_A, json={"name": "Feedback Triage", "description": "Alpha"}).json()
+    project = client.post(
+        "/projects",
+        headers=USER_A,
+        json={"name": "Feedback Triage", "description": "Alpha"},
+    ).json()
     feedback = client.post(
         "/feedback",
         headers=USER_A,
@@ -158,7 +180,14 @@ def test_feedback_admin_triage_is_protected(client, monkeypatch) -> None:
     assert payload["severity"] == "blocker"
     assert payload["internal_notes"] == "Reproduce on page studio."
 
-    assert client.patch(f"/admin/feedback/{uuid.uuid4()}", headers=ADMIN, json={"status": "fixed"}).status_code == 404
+    assert (
+        client.patch(
+            f"/admin/feedback/{uuid.uuid4()}",
+            headers=ADMIN,
+            json={"status": "fixed"},
+        ).status_code
+        == 404
+    )
 
 
 def test_create_alpha_token_format_and_write(tmp_path) -> None:
@@ -290,6 +319,86 @@ def test_check_alpha_env_blocks_jwks_only_external_mode(tmp_path) -> None:
 
     assert result.returncode != 0
     assert "JWKS bearer-token validation is not implemented yet" in result.stdout
+    assert "Configure ALPHA_USER_TOKENS or trusted forwarded headers" in result.stdout
+
+
+def test_check_alpha_env_allows_tokens_with_jwks_warning(tmp_path) -> None:
+    script = REPO_ROOT / "scripts" / "check-alpha-env.py"
+    token_jwks_env = tmp_path / "token-jwks.env"
+    token_jwks_env.write_text(
+        "\n".join(
+            [
+                "APP_ENV=alpha",
+                "ALPHA_AUTH_ENABLED=true",
+                f"ALPHA_SESSION_SECRET={'a' * 40}",
+                f"ALPHA_USER_TOKENS=tester-a:{'b' * 40}",
+                f"ALPHA_ADMIN_TOKEN={'c' * 40}",
+                "AUTH_PROVIDER_MODE=local",
+                "AUTH_JWKS_URL=https://issuer.example/.well-known/jwks.json",
+                "TRUST_EXTERNAL_AUTH_HEADERS=false",
+                "ENABLE_DEV_ADMIN=false",
+                "NEXT_PUBLIC_ENABLE_DEV_ADMIN=false",
+                "S3_PUBLIC_READ_ENABLED=false",
+                "ASSET_DOWNLOAD_MODE=proxy",
+                "DATABASE_URL=postgresql+psycopg://manga:manga@db:5432/manga_ai",
+                "REDIS_URL=redis://redis:6379/0",
+                "S3_ENDPOINT_URL=http://minio:9000",
+                "S3_ACCESS_KEY_ID=alphaaccesskey",
+                "S3_SECRET_ACCESS_KEY=alphastoragevalue1234567890",
+                "S3_BUCKET_NAME=manga-ai-alpha",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    result = subprocess.run(
+        [sys.executable, str(script), "--env-file", str(token_jwks_env)],
+        text=True,
+        capture_output=True,
+        env=checker_env(),
+    )
+
+    assert result.returncode == 0
+    assert "Alpha environment check passed." in result.stdout
+    assert "AUTH_JWKS_URL is configured" in result.stdout
+    assert "ignored while ALPHA_USER_TOKENS is used" in result.stdout
+
+
+def test_check_alpha_env_allows_external_mode_with_tokens(tmp_path) -> None:
+    script = REPO_ROOT / "scripts" / "check-alpha-env.py"
+    external_token_env = tmp_path / "external-token.env"
+    external_token_env.write_text(
+        "\n".join(
+            [
+                "APP_ENV=alpha",
+                "ALPHA_AUTH_ENABLED=true",
+                f"ALPHA_SESSION_SECRET={'a' * 40}",
+                f"ALPHA_USER_TOKENS=tester-a:{'b' * 40}",
+                f"ALPHA_ADMIN_TOKEN={'c' * 40}",
+                "AUTH_PROVIDER_MODE=external",
+                "TRUST_EXTERNAL_AUTH_HEADERS=false",
+                "ENABLE_DEV_ADMIN=false",
+                "NEXT_PUBLIC_ENABLE_DEV_ADMIN=false",
+                "S3_PUBLIC_READ_ENABLED=false",
+                "ASSET_DOWNLOAD_MODE=proxy",
+                "DATABASE_URL=postgresql+psycopg://manga:manga@db:5432/manga_ai",
+                "REDIS_URL=redis://redis:6379/0",
+                "S3_ENDPOINT_URL=http://minio:9000",
+                "S3_ACCESS_KEY_ID=alphaaccesskey",
+                "S3_SECRET_ACCESS_KEY=alphastoragevalue1234567890",
+                "S3_BUCKET_NAME=manga-ai-alpha",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    result = subprocess.run(
+        [sys.executable, str(script), "--env-file", str(external_token_env)],
+        text=True,
+        capture_output=True,
+        env=checker_env(),
+    )
+
+    assert result.returncode == 0
+    assert "Alpha environment check passed." in result.stdout
 
 
 def test_check_alpha_env_passes_with_trusted_external_headers(tmp_path) -> None:
@@ -304,6 +413,7 @@ def test_check_alpha_env_passes_with_trusted_external_headers(tmp_path) -> None:
                 f"ALPHA_ADMIN_TOKEN={'c' * 40}",
                 "AUTH_PROVIDER_MODE=external",
                 "AUTH_PROVIDER_NAME=trusted-proxy",
+                "AUTH_JWKS_URL=https://issuer.example/.well-known/jwks.json",
                 "TRUST_EXTERNAL_AUTH_HEADERS=true",
                 "AUTH_FORWARDED_USER_HEADER=X-Authenticated-User",
                 "ENABLE_DEV_ADMIN=false",
@@ -330,6 +440,45 @@ def test_check_alpha_env_passes_with_trusted_external_headers(tmp_path) -> None:
     assert result.returncode == 0
     assert "Alpha environment check passed." in result.stdout
     assert "trusted proxy that strips spoofed" in result.stdout
+    assert "ignored while trusted forwarded headers are used" in result.stdout
+
+
+def test_check_alpha_env_blocks_external_mode_without_identity_path(tmp_path) -> None:
+    script = REPO_ROOT / "scripts" / "check-alpha-env.py"
+    external_no_identity_env = tmp_path / "external-no-identity.env"
+    external_no_identity_env.write_text(
+        "\n".join(
+            [
+                "APP_ENV=alpha",
+                "ALPHA_AUTH_ENABLED=true",
+                f"ALPHA_SESSION_SECRET={'a' * 40}",
+                f"ALPHA_ADMIN_TOKEN={'c' * 40}",
+                "AUTH_PROVIDER_MODE=external",
+                "TRUST_EXTERNAL_AUTH_HEADERS=false",
+                "ENABLE_DEV_ADMIN=false",
+                "NEXT_PUBLIC_ENABLE_DEV_ADMIN=false",
+                "S3_PUBLIC_READ_ENABLED=false",
+                "ASSET_DOWNLOAD_MODE=proxy",
+                "DATABASE_URL=postgresql+psycopg://manga:manga@db:5432/manga_ai",
+                "REDIS_URL=redis://redis:6379/0",
+                "S3_ENDPOINT_URL=http://minio:9000",
+                "S3_ACCESS_KEY_ID=alphaaccesskey",
+                "S3_SECRET_ACCESS_KEY=alphastoragevalue1234567890",
+                "S3_BUCKET_NAME=manga-ai-alpha",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    result = subprocess.run(
+        [sys.executable, str(script), "--env-file", str(external_no_identity_env)],
+        text=True,
+        capture_output=True,
+        env=checker_env(),
+    )
+
+    assert result.returncode != 0
+    assert "ALPHA_USER_TOKENS is required" in result.stdout
+    assert "External auth is only implemented through trusted forwarded headers" in result.stdout
 
 
 def checker_env() -> dict[str, str]:
