@@ -47,8 +47,14 @@ TEXT_NAMES = {
     "Makefile",
 }
 
-MIN_MULTILINE_LINES = {
-    ".gitattributes": 10,
+CRITICAL_LF_MINIMUMS = {
+    ".gitattributes": 20,
+    "scripts/check-alpha-env.py": 150,
+    "scripts/create-alpha-token.py": 40,
+    "scripts/alpha-smoke-test.py": 100,
+    "scripts/scan-hidden-unicode.py": 150,
+    "scripts/normalize-text-files.py": 150,
+    "services/api/manga_api/routes/alpha.py": 150,
 }
 
 BINARY_SUFFIXES = {
@@ -168,6 +174,14 @@ def render_bytes(data: bytes) -> str:
     )
 
 
+def critical_lf_minimum(path: Path) -> int | None:
+    normalized = path.as_posix()
+    for suffix, minimum in CRITICAL_LF_MINIMUMS.items():
+        if normalized.endswith(suffix):
+            return minimum
+    return None
+
+
 def suspicious_codepoint(char: str) -> tuple[str, str] | None:
     codepoint = ord(char)
     category = unicodedata.category(char)
@@ -194,16 +208,17 @@ def scan_file(path: Path) -> list[Finding]:
     data = path.read_bytes()
     findings: list[Finding] = []
 
-    minimum_lines = MIN_MULTILINE_LINES.get(path.name)
-    if minimum_lines is not None and len(data.splitlines()) < minimum_lines:
+    minimum_lf = critical_lf_minimum(path)
+    lf_count = data.count(b"\x0a")
+    if minimum_lf is not None and lf_count < minimum_lf:
         findings.append(
             Finding(
                 path=path,
                 line=1,
                 column=1,
                 byte_offset=0,
-                pattern="COLLAPSED_TEXT",
-                name=f"expected at least {minimum_lines} LF-delimited lines",
+                pattern="INSUFFICIENT_LF_BYTES",
+                name=f"expected at least {minimum_lf} LF bytes; found {lf_count}",
                 context=render_context_bytes(data, 0, 1) if data else "[EMPTY]",
             )
         )
